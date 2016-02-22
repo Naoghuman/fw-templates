@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>com.github.naoghuman</groupId>
+  <artifactId>lib-database-objectDB</artifactId>
+  <versioning>
+    <versions>
+      <version>0.3.0-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20160221082504</lastUpdated>
+  </versioning>
+</metadata>
