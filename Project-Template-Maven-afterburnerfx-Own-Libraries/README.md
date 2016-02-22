@@ -43,11 +43,11 @@ Foreign libraries<a name="ForeignLibraries" />
 
 Currently following `foreign` libraries are in the project template included:
 * [afterburner.fx]
-* [javax.transaction-1.1.jar] (included into [lib-database-objectdb])
-* [javax.persistence-2.1.0.jar] (included into [lib-database-objectdb])
-* [log4j-api] (included into [lib-logger])
-* [log4j-core] (included into [lib-logger])
-* [objectdb-2.6.3_04.jar] (included into [lib-database-objectdb])
+* [javax.transaction-1.1.jar] `included` into [lib-database-objectdb]
+* [javax.persistence-2.1.0.jar] `included` into [lib-database-objectdb]
+* [log4j-api] `included` into [lib-logger]
+* [log4j-core] `included` into [lib-logger]
+* [objectdb-2.6.3_04.jar] `included` into [lib-database-objectdb]
 
 
 
