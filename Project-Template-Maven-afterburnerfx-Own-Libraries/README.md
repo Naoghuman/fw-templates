@@ -90,6 +90,8 @@ You can reach me under <peter.rogge@yahoo.de>.
 [//]: # (Links)
 [afterburner.fx]:https://github.com/AdamBien/afterburner.fx
 [JavaFX]:http://docs.oracle.com/javase/8/javase-clienttechnologies.htm
+[javax.transaction-1.1.jar]:http://mvnrepository.com/artifact/javax.transaction/jta/1.1
+[javax.persistence-2.1.0.jar]:http://mvnrepository.com/artifact/org.eclipse.persistence/javax.persistence/2.1.0
 [lib-action]:https://github.com/Naoghuman/lib-action.git
 [lib-database-objectdb]:https://github.com/Naoghuman/lib-database-objectdb.git
 [lib-logger]:https://github.com/Naoghuman/lib-logger.git
@@ -99,4 +101,5 @@ You can reach me under <peter.rogge@yahoo.de>.
 [log4j-api]:https://logging.apache.org/log4j/2.0/log4j-web/dependencies.html
 [log4j-core]:https://logging.apache.org/log4j/2.0/log4j-web/dependencies.html
 [Maven]:http://maven.apache.org/
+[objectdb-2.6.3_04.jar]:http://www.objectdb.com/object/db/database/download
 [Project-Template]:https://github.com/Naoghuman/Project-Templates/releases
