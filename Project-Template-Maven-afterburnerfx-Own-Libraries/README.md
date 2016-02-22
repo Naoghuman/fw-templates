@@ -43,8 +43,8 @@ Foreign libraries<a name="ForeignLibraries" />
 
 Currently following `foreign` libraries are in the project template included:
 * [afterburner.fx]
-* [javax.transaction-1.1.jar] `included` into [lib-database-objectdb]
 * [javax.persistence-2.1.0.jar] `included` into [lib-database-objectdb]
+* [jta-1.1.jar] `included` into [lib-database-objectdb]
 * [log4j-api] `included` into [lib-logger]
 * [log4j-core] `included` into [lib-logger]
 * [objectdb-2.6.3_04.jar] `included` into [lib-database-objectdb]
@@ -90,8 +90,8 @@ You can reach me under <peter.rogge@yahoo.de>.
 [//]: # (Links)
 [afterburner.fx]:https://github.com/AdamBien/afterburner.fx
 [JavaFX]:http://docs.oracle.com/javase/8/javase-clienttechnologies.htm
-[javax.transaction-1.1.jar]:http://mvnrepository.com/artifact/javax.transaction/jta/1.1
 [javax.persistence-2.1.0.jar]:http://mvnrepository.com/artifact/org.eclipse.persistence/javax.persistence/2.1.0
+[jta-1.1.jar]:http://mvnrepository.com/artifact/javax.transaction/jta/1.1
 [lib-action]:https://github.com/Naoghuman/lib-action.git
 [lib-database-objectdb]:https://github.com/Naoghuman/lib-database-objectdb.git
 [lib-logger]:https://github.com/Naoghuman/lib-logger.git
