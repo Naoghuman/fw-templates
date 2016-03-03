@@ -1,2 +1,4 @@
-# Project-Templates
-This project contains a predefined JavaFX &amp; Maven projects with my own libraries and afterburner.fx. 
+Project-Templates
+===
+
+This project contains predefined JavaFX &amp; Maven projects with (my own `Naoghuman` libraries and) afterburner.fx. 
