@@ -5,7 +5,7 @@ Project-Templates
 
 Intention
 ---
-This project contains predefined [JavaFX] &amp;[Maven] projects with [afterburner.fx] and optional my own (Naoghuman) libraries.
+This project contains predefined [JavaFX] &amp; [Maven] projects with [afterburner.fx] and optional my own (Naoghuman) libraries.
 
 
 
