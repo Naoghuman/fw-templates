@@ -11,14 +11,14 @@ This project contains predefined [JavaFX] &amp; [Maven] projects with [afterburn
 
 Content
 ---
-* [Template-Maven-afterburnerfx-Naoghuman-Libraries](#TeMaafNaLi)
+* [Project-Template-afterburnerfx-Naoghuman](#PrTeafNa)
 * [License](#License)
 * [Autor](#Autor)
 * [Contact](#Contact)
 
 
 
-Template-Maven-afterburnerfx-Naoghuman-Libraries<a name="TeMaafNaLi" />
+Project-Template-afterburnerfx-Naoghuman<a name="PrTeafNa" />
 ---
 
 TODO add description and link to the template.
