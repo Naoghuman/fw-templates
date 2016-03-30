@@ -9,6 +9,7 @@ Welcome to `Project-Template-afterburnerfx-Naoghuman` with the new release `v0.1
 
 
 #### New
+#3 [PTaN] Write new file Tweak-Project-Template.txt.
 #1 [Project] Implement initial project structure for Project-Template-Maven-afterburnerfx-Own-Libraries.
 
 
@@ -35,4 +36,3 @@ Welcome to `Project-Template-afterburnerfx-Naoghuman` with the new release `v0.1
 
 
 [//]: # (Issues which will be integrated in this release)
-#3 [PTaN] Write new file TweakProjectTemplate.txt.
