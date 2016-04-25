@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Naoghuman
+ * Copyright (C) 2016 Name
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,17 +20,19 @@ import javafx.util.Duration;
 
 /**
  *
- * @author Naoghuman
+ * @author Name
  */
 public interface IApplicationConfiguration {
     
     public static final Duration DURATION__125 = Duration.millis(125.0d);
     
     public static final String KEY__APPLICATION__BORDER_SIGN = "application.border.sign"; // NOI18N
+    public static final String KEY__APPLICATION__BUILD_DATETIME = "application.build.datetime"; // NOI18N
     public static final String KEY__APPLICATION__DATABASE = "application.database"; // NOI18N
     public static final String KEY__APPLICATION__MESSAGE_START = "application.message.start"; // NOI18N
     public static final String KEY__APPLICATION__MESSAGE_STOP = "application.message.stop"; // NOI18N
     public static final String KEY__APPLICATION__RESOURCE_BUNDLE = "/yourpackage/application/application.properties"; // NOI18N
     public static final String KEY__APPLICATION__TITLE = "application.title"; // NOI18N
+    public static final String KEY__APPLICATION__VERSION = "application.version"; // NOI18N
     
 }

@@ -50,7 +50,7 @@ public class StartApplication extends Application implements IApplicationConfigu
         
         final char borderSign = this.getProperty(KEY__APPLICATION__BORDER_SIGN).charAt(0);
         final String message = this.getProperty(KEY__APPLICATION__MESSAGE_START);
-        final String title = this.getProperty(KEY__APPLICATION__TITLE);
+        final String title = this.getProperty(KEY__APPLICATION__TITLE) + this.getProperty(KEY__APPLICATION__VERSION);
         LoggerFacade.INSTANCE.message(borderSign, 80, String.format(message, title));
         
         final Boolean dropPreferencesFileAtStart = Boolean.FALSE;
@@ -65,7 +65,7 @@ public class StartApplication extends Application implements IApplicationConfigu
         final ApplicationPresenter applicationPresenter = applicationView.getRealPresenter();
         
         final Scene scene = new Scene(applicationView.getView(), 1280, 720);
-        primaryStage.setTitle(this.getProperty(KEY__APPLICATION__TITLE));
+        primaryStage.setTitle(this.getProperty(KEY__APPLICATION__TITLE) + this.getProperty(KEY__APPLICATION__VERSION));
         primaryStage.setScene(scene);
         primaryStage.setOnCloseRequest((WindowEvent we) -> {
            we.consume();
@@ -96,7 +96,7 @@ public class StartApplication extends Application implements IApplicationConfigu
         // Message
         final char borderSign = this.getProperty(KEY__APPLICATION__BORDER_SIGN).charAt(0);
         final String message = this.getProperty(KEY__APPLICATION__MESSAGE_STOP);
-        final String title = this.getProperty(KEY__APPLICATION__TITLE);
+        final String title = this.getProperty(KEY__APPLICATION__TITLE) + this.getProperty(KEY__APPLICATION__VERSION);
         LoggerFacade.INSTANCE.message(borderSign, 80, String.format(message, title));
         
         // Timer

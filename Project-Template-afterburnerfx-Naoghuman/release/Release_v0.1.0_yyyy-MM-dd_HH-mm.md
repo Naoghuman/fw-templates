@@ -15,6 +15,7 @@ Welcome to `Project-Template-afterburnerfx-Naoghuman` with the new release `v0.1
 
 
 #### Enhancement
+#4 [PTaN] Read properties from pom.xml and write them into application.properties.
 
 
 
