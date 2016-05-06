@@ -28,6 +28,7 @@ Welcome to `Project-Template-afterburnerfx-Naoghuman` with the new release `v0.1
 
 
 #### Refactoring
+#6 [PTaN] Update the dependency to the library afterburner.fx.
 #5 [PTaN] Remove the library lib-resources from pom.xml.
 #2 [PTaN] Rename project to Project-Template-afterburnerfx-Naoghuman.
 
