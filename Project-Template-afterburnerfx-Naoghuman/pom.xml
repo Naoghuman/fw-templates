@@ -20,10 +20,29 @@
     <build>
         <defaultGoal>clean package</defaultGoal>
         <!-- COMMENT OUT for release -->
-        <!-- <plugins>
+        <plugins>
+            <!-- 
+                See 'JavaFX-Maven-Plugin Generator' how to create the plugin 
+                configuration.
+                 - https://javafx-maven-plugin.github.io/
+                 - Run in your project folder the command: mvn jfx:jar 
+                   which create then the runable jar with all needed libraries
+                   into the folder \target\jfx\app\.
+            -->
             <plugin>
+                <groupId>com.zenjava</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>8.4.0</version>
+                <configuration>
+                    <mainClass>yourpackage.application.StartApplication</mainClass>
+                    <jfxMainAppJarName>${project.artifactId}-${project.version}.jar</jfxMainAppJarName>
+                    <allPermissions>true</allPermissions>
+                    <verbose>true</verbose>
+                </configuration>
+            </plugin>
+            <!-- <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.8</version>
+                <version>2.10</version>
                 <executions>
                     <execution>
                         <id>unpack-dependencies</id>
@@ -38,11 +57,11 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
+            </plugin> -->
+            <!-- <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>1.3.2</version>
+                <version>1.4.0</version>
                 <executions>
                     <execution>
                         <id>package-jar</id>
@@ -68,8 +87,8 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-        </plugins> -->
+            </plugin> -->
+        </plugins>
         <resources>
             <!--
                 Hint: Add here the suffixes from the files with should be in the
