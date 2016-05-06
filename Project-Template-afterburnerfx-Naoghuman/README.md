@@ -9,8 +9,6 @@ Intention
 This project contains a `predefined` [JavaFX] &amp; [Maven] project with my own 
 Naoghuman libraries and [afterburner.fx].
 
-Current `version` is `0.1.0-SNAPSHOT` (02.2016).
-
 
 
 Content
@@ -62,7 +60,7 @@ Installation<a name="Installation" />
 Tweak project template<a name="TweakProjectTemplate" />
 ---
 
-TODO Write down all steps to tweak the project template for own needs.
+For the steps to tweak the project template plz see [Tweak-Project-Template.txt].
 
 
 
@@ -102,3 +100,4 @@ You can reach me under <peter.rogge@yahoo.de>.
 [Maven]:http://maven.apache.org/
 [objectdb-2.6.3_04.jar]:http://www.objectdb.com/object/db/database/download
 [Project-Template]:https://github.com/Naoghuman/Project-Templates/releases
+[Tweak-Project-Template.txt]: https://github.com/Naoghuman/Project-Templates/Project-Template-afterburnerfx-Naoghuman/Tweak-Project-Template.txt
