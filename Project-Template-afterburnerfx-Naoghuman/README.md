@@ -100,4 +100,4 @@ You can reach me under <peter.rogge@yahoo.de>.
 [Maven]:http://maven.apache.org/
 [objectdb-2.6.3_04.jar]:http://www.objectdb.com/object/db/database/download
 [Project-Template]:https://github.com/Naoghuman/Project-Templates/releases
-[Tweak-Project-Template.txt]:Project-Template-afterburnerfx-Naoghuman/Tweak-Project-Template.txt
+[Tweak-Project-Template.txt]:Tweak-Project-Template.txt
