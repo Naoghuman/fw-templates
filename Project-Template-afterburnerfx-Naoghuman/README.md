@@ -35,7 +35,6 @@ Currently following `Naoghuman` libraries are in the project template included:
 * [lib-logger]
 * [lib-preferences]
 * [lib-properties]
-* [lib-resources]
 
 
 
@@ -98,7 +97,6 @@ You can reach me under <peter.rogge@yahoo.de>.
 [lib-logger]:https://github.com/Naoghuman/lib-logger.git
 [lib-preferences]:https://github.com/Naoghuman/lib-preferences.git
 [lib-properties]:https://github.com/Naoghuman/lib-properties.git
-[lib-resources]:https://github.com/Naoghuman/lib-resources.git
 [log4j-api]:https://logging.apache.org/log4j/2.0/log4j-web/dependencies.html
 [log4j-core]:https://logging.apache.org/log4j/2.0/log4j-web/dependencies.html
 [Maven]:http://maven.apache.org/
