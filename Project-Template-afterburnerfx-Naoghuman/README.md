@@ -1,4 +1,4 @@
-Template-Maven-afterburnerfx-Naoghuman-Libraries
+Project-Template-afterburnerfx-Naoghuman
 ===
 
 
@@ -68,14 +68,14 @@ For the steps to tweak the project template plz see [Tweak-Project-Template.txt]
 License<a name="License" />
 ---
 
-The project `Project-Template` is licensed under [General Public License 3.0].
+The project `Project-Template-afterburnerfx-Naoghuman` is licensed under [General Public License 3.0].
 
 
 
 Autor<a name="Autor" />
 ---
 
-The project `Project-Template` is maintained by me, Peter Rogge. See [Contact](#Contact).
+The project `Project-Template-afterburnerfx-Naoghuman` is maintained by me, Peter Rogge. See [Contact](#Contact).
 
 
 
