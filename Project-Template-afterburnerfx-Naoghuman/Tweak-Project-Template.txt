@@ -3,7 +3,7 @@ TWEAK PROJECT-TEMPLATE
 --------------------------------------------------------------------------------
 INTENTION
 This document describes the steps how to tweak the 'Project-Template-afterburner-Naoghuman'
-for own behaivours.
+for own behaviours.
 
 --------------------------------------------------------------------------------
 a) Copy and past the project-template.
@@ -15,12 +15,16 @@ d) Tweak pom.xml.
     - description
     - argument (start class)
 e) Tweak packages
+    - Source Packages/ and Other Sources/
 f) Tweak all licences in java files.
 g) Tweak autor in java files.
 h) Tweak path to controller in 'application.fxml'.
-i) Tweak the path IApplicationConfiguration.KEY__APPLICATION__RESOURCE_BUNDLE
+i) Tweak the path from IApplicationConfiguration.KEY__APPLICATION__RESOURCE_BUNDLE
+    - Source Packages/yourpackage/configuration/
 j) Tweak log4j2.xml
-k) Tweak application.properties (application.title)
+    - Other Sources/
+k) Tweak application.properties
+    - Other Sources/yourpackage/application/
 l) Tweak nbactions (start class)
 m) Move folder 'me' to maven local.
 
