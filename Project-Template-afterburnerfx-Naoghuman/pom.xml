@@ -71,6 +71,10 @@
             </plugin>
         </plugins> -->
         <resources>
+            <!--
+                Hint: Add here the suffixes from the files with should be in the
+                jar included.
+            -->
             <resource>
                 <directory>src/main/java</directory>
                 <includes>
