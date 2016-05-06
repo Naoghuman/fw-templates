@@ -23,6 +23,7 @@ Project-Template-afterburnerfx-Naoghuman<a name="PrTeafNa" />
 
 This project contains a `predefined` [JavaFX] &amp; [Maven] project with my own Naoghuman libraries and [afterburner.fx].
 Currently following `Naoghuman` libraries are in the project template included:
+
 [lib-action]
 * `Lib-Action` is a library for `easy` storing and accessing actions ([EventHandler]&lt;[ActionEvent]&gt;) in a [JavaFX] &amp; [Maven] desktop application.
 
