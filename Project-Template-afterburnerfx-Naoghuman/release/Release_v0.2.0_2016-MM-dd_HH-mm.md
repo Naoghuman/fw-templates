@@ -13,6 +13,7 @@ Welcome to `Project-Template-afterburnerfx-Naoghuman` with the new release `v0.2
 
 
 #### Enhancement
+#8 [PTaN] Update the file Tweak-Project-Template.txt.
 
 
 

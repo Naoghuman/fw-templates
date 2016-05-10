@@ -6,26 +6,33 @@ This document describes the steps how to tweak the 'Project-Template-afterburner
 for own behaviours.
 
 --------------------------------------------------------------------------------
-a) Copy and past the project-template.
-b) Tweak project name.
-c) Tweak project license (properties)
-d) Tweak pom.xml.
-    - groupId
-    - artifactId
-    - description
-    - argument (start class)
-e) Tweak packages
-    - Source Packages/ and Other Sources/
-f) Tweak all licences in java files.
-g) Tweak autor in java files.
-h) Tweak path to controller in 'application.fxml'.
-i) Tweak the path from IApplicationConfiguration.KEY__APPLICATION__RESOURCE_BUNDLE
-    - Source Packages/yourpackage/configuration/
-j) Tweak log4j2.xml
-    - Other Sources/
-k) Tweak application.properties
-    - Other Sources/yourpackage/application/
-l) Tweak nbactions (start class)
-m) Move folder 'me' to maven local.
+* Rename the project `name` (display name, artefactID and folder).
+* Update the `packages` in the folders `Source Packages/` and `Other Sources/`.
+* Open the project `properties` window to tweak following points.
+   * `General`-> GroupId, ArtefactId, Version, Name, Description.
+   * `Run` -> Update the start class.
+   * `License Header` -> If you don't want the pre-choosen [General Public License 3.0].
+
+* Update the reference in the tag `fx:controller` in the file `application.fxml`.
+* Refactore the `path` from the parameter `KEY__APPLICATION__RESOURCE_BUNDLE` 
+  from the interface `IApplicationConfiguration` in the folder 
+  `Source Packages/yourpackage/configuration/`.
+* Update the file `application.properties` in the folder `Other Sources/yourpackage/application/`
+  if needed.
+* Update the file `log4j2.xml` in the default package from `Other Sources/` if 
+  needed.
+
+* If your project license different from [General Public License 3.0] which is 
+  preselect then you can refactore the `licence` in java files and 
+  `application.properties` with following steps:
+    * Change in the project under `properties` the license.
+    * Generate a new java file.
+    * Copy and paste the new generated license as needed.
+    * Another possiblitiy is to use the `Replace...`, `Replace in Projects...` 
+      function under `Edit` in the main menu.
+* Rename the `autor` in all `java` files and `application.properties`.
+    * Same here -> `Replace...`, `Replace in Projects...`.
+
+* Move the folder 'me' to your `local` maven repository.
 
 --------------------------------------------------------------------------------
