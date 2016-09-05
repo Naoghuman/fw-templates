@@ -21,6 +21,7 @@ libraries and afterburner.fx.
 
 
 #### Enhancement
+#14 [PTaN] Add hint to change .gitignore to the file Tweak-Project-Template.txt.
 
 
 

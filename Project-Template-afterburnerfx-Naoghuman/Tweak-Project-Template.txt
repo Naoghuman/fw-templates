@@ -12,6 +12,7 @@ for own behaviours.
    * `General`-> GroupId, ArtefactId, Version, Name, Description.
    * `Run` -> Update the start class.
    * `License Header` -> If you don't want the pre-choosen [General Public License 3.0].
+* Have a look into the file `.gitignore` and tweak it if needed.
 
 * Update the reference in the tag `fx:controller` in the file `application.fxml`.
 * Refactore the `path` from the parameter `KEY__APPLICATION__RESOURCE_BUNDLE` 
