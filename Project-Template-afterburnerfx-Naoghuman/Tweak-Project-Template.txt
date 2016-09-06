@@ -34,6 +34,4 @@ for own behaviours.
 * Rename the `autor` in all `java` files and `application.properties`.
     * Same here -> `Replace...`, `Replace in Projects...`.
 
-* Move the folder 'me' to your `local` maven repository.
-
 --------------------------------------------------------------------------------

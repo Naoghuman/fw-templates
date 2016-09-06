@@ -6,8 +6,7 @@ libraries and afterburner.fx.
 
 
 #### Summary
-* ...
-* ...
+* Update my libraries to v0.4.0. Now they are available over Maven Central :) .
 
 
 
