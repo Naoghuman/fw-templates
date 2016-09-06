@@ -26,6 +26,7 @@ libraries and afterburner.fx.
 
 
 #### Bug
+#13 [PTaN] In pom.xml change typo in resources-includes.
 
 
 

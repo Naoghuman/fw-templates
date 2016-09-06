@@ -50,6 +50,7 @@
                 <directory>src/main/java</directory>
                 <includes>
                     <include>**/*.fxml</include>
+                    <include>**/*.xml</include>
                     <include>**/*.css</include>
                     <include>**/*.properties</include>
                 </includes>
@@ -58,6 +59,7 @@
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
                 <includes>
+                    <include>**/*.fxml</include>
                     <include>**/*.xml</include>
                     <include>**/*.css</include>
                     <include>**/*.properties</include>
