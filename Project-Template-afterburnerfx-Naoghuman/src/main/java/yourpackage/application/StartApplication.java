@@ -46,17 +46,17 @@ public class StartApplication extends Application implements IApplicationConfigu
     public void init() throws Exception {
         super.init();
         
-        PropertiesFacade.INSTANCE.register(KEY__APPLICATION__RESOURCE_BUNDLE);
+        PropertiesFacade.getDefault().register(KEY__APPLICATION__RESOURCE_BUNDLE);
         
         final char borderSign = this.getProperty(KEY__APPLICATION__BORDER_SIGN).charAt(0);
         final String message = this.getProperty(KEY__APPLICATION__MESSAGE_START);
         final String title = this.getProperty(KEY__APPLICATION__TITLE) + this.getProperty(KEY__APPLICATION__VERSION);
-        LoggerFacade.INSTANCE.message(borderSign, 80, String.format(message, title));
+        LoggerFacade.getDefault().message(borderSign, 80, String.format(message, title));
         
         final Boolean dropPreferencesFileAtStart = Boolean.FALSE;
-        PreferencesFacade.INSTANCE.init(dropPreferencesFileAtStart);
+        PreferencesFacade.getDefault().init(dropPreferencesFileAtStart);
         
-        DatabaseFacade.INSTANCE.register(this.getProperty(KEY__APPLICATION__DATABASE));
+        DatabaseFacade.getDefault().register(this.getProperty(KEY__APPLICATION__DATABASE));
     }
     
     @Override
@@ -83,7 +83,7 @@ public class StartApplication extends Application implements IApplicationConfigu
     }
     
     private String getProperty(String propertyKey) {
-        return PropertiesFacade.INSTANCE.getProperty(KEY__APPLICATION__RESOURCE_BUNDLE, propertyKey);
+        return PropertiesFacade.getDefault().getProperty(KEY__APPLICATION__RESOURCE_BUNDLE, propertyKey);
     }
     
     private void onCloseRequest() {
@@ -91,13 +91,13 @@ public class StartApplication extends Application implements IApplicationConfigu
         Injector.forgetAll();
         
         // Database
-        DatabaseFacade.INSTANCE.shutdown();
+        DatabaseFacade.getDefault().shutdown();
         
         // Message
         final char borderSign = this.getProperty(KEY__APPLICATION__BORDER_SIGN).charAt(0);
         final String message = this.getProperty(KEY__APPLICATION__MESSAGE_STOP);
         final String title = this.getProperty(KEY__APPLICATION__TITLE) + this.getProperty(KEY__APPLICATION__VERSION);
-        LoggerFacade.INSTANCE.message(borderSign, 80, String.format(message, title));
+        LoggerFacade.getDefault().message(borderSign, 80, String.format(message, title));
         
         // Timer
         final PauseTransition pt = new PauseTransition(DURATION__125);

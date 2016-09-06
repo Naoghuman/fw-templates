@@ -30,6 +30,7 @@ libraries and afterburner.fx.
 
 
 #### Refactoring
+#17 [pom] Update the dependencies to the libraries in pom.xml.
 
 
 
