@@ -1,0 +1,177 @@
+/*
+ * Copyright (C) 2017 Naoghuman
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+package com.github.naoghuman.demo.template.project;
+
+import java.util.List;
+import java.util.StringJoiner;
+import javafx.collections.FXCollections;
+
+/**
+ *
+ * @author Naoghuman
+ */
+public final class ConcreteProject implements Comparable<ConcreteProject> {
+    
+    public static final ConcreteProject create(final String name) {
+        return create(name, "[undefined]"); // NOI18N
+    }
+    
+    public static final ConcreteProject create(final String name, final String basePackage) {
+        return create(System.nanoTime(), name, basePackage, "[undefined]"); // NOI18N
+    }
+    
+    public static final ConcreteProject create(final String name, final String basePackage, final String version) {
+        return create(System.nanoTime(), name, basePackage, version);
+    }
+    
+    public static final ConcreteProject create(final long id, final String name, final String basePackage, final String version) {
+        final ConcreteProject concreteProject = new ConcreteProject(id, name, basePackage, version);
+        
+        return concreteProject;
+    }
+    
+    private final List<ConcreteSample> concreteSamples = FXCollections.observableArrayList();
+    
+    private final long id;
+    
+    private final String basePackage;
+    private final String name;
+    private final String version;
+    
+    private ConcreteProject(final long id, final String name, final String basePackage, final String version) {
+        this.id = id;
+        this.name = name;
+        this.basePackage = basePackage;
+        this.version = version;
+    }
+    
+    public void add(ConcreteSample concreteSample) {
+        if (!concreteSamples.contains(concreteSample)) {
+            concreteSamples.add(concreteSample);
+        }
+    }
+    
+    public String getBasePackage() {
+        return basePackage;
+    }
+    
+    public final long getId() {
+        return id;
+    }
+
+    public final String getName() {
+        return name;
+    }
+
+    public final String getVersion() {
+        return version;
+    }
+    
+    @Override
+    public int compareTo(final ConcreteProject other) {
+        int compareTo = this.getName().compareTo(other.getName());
+        if (compareTo != 0) {
+            return compareTo;
+        }
+        
+        compareTo = this.getVersion().compareTo(other.getVersion());
+        if (compareTo != 0) {
+            return compareTo;
+        }
+        
+        compareTo = this.getBasePackage().compareTo(other.getBasePackage());
+        if (compareTo != 0) {
+            return compareTo;
+        }
+
+        compareTo = Long.compare(this.getId(), other.getId());
+        if (compareTo != 0) {
+            return compareTo;
+        }
+        
+        return compareTo;
+    }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (int) (this.getId() ^ (this.getId() >>> 32));
+        result = prime * result + this.getName()       .hashCode();
+        result = prime * result + this.getVersion()    .hashCode();
+        result = prime * result + this.getBasePackage().hashCode();
+        
+        return result;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        
+        if (obj == null) {
+            return false;
+        }
+        
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        
+        final ConcreteProject other = (ConcreteProject) obj;
+        if (this.getId() != other.getId()) {
+            return false;
+        }
+        
+        if (!this.getName().equals(other.getName())) {
+            return false;
+        }
+        
+        if (!this.getVersion().equals(other.getVersion())) {
+            return false;
+        }
+        
+        return !this.getBasePackage().equals(other.getBasePackage());
+    }
+    
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder();
+        sb.append("ConcreteProject ["); // NOI18N
+        
+        sb.append("id=")           .append(this.getId());          // NOI18N
+        sb.append(", name=")       .append(this.getName());        // NOI18N
+        sb.append(", basePackage=").append(this.getBasePackage()); // NOI18N
+        
+        if (!concreteSamples.isEmpty()) {
+            final StringJoiner stringJoiner = new StringJoiner(", ", ", ConcreteSample[", "]"); // NOI18N
+            
+            concreteSamples.stream()
+                    .forEach(concreteSample -> {
+                        stringJoiner.add("concreteSample=" + concreteSample.toString()); // NOI18N
+                    });
+            
+            sb.append(stringJoiner.toString());
+        }
+        
+        sb.append(", version=").append(this.getVersion()); // NOI18N
+        sb.append("]"); // NOI18N
+        
+        return sb.toString();
+    }
+    
+}

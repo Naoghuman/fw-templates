@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox id="VBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="111.0" prefWidth="166.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.demo.testprojecta.testsamplea1.TestSampleA1Presenter">
+    <stylesheets>
+        <URL value="@testsamplea1.css" />
+    </stylesheets>
+   <children>
+      <Label text="Sample" />
+   </children>
+</VBox>
