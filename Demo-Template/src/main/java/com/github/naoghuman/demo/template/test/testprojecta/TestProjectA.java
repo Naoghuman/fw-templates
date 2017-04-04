@@ -14,24 +14,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package test.com.github.naoghuman.demo.template.testprojecta.testsamplea1;
+package com.github.naoghuman.demo.template.test.testprojecta;
 
 import com.github.naoghuman.demo.template.annotation.Project;
-import com.github.naoghuman.demo.template.annotation.Sample;
 
 /**
  *
  * @author Naoghuman
  */
-@Sample(
-        cssURLs = {""},
-        description = "Description TestSampleA1",
-        javaDocURLs = {""},
-        name = "TestSampleA1",
-        project = @Project(name = "TestProjectA"),
-        sourceCodeURLs = {""},
-        visible = true
+@Project(
+        name = "TestProjectA",
+        basePackage = "com.github.naoghuman.demo.template.test.testprojecta",
+        version = "0.1.0"
 )
-public class TestSampleA1 {
+public class TestProjectA {
     
 }

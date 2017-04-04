@@ -14,19 +14,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package test.org.github.naoghuman.demo.template.testprojectb;
+package com.github.naoghuman.demo.template.test.testprojecta.testsampleb1;
 
-import com.github.naoghuman.demo.template.annotation.Project;
+import com.github.naoghuman.lib.logger.api.LoggerFacade;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.fxml.Initializable;
 
 /**
  *
  * @author Naoghuman
  */
-@Project(
-        name = "TestProjectB",
-        basePackage = "org.github.naoghuman.demo.testprojectb",
-        version = "0.1.1"
-)
-public class TestProjectB {
+public class TestSampleA1Presenter implements Initializable {
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        LoggerFacade.getDefault().info(this.getClass(), "Initialize TestSampleA1Presenter"); // NOI18N
+        
+    }
     
 }

@@ -133,8 +133,8 @@ public final class ProjectCollector {
     
     private static final class AnnotationClassVisitor extends ClassVisitor {
         
-        public static final String ANNOTATION_PROJECT = "Lcom/github/naoghuman/demo/annotation/Project;"; // NOI18N
-        public static final String ANNOTATION_SAMPLE  = "Lcom/github/naoghuman/demo/annotation/Sample;"; // NOI18N
+        public static final String ANNOTATION_PROJECT = "Lcom/github/naoghuman/demo/template/annotation/Project;"; // NOI18N
+        public static final String ANNOTATION_SAMPLE  = "Lcom/github/naoghuman/demo/template/annotation/Sample;"; // NOI18N
         
         private final String annotation;
         

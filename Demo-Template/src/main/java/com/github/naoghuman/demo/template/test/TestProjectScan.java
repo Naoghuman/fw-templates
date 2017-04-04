@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package test.com.github.naoghuman.demo.template;
+package com.github.naoghuman.demo.template.test;
 
 import com.github.naoghuman.demo.template.project.ConcreteProject;
 import com.github.naoghuman.demo.template.project.ConcreteSample;
@@ -52,13 +52,14 @@ public class TestProjectScan {
             final List<File> filteredClassFiles = ProjectFilter.filterClassFiles(collectedClassesAsFiles);
 //            ProjectPrinter.printFiles(filteredClassFiles);
             
-
             // ----------------------------------------------------------------
             final List<String> collectedProjectsAsStrings = ProjectCollector.collectProjectsAsStrings(filteredClassFiles);
 //            ProjectPrinter.print(collectedProjectsAsStrings);
+            System.out.println("size: " + collectedProjectsAsStrings.size());
             
+            System.out.println("-------------------");
             final List<Class<?>> convertedProjectsToClasses = ProjectConverter.convertProjectsToClasses(collectedProjectsAsStrings);
-//            ProjectPrinter.printClasses(convertedProjectsToClasses);
+            ProjectPrinter.printClasses(convertedProjectsToClasses);
             
             final List<ConcreteProject> convertedProjectsToConcreteProjects = ProjectConverter.convertProjectsToConcreteProjects(convertedProjectsToClasses);
 //            ProjectPrinter.printConcreteProjects(convertedProjectsToConcreteProjects);
@@ -66,10 +67,10 @@ public class TestProjectScan {
 
             // ----------------------------------------------------------------
             final List<String> collectedSamplesAsStrings = ProjectCollector.collectSamplesAsStrings(filteredClassFiles);
-            ProjectPrinter.print(collectedSamplesAsStrings);
+//            ProjectPrinter.print(collectedSamplesAsStrings);
             
             final List<Class<?>> convertedSamplesToClasses = ProjectConverter.convertSamplesToClasses(collectedSamplesAsStrings);
-            ProjectPrinter.printClasses(convertedSamplesToClasses);
+//            ProjectPrinter.printClasses(convertedSamplesToClasses);
             
             final List<ConcreteSample> convertedSamplesToConcreteSamples = ProjectConverter.convertSamplesToConcreteSamples(convertedSamplesToClasses);
 //            ProjectPrinter.printConcreteSamples(convertedSamplesToConcreteSamples);

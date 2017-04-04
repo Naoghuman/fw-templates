@@ -56,6 +56,7 @@ public class ProjectConverter {
         final List<Class<?>> convertedProjectsToClasses = FXCollections.observableArrayList();
         collectedProjectsAsStrings.stream()
                 .forEach(projectAsString -> {
+                    System.out.println("  projectAsString: " + projectAsString);
                     try {
                         final Class<?> clazz = Class.forName(projectAsString);
                         convertedProjectsToClasses.add(clazz);

@@ -76,6 +76,10 @@ public final class ConcreteProject implements Comparable<ConcreteProject> {
     public final String getName() {
         return name;
     }
+    
+    public final List<ConcreteSample> getConcreteSamples() {
+        return concreteSamples;
+    }
 
     public final String getVersion() {
         return version;

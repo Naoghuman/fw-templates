@@ -14,18 +14,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package test.com.github.naoghuman.demo.template.testprojecta.testsamplea1;
+package com.github.naoghuman.demo.template.test.testprojectb.testsampleb1;
 
-import com.airhacks.afterburner.views.FXMLView;
+import com.github.naoghuman.demo.template.annotation.Project;
+import com.github.naoghuman.demo.template.annotation.Sample;
 
 /**
  *
  * @author Naoghuman
  */
-public class TestSampleA1View extends FXMLView {
-    
-    public TestSampleA1Presenter getRealPresenter() {
-        return (TestSampleA1Presenter) super.getPresenter();
-    }
+@Sample(
+        cssURLs = {""},
+        description = "Description TestSampleB1",
+        javaDocURLs = {""},
+        name = "TestSampleB1",
+        project = @Project(name = "TestProjectB"),
+        sourceCodeURLs = {""},
+        visible = true
+)
+public class TestSampleB1 {
     
 }

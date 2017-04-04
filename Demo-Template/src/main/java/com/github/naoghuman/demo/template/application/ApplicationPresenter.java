@@ -30,17 +30,18 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Accordion;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
+import javafx.util.Callback;
 
 /**
  *
@@ -52,14 +53,14 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     @FXML private Accordion aJavaDocMultiPages;
     @FXML private Accordion aSourceCodeMultiPages;
     @FXML private BorderPane bpSamplePageLeftArea;
-    @FXML private TextField tfSearchInSamples;
-    @FXML private TreeView<String> tvOverviewSamples;
-    @FXML private VBox vbSamplePageRigthSide;
+    @FXML private VBox vbSamplePageRightSide;
+    @FXML private ListView<ConcreteProject> lvNavigationProjects;
+    @FXML private ListView<ConcreteSample> lvNavigationSamples;
     @FXML private WebView wvCssSinglePage;
     @FXML private WebView wvJavaDocSinglePage;
     @FXML private WebView wvSourceCodeSinglePage;
     
-    private final List<ConcreteProject> concreteProject = FXCollections.observableArrayList();
+    private final List<ConcreteProject> concreteProjects = FXCollections.observableArrayList();
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -67,37 +68,79 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         
 //        assert (apView != null) : "fx:id=\"apView\" was not injected: check your FXML file 'Application.fxml'."; // NOI18N
         
-        this.initializeSearchInSamples();
-        this.initializeOverviewSamples();
+        this.initializeNavigationProjects();
+        this.initializeNavigationSamples();
+        this.initializeProjectScanning();
 
         this.registerActions();
-        this.onActionPrepareProjects();
-        this.onActionShowPreparedProjects();
+        
+        this.onActionRefreshNavigationProjects();
     }
     
     public void initializeAfterWindowIsShowing() {
         LoggerFacade.getDefault().debug(this.getClass(), "Initialize ApplicationPresenter after window is showing"); // NOI18N
     }
     
-    public void initializeSearchInSamples() {
-        LoggerFacade.getDefault().info(this.getClass(), "Initialize Search in Samples"); // NOI18N
+    public void initializeNavigationProjects() {
+        LoggerFacade.getDefault().info(this.getClass(), "Initialize Navigation Projects"); // NOI18N
         
-//        tfSearchInSamples.getStyleClass().add("search-box");
-        tfSearchInSamples.textProperty().addListener(new InvalidationListener() {
+        final Callback callbackConcreteProjects = (Callback<ListView<ConcreteProject>, ListCell<ConcreteProject>>) (ListView<ConcreteProject> listView) -> new ListCell<ConcreteProject>() {
             @Override
-            public void invalidated(Observable o) {
-                onActionRefreshOverviewSamples(tfSearchInSamples.getText());
+            protected void updateItem(ConcreteProject concreteProject, boolean empty) {
+                super.updateItem(concreteProject, empty);
+                
+                this.setGraphic(null);
+                
+                if (concreteProject == null || empty) {
+                    this.setText(null);
+                } else {
+                    this.setText(concreteProject.getName());
+                }
+            }
+        };
+        
+        lvNavigationProjects.setCellFactory(callbackConcreteProjects);
+        
+        lvNavigationProjects.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends ConcreteProject> observable, ConcreteProject oldValue, ConcreteProject newValue) -> {
+            System.out.println("-> " + newValue.getName());
+            this.onActionRefreshNavigationSamples(newValue.getConcreteSamples());
+        });
+    }
+    
+    public void initializeNavigationSamples() {
+        LoggerFacade.getDefault().info(this.getClass(), "Initialize Navigation Samples"); // NOI18N
+        
+        final Callback callbackConcreteSamples = (Callback<ListView<ConcreteSample>, ListCell<ConcreteSample>>) (ListView<ConcreteSample> listView) -> new ListCell<ConcreteSample>() {
+            @Override
+            protected void updateItem(ConcreteSample concreteSample, boolean empty) {
+                super.updateItem(concreteSample, empty);
+                
+                this.setGraphic(null);
+                
+                if (concreteSample == null || empty) {
+                    this.setText(null);
+                } else {
+                    this.setText(concreteSample.getName());
+                }
+            }
+        };
+        
+        lvNavigationSamples.setCellFactory(callbackConcreteSamples);
+        
+        lvNavigationSamples.setOnMouseClicked(event -> {
+            // Open the Link
+            if (
+                    event.getClickCount() == 2
+                    && !lvNavigationSamples.getSelectionModel().isEmpty()
+            ) {
+                final ConcreteSample concreteSample = lvNavigationSamples.getSelectionModel().getSelectedItem();
+                this.onActionShowConcreteSample(concreteSample);
             }
         });
     }
     
-    public void initializeOverviewSamples() {
-        LoggerFacade.getDefault().info(this.getClass(), "Initialize Overview Samples"); // NOI18N
-        
-    }
-    
-    private void onActionPrepareProjects() {
-        LoggerFacade.getDefault().info(this.getClass(), "On action prepare projects"); // NOI18N
+    private void initializeProjectScanning() {
+        LoggerFacade.getDefault().info(this.getClass(), "Initialize Projects Scanning"); // NOI18N
         
         try {
             final List<URL> collectedURLs = ProjectCollector.collectURLs();
@@ -114,7 +157,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
             
             final List<String> collectedProjectsAsStrings = ProjectCollector.collectProjectsAsStrings(filteredClassFiles);
 //            ProjectPrinter.print(collectedProjectsAsStrings);
-            
+			
             final List<Class<?>> convertedProjectsToClasses = ProjectConverter.convertProjectsToClasses(collectedProjectsAsStrings);
 //            ProjectPrinter.printClasses(convertedProjectsToClasses);
             
@@ -122,32 +165,46 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
 //            ProjectPrinter.printConcreteProjects(convertedProjectsToConcreteProjects);
             
             final List<String> collectedSamplesAsStrings = ProjectCollector.collectSamplesAsStrings(filteredClassFiles);
-            ProjectPrinter.print(collectedSamplesAsStrings);
+//            ProjectPrinter.print(collectedSamplesAsStrings);
             
             final List<Class<?>> convertedSamplesToClasses = ProjectConverter.convertSamplesToClasses(collectedSamplesAsStrings);
-            ProjectPrinter.printClasses(convertedSamplesToClasses);
+//            ProjectPrinter.printClasses(convertedSamplesToClasses);
             
             final List<ConcreteSample> convertedSamplesToConcreteSamples = ProjectConverter.convertSamplesToConcreteSamples(convertedSamplesToClasses);
 //            ProjectPrinter.printConcreteSamples(convertedSamplesToConcreteSamples);
 
             final List<ConcreteProject> mappedConcreteSampesToConcreteProjects = ProjectMapper.mapConcreteSampelsToConcreteProjects(convertedProjectsToConcreteProjects, convertedSamplesToConcreteSamples);
-            ProjectPrinter.printConcreteProjects(mappedConcreteSampesToConcreteProjects);
+//            ProjectPrinter.printConcreteProjects(mappedConcreteSampesToConcreteProjects);
             
-            concreteProject.addAll(mappedConcreteSampesToConcreteProjects);
+            concreteProjects.addAll(mappedConcreteSampesToConcreteProjects);
         } catch (IOException ex) {
             LoggerFacade.getDefault().debug(this.getClass(), "error: ", ex); // NOI18N
         }
     }
+    
+    private void onActionRefreshNavigationProjects() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action refresh Navigation Projects"); // NOI18N
 
-    private void onActionRefreshOverviewSamples(String searchText) {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action refresh Overview Samples"); // NOI18N
-    
+        lvNavigationProjects.getItems().clear();
+        lvNavigationProjects.getItems().addAll(concreteProjects);
     }
-    
-    private void onActionShowPreparedProjects() {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action show prepared projects"); // NOI18N
-    
-        
+
+    private void onActionRefreshNavigationSamples(final List<ConcreteSample> concreteSamples) {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action refresh Navigation Samples"); // NOI18N
+
+        lvNavigationSamples.getItems().clear();
+        lvNavigationSamples.getItems().addAll(concreteSamples);
+    }
+
+    private void onActionShowConcreteSample(final ConcreteSample concreteSample) {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action show ConcreteSample"); // NOI18N
+
+        /* TODO show sample in working-area
+             *  - show sample node
+             *  - show all sourceCodeURLs
+             *  - show all javaDocURLs
+             *  - show all cssURLs
+         */
     }
     
     @Override
