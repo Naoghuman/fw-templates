@@ -24,7 +24,7 @@ import com.github.naoghuman.demo.template.annotation.Project;
  */
 @Project(
         name = "TestProjectB", // NOI18N
-        projectURL = "", // NOI18N
+        projectURL = "https://github.com/Naoghuman/Project-Templates/tree/master/Demo-Template", // NOI18N
         version = "0.1.1" // NOI18N
 )
 public class TestProjectB {
