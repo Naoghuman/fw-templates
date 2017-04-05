@@ -22,7 +22,6 @@ import com.github.naoghuman.demo.template.project.ProjectCollector;
 import com.github.naoghuman.demo.template.project.ProjectConverter;
 import com.github.naoghuman.demo.template.project.ProjectFilter;
 import com.github.naoghuman.demo.template.project.ProjectMapper;
-import com.github.naoghuman.demo.template.project.ProjectPrinter;
 import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import java.io.File;
@@ -30,15 +29,18 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
 import javafx.util.Callback;
@@ -49,13 +51,16 @@ import javafx.util.Callback;
  */
 public class ApplicationPresenter implements Initializable, IRegisterActions {
     
+    private static final String TAB_PROJECT = "Project"; // NOI18N
+    private static final String TAB_SAMPLE  = "Sample"; // NOI18N
+    
     @FXML private Accordion aCssMultiPages;
     @FXML private Accordion aJavaDocMultiPages;
     @FXML private Accordion aSourceCodeMultiPages;
-    @FXML private BorderPane bpSamplePageLeftArea;
-    @FXML private VBox vbSamplePageRightSide;
     @FXML private ListView<ConcreteProject> lvNavigationProjects;
     @FXML private ListView<ConcreteSample> lvNavigationSamples;
+    @FXML private TabPane tpProjectPages;
+    @FXML private VBox vbSamplePage;
     @FXML private WebView wvCssSinglePage;
     @FXML private WebView wvJavaDocSinglePage;
     @FXML private WebView wvSourceCodeSinglePage;
@@ -101,8 +106,12 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         
         lvNavigationProjects.setCellFactory(callbackConcreteProjects);
         
+        lvNavigationProjects.setOnMouseClicked(event -> {
+            this.onActionPrepareTabsForProjects();
+        });
+        
         lvNavigationProjects.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends ConcreteProject> observable, ConcreteProject oldValue, ConcreteProject newValue) -> {
-            System.out.println("-> " + newValue.getName());
+            this.onActionShowProjectPage(newValue);
             this.onActionRefreshNavigationSamples(newValue.getConcreteSamples());
         });
     }
@@ -128,6 +137,8 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         lvNavigationSamples.setCellFactory(callbackConcreteSamples);
         
         lvNavigationSamples.setOnMouseClicked(event -> {
+            this.onActionPrepareTabsForSamples();
+            
             // Open the Link
             if (
                     event.getClickCount() == 2
@@ -182,6 +193,36 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         }
     }
     
+    private void onActionPrepareTabsForProjects() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action prepare Tabs for Projects"); // NOI18N
+
+        final ObservableList<Tab> tabs = tpProjectPages.getTabs();
+        if (tabs.get(0).getText().equals(TAB_SAMPLE)) {
+            Platform.runLater(() -> {
+                tabs.get(0).setText(TAB_PROJECT);
+                tabs.get(1).setDisable(Boolean.TRUE);
+                tabs.get(2).setDisable(Boolean.TRUE);
+                tabs.get(3).setDisable(Boolean.TRUE);
+
+                tpProjectPages.getSelectionModel().selectFirst();
+            });
+        }
+    }
+    
+    private void onActionPrepareTabsForSamples() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action prepare Tabs for Samples"); // NOI18N
+
+        final ObservableList<Tab> tabs = tpProjectPages.getTabs();
+        if (tabs.get(0).getText().equals(TAB_PROJECT)) {
+            Platform.runLater(() -> {
+                tabs.get(0).setText(TAB_SAMPLE);
+                tabs.get(1).setDisable(Boolean.FALSE);
+                tabs.get(2).setDisable(Boolean.FALSE);
+                tabs.get(3).setDisable(Boolean.FALSE);
+            });
+        }
+    }
+    
     private void onActionRefreshNavigationProjects() {
         LoggerFacade.getDefault().debug(this.getClass(), "On action refresh Navigation Projects"); // NOI18N
 
@@ -198,13 +239,14 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
 
     private void onActionShowConcreteSample(final ConcreteSample concreteSample) {
         LoggerFacade.getDefault().debug(this.getClass(), "On action show ConcreteSample"); // NOI18N
+        
+        // TODO update only the selected tab
+    }
 
-        /* TODO show sample in working-area
-             *  - show sample node
-             *  - show all sourceCodeURLs
-             *  - show all javaDocURLs
-             *  - show all cssURLs
-         */
+    private void onActionShowProjectPage(ConcreteProject concreteProject) {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action show Project Page"); // NOI18N
+        
+        // TODO update only first tab
     }
     
     @Override
