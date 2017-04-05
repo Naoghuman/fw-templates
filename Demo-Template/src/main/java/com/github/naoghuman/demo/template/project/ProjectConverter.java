@@ -40,10 +40,10 @@ public class ProjectConverter {
                     final Project project       = (Project) annotation;
                     
                     final String name        = project.name();
-                    final String basePackage = project.basePackage();
+                    final String projectURL  = project.projectURL();
                     final String version     = project.version();
                     
-                    final ConcreteProject concreteProject = ConcreteProject.create(name, basePackage, version);
+                    final ConcreteProject concreteProject = ConcreteProject.create(name, projectURL, version);
                     convertedProjectsToConcreteProjects.add(concreteProject);
                 });
         
@@ -56,7 +56,6 @@ public class ProjectConverter {
         final List<Class<?>> convertedProjectsToClasses = FXCollections.observableArrayList();
         collectedProjectsAsStrings.stream()
                 .forEach(projectAsString -> {
-                    System.out.println("  projectAsString: " + projectAsString);
                     try {
                         final Class<?> clazz = Class.forName(projectAsString);
                         convertedProjectsToClasses.add(clazz);
@@ -82,7 +81,7 @@ public class ProjectConverter {
                     final boolean visible    = sample.visible();
                     
                     final Project project = sample.project();
-                    final ConcreteProject concreteProject = ConcreteProject.create(project.name(), project.basePackage(), project.version());
+                    final ConcreteProject concreteProject = ConcreteProject.create(project.name(), project.projectURL(), project.version());
                     
                     final ObservableList<String> cssURLs = FXCollections.observableArrayList();
                     cssURLs.addAll(sample.cssURLs());

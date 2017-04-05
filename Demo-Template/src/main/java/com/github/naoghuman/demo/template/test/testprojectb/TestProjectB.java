@@ -23,9 +23,9 @@ import com.github.naoghuman.demo.template.annotation.Project;
  * @author Naoghuman
  */
 @Project(
-        name = "TestProjectB",
-        basePackage = "com.github.naoghuman.demo.template.test.testprojectb",
-        version = "0.1.1"
+        name = "TestProjectB", // NOI18N
+        projectURL = "", // NOI18N
+        version = "0.1.1" // NOI18N
 )
 public class TestProjectB {
     

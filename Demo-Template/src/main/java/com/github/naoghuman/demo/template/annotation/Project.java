@@ -31,8 +31,8 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE})
 public @interface Project {
     
-    public String basePackage() default "[undefined]"; // NOI18N
     public String name();
+    public String projectURL() default "[undefined]"; // NOI18N
     public String version() default "[undefined]"; // NOI18N
     
 }
