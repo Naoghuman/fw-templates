@@ -51,19 +51,27 @@ import javafx.util.Callback;
  */
 public class ApplicationPresenter implements Initializable, IRegisterActions {
     
-    private static final String TAB_PROJECT = "Project"; // NOI18N
-    private static final String TAB_SAMPLE  = "Sample"; // NOI18N
+    private static final int INDEX_TAB__SAMPLE     = 0;
+    private static final int INDEX_TAB__SOURCECODE = 1;
+    private static final int INDEX_TAB__JAVADOC    = 2;
+    private static final int INDEX_TAB__CSS        = 3;
     
     @FXML private Accordion aCssMultiPages;
     @FXML private Accordion aJavaDocMultiPages;
     @FXML private Accordion aSourceCodeMultiPages;
     @FXML private ListView<ConcreteProject> lvNavigationProjects;
     @FXML private ListView<ConcreteSample> lvNavigationSamples;
+    @FXML private Tab tCSS;
+    @FXML private Tab tJavaDoc;
+    @FXML private Tab tProject;
+    @FXML private Tab tSample;
+    @FXML private Tab tSourceCode;
     @FXML private TabPane tpProjectPages;
     @FXML private VBox vbSamplePage;
     @FXML private WebView wvCssSinglePage;
     @FXML private WebView wvJavaDocSinglePage;
     @FXML private WebView wvSourceCodeSinglePage;
+    @FXML private WebView wvProjectSinglePage;
     
     private final List<ConcreteProject> concreteProjects = FXCollections.observableArrayList();
     
@@ -75,18 +83,20 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         
         this.initializeNavigationProjects();
         this.initializeNavigationSamples();
-        this.initializeProjectScanning();
 
         this.registerActions();
         
+        this.onActionScanForProjects();
+        
         this.onActionRefreshNavigationProjects();
+        this.onActionPrepareTabsForProjects();
     }
     
     public void initializeAfterWindowIsShowing() {
         LoggerFacade.getDefault().debug(this.getClass(), "Initialize ApplicationPresenter after window is showing"); // NOI18N
     }
     
-    public void initializeNavigationProjects() {
+    private void initializeNavigationProjects() {
         LoggerFacade.getDefault().info(this.getClass(), "Initialize Navigation Projects"); // NOI18N
         
         final Callback callbackConcreteProjects = (Callback<ListView<ConcreteProject>, ListCell<ConcreteProject>>) (ListView<ConcreteProject> listView) -> new ListCell<ConcreteProject>() {
@@ -107,7 +117,9 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         lvNavigationProjects.setCellFactory(callbackConcreteProjects);
         
         lvNavigationProjects.setOnMouseClicked(event -> {
-            this.onActionPrepareTabsForProjects();
+            if (!lvNavigationProjects.getSelectionModel().isEmpty()) {
+                this.onActionPrepareTabsForProjects();
+            }
         });
         
         lvNavigationProjects.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends ConcreteProject> observable, ConcreteProject oldValue, ConcreteProject newValue) -> {
@@ -116,7 +128,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         });
     }
     
-    public void initializeNavigationSamples() {
+    private void initializeNavigationSamples() {
         LoggerFacade.getDefault().info(this.getClass(), "Initialize Navigation Samples"); // NOI18N
         
         final Callback callbackConcreteSamples = (Callback<ListView<ConcreteSample>, ListCell<ConcreteSample>>) (ListView<ConcreteSample> listView) -> new ListCell<ConcreteSample>() {
@@ -137,21 +149,85 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         lvNavigationSamples.setCellFactory(callbackConcreteSamples);
         
         lvNavigationSamples.setOnMouseClicked(event -> {
-            this.onActionPrepareTabsForSamples();
-            
-            // Open the Link
-            if (
-                    event.getClickCount() == 2
-                    && !lvNavigationSamples.getSelectionModel().isEmpty()
-            ) {
+            if (!lvNavigationSamples.getSelectionModel().isEmpty()) {
+                this.onActionPrepareTabsForSamples();
+                
                 final ConcreteSample concreteSample = lvNavigationSamples.getSelectionModel().getSelectedItem();
                 this.onActionShowConcreteSample(concreteSample);
             }
         });
     }
     
-    private void initializeProjectScanning() {
-        LoggerFacade.getDefault().info(this.getClass(), "Initialize Projects Scanning"); // NOI18N
+    private void onActionPrepareTabCSS(final boolean pageCSSisSinglePage) {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action prepare Tab CSS [isSinglePage=" + pageCSSisSinglePage + "]"); // NOI18N
+
+        aCssMultiPages.setManaged(!pageCSSisSinglePage);
+        aCssMultiPages.setVisible(!pageCSSisSinglePage);
+        
+        wvCssSinglePage.setManaged(pageCSSisSinglePage);
+        wvCssSinglePage.setVisible(pageCSSisSinglePage);
+    }
+    
+    private void onActionPrepareTabJavaDoc(final boolean pageJavaDocIsSinglePage) {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action prepare Tab JavaDoc [isSinglePage=" + pageJavaDocIsSinglePage + "]"); // NOI18N
+
+        aJavaDocMultiPages.setManaged(!pageJavaDocIsSinglePage);
+        aJavaDocMultiPages.setVisible(!pageJavaDocIsSinglePage);
+        
+        wvJavaDocSinglePage.setManaged(pageJavaDocIsSinglePage);
+        wvJavaDocSinglePage.setVisible(pageJavaDocIsSinglePage);
+    }
+    
+    private void onActionPrepareTabSourceCode(final boolean pageSourceCodeIsSinglePage) {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action prepare Tab SourceCode [isSinglePage=" + pageSourceCodeIsSinglePage + "]"); // NOI18N
+
+        aSourceCodeMultiPages.setManaged(!pageSourceCodeIsSinglePage);
+        aSourceCodeMultiPages.setVisible(!pageSourceCodeIsSinglePage);
+        
+        wvSourceCodeSinglePage.setManaged(pageSourceCodeIsSinglePage);
+        wvSourceCodeSinglePage.setVisible(pageSourceCodeIsSinglePage);
+    }
+    
+    private void onActionPrepareTabsForProjects() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action prepare Tabs for Projects"); // NOI18N
+
+        Platform.runLater(() -> {
+            tpProjectPages.getTabs().clear();
+            tpProjectPages.getTabs().add(tProject);
+        });
+    }
+    
+    private void onActionPrepareTabsForSamples() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action prepare Tabs for Samples"); // NOI18N
+
+        Platform.runLater(() -> {
+            final ObservableList<Tab> tabs = tpProjectPages.getTabs();
+            tabs.clear();
+            tabs.add(tSample);
+            tabs.add(tSourceCode);
+            tabs.add(tJavaDoc);
+            tabs.add(tCSS);
+            
+            tpProjectPages.getSelectionModel().selectFirst();
+        });
+    }
+    
+    private void onActionRefreshNavigationProjects() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action refresh Navigation Projects"); // NOI18N
+
+        lvNavigationProjects.getItems().clear();
+        lvNavigationProjects.getItems().addAll(concreteProjects);
+    }
+
+    private void onActionRefreshNavigationSamples(final List<ConcreteSample> concreteSamples) {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action refresh Navigation Samples"); // NOI18N
+
+        lvNavigationSamples.getItems().clear();
+        lvNavigationSamples.getItems().addAll(concreteSamples);
+    }
+    
+    private void onActionScanForProjects() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action scan for Projects"); // NOI18N
         
         try {
             final List<URL> collectedURLs = ProjectCollector.collectURLs();
@@ -192,55 +268,31 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
             LoggerFacade.getDefault().debug(this.getClass(), "error: ", ex); // NOI18N
         }
     }
-    
-    private void onActionPrepareTabsForProjects() {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action prepare Tabs for Projects"); // NOI18N
-
-        final ObservableList<Tab> tabs = tpProjectPages.getTabs();
-        if (tabs.get(0).getText().equals(TAB_SAMPLE)) {
-            Platform.runLater(() -> {
-                tabs.get(0).setText(TAB_PROJECT);
-                tabs.get(1).setDisable(Boolean.TRUE);
-                tabs.get(2).setDisable(Boolean.TRUE);
-                tabs.get(3).setDisable(Boolean.TRUE);
-
-                tpProjectPages.getSelectionModel().selectFirst();
-            });
-        }
-    }
-    
-    private void onActionPrepareTabsForSamples() {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action prepare Tabs for Samples"); // NOI18N
-
-        final ObservableList<Tab> tabs = tpProjectPages.getTabs();
-        if (tabs.get(0).getText().equals(TAB_PROJECT)) {
-            Platform.runLater(() -> {
-                tabs.get(0).setText(TAB_SAMPLE);
-                tabs.get(1).setDisable(Boolean.FALSE);
-                tabs.get(2).setDisable(Boolean.FALSE);
-                tabs.get(3).setDisable(Boolean.FALSE);
-            });
-        }
-    }
-    
-    private void onActionRefreshNavigationProjects() {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action refresh Navigation Projects"); // NOI18N
-
-        lvNavigationProjects.getItems().clear();
-        lvNavigationProjects.getItems().addAll(concreteProjects);
-    }
-
-    private void onActionRefreshNavigationSamples(final List<ConcreteSample> concreteSamples) {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action refresh Navigation Samples"); // NOI18N
-
-        lvNavigationSamples.getItems().clear();
-        lvNavigationSamples.getItems().addAll(concreteSamples);
-    }
 
     private void onActionShowConcreteSample(final ConcreteSample concreteSample) {
         LoggerFacade.getDefault().debug(this.getClass(), "On action show ConcreteSample"); // NOI18N
         
         // TODO update only the selected tab
+        final int selectedIndex = tpProjectPages.getSelectionModel().getSelectedIndex();
+        switch (selectedIndex) {
+            case INDEX_TAB__SAMPLE: {
+                break;
+            }
+            case INDEX_TAB__SOURCECODE: {
+                final boolean pageSourceCodeIsSinglePage = concreteSample.getSourceCodeURLs().size() > 1;
+                this.onActionPrepareTabSourceCode(pageSourceCodeIsSinglePage);
+                break;
+            }
+            case INDEX_TAB__JAVADOC: {
+                final boolean pageJavaDocIsSinglePage = concreteSample.getJavaDocURLs().size() > 1;
+                this.onActionPrepareTabJavaDoc(pageJavaDocIsSinglePage) ;
+                break;
+            }
+            case INDEX_TAB__CSS: {
+                final boolean pageCSSisSinglePage = concreteSample.getCssURLs().size() > 1;
+                this.onActionPrepareTabCSS(pageCSSisSinglePage);
+            }
+        }
     }
 
     private void onActionShowProjectPage(ConcreteProject concreteProject) {

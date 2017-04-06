@@ -39,12 +39,21 @@
                 </SplitPane>
                 <TabPane fx:id="tpProjectPages" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
-                        <Tab closable="false" text="Sample">
+                        <Tab fx:id="tProject" closable="false" text="Project">
+                            <content>
+                                <VBox>
+                                    <children>
+                                        <WebView fx:id="wvProjectSinglePage" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS" />
+                                    </children>
+                                </VBox>
+                            </content>
+                        </Tab>
+                        <Tab fx:id="tSample" closable="false" text="Sample">
                             <content>
                                 <VBox fx:id="vbSamplePage" prefHeight="200.0" prefWidth="100.0" />
                             </content>
                         </Tab>
-                        <Tab closable="false" text="SourceCode">
+                        <Tab fx:id="tSourceCode" closable="false" text="SourceCode">
                             <content>
                                 <VBox prefHeight="200.0" prefWidth="100.0">
                                     <children>
@@ -54,7 +63,7 @@
                                 </VBox>
                             </content>
                         </Tab>
-                        <Tab closable="false" text="JavaDoc">
+                        <Tab fx:id="tJavaDoc" closable="false" text="JavaDoc">
                             <content>
                                 <VBox prefHeight="200.0" prefWidth="100.0">
                                     <children>
@@ -64,7 +73,7 @@
                                 </VBox>
                             </content>
                         </Tab>
-                        <Tab closable="false" text="Css">
+                        <Tab fx:id="tCSS" closable="false" text="Css">
                             <content>
                                 <VBox prefHeight="200.0" prefWidth="100.0">
                                     <children>

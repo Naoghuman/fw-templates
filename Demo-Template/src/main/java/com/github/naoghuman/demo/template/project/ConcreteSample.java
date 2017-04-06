@@ -61,14 +61,6 @@ public final class ConcreteSample implements Comparable<ConcreteSample> {
         return concreteSample;
     }
     
-//    public static final ConcreteSample create(final ConcreteSample sample, final ConcreteProject project) {
-//        final ConcreteSample concreteSample = new ConcreteSample(sample.getId(), 
-//                sample.getName(), project, sample.getSourceCodeURLs(), 
-//                sample.getJavaDocURLs(), sample.getCssURLs(), sample.getDescription(), sample.isVisible());
-//        
-//        return concreteSample;
-//    }
-    
     private ConcreteSample(
             final long id, final String name, final ConcreteProject project,
             final ObservableList<String> sourceCodeURLs, final ObservableList<String> javaDocURLs, 
