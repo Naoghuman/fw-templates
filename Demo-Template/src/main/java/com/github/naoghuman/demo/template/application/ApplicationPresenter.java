@@ -30,7 +30,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -75,6 +74,8 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     
     private final List<ConcreteProject> concreteProjects = FXCollections.observableArrayList();
     
+    private ConcreteSample concreteSample;
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         LoggerFacade.getDefault().info(this.getClass(), "Initialize ApplicationPresenter"); // NOI18N
@@ -83,13 +84,14 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         
         this.initializeNavigationProjects();
         this.initializeNavigationSamples();
+        this.initializeTabPanePages();
 
         this.registerActions();
         
         this.onActionScanForProjects();
         
         this.onActionRefreshNavigationProjects();
-        this.onActionPrepareTabsForProjects();
+        this.onActionPrepareTabsForOnStartApplication();
     }
     
     public void initializeAfterWindowIsShowing() {
@@ -123,7 +125,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         });
         
         lvNavigationProjects.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends ConcreteProject> observable, ConcreteProject oldValue, ConcreteProject newValue) -> {
-            this.onActionShowProjectPage(newValue);
+            this.onActionShowPageProject(newValue);
             this.onActionRefreshNavigationSamples(newValue.getConcreteSamples());
         });
     }
@@ -152,40 +154,20 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
             if (!lvNavigationSamples.getSelectionModel().isEmpty()) {
                 this.onActionPrepareTabsForSamples();
                 
-                final ConcreteSample concreteSample = lvNavigationSamples.getSelectionModel().getSelectedItem();
-                this.onActionShowConcreteSample(concreteSample);
+                concreteSample = lvNavigationSamples.getSelectionModel().getSelectedItem();
+                this.onActionShowPageSample(concreteSample);
             }
         });
     }
     
-    private void onActionPrepareTabCSS(final boolean pageCSSisSinglePage) {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action prepare Tab CSS [isSinglePage=" + pageCSSisSinglePage + "]"); // NOI18N
-
-        aCssMultiPages.setManaged(!pageCSSisSinglePage);
-        aCssMultiPages.setVisible(!pageCSSisSinglePage);
+    private void initializeTabPanePages() {
+        LoggerFacade.getDefault().info(this.getClass(), "Initialize TabPanePages"); // NOI18N
         
-        wvCssSinglePage.setManaged(pageCSSisSinglePage);
-        wvCssSinglePage.setVisible(pageCSSisSinglePage);
-    }
-    
-    private void onActionPrepareTabJavaDoc(final boolean pageJavaDocIsSinglePage) {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action prepare Tab JavaDoc [isSinglePage=" + pageJavaDocIsSinglePage + "]"); // NOI18N
-
-        aJavaDocMultiPages.setManaged(!pageJavaDocIsSinglePage);
-        aJavaDocMultiPages.setVisible(!pageJavaDocIsSinglePage);
-        
-        wvJavaDocSinglePage.setManaged(pageJavaDocIsSinglePage);
-        wvJavaDocSinglePage.setVisible(pageJavaDocIsSinglePage);
-    }
-    
-    private void onActionPrepareTabSourceCode(final boolean pageSourceCodeIsSinglePage) {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action prepare Tab SourceCode [isSinglePage=" + pageSourceCodeIsSinglePage + "]"); // NOI18N
-
-        aSourceCodeMultiPages.setManaged(!pageSourceCodeIsSinglePage);
-        aSourceCodeMultiPages.setVisible(!pageSourceCodeIsSinglePage);
-        
-        wvSourceCodeSinglePage.setManaged(pageSourceCodeIsSinglePage);
-        wvSourceCodeSinglePage.setVisible(pageSourceCodeIsSinglePage);
+        tpProjectPages.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) -> {
+            if (tpProjectPages.getTabs().size() > 1) {
+                this.onActionShowPageSample(concreteSample);
+            }
+        });
     }
     
     private void onActionPrepareTabsForProjects() {
@@ -209,6 +191,14 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
             tabs.add(tCSS);
             
             tpProjectPages.getSelectionModel().selectFirst();
+        });
+    }
+    
+    private void onActionPrepareTabsForOnStartApplication() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action prepare Tabs for on start Application"); // NOI18N
+
+        Platform.runLater(() -> {
+            tpProjectPages.getTabs().clear();
         });
     }
     
@@ -275,30 +265,61 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         // TODO update only the selected tab
         final int selectedIndex = tpProjectPages.getSelectionModel().getSelectedIndex();
         switch (selectedIndex) {
-            case INDEX_TAB__SAMPLE: {
-                break;
-            }
-            case INDEX_TAB__SOURCECODE: {
-                final boolean pageSourceCodeIsSinglePage = concreteSample.getSourceCodeURLs().size() > 1;
-                this.onActionPrepareTabSourceCode(pageSourceCodeIsSinglePage);
-                break;
-            }
-            case INDEX_TAB__JAVADOC: {
-                final boolean pageJavaDocIsSinglePage = concreteSample.getJavaDocURLs().size() > 1;
-                this.onActionPrepareTabJavaDoc(pageJavaDocIsSinglePage) ;
-                break;
-            }
-            case INDEX_TAB__CSS: {
-                final boolean pageCSSisSinglePage = concreteSample.getCssURLs().size() > 1;
-                this.onActionPrepareTabCSS(pageCSSisSinglePage);
-            }
+            case INDEX_TAB__SAMPLE:     { this.onActionShowPageSample(concreteSample);     break; }
+            case INDEX_TAB__SOURCECODE: { this.onActionShowPageSourceCode(concreteSample); break; }
+            case INDEX_TAB__JAVADOC:    { this.onActionShowPageJavaDoc(concreteSample);    break; }
+            case INDEX_TAB__CSS:        { this.onActionShowPageCSS(concreteSample);        break; }
         }
     }
 
-    private void onActionShowProjectPage(ConcreteProject concreteProject) {
+    private void onActionShowPageCSS(ConcreteSample concreteSample) {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action show CSS Page"); // NOI18N
+        
+        // Prepare the page
+        final boolean pageCSSisSinglePage = concreteSample.getCssURLs().size() > 1;
+        aCssMultiPages.setManaged(!pageCSSisSinglePage);
+        aCssMultiPages.setVisible(!pageCSSisSinglePage);
+        wvCssSinglePage.setManaged(pageCSSisSinglePage);
+        wvCssSinglePage.setVisible(pageCSSisSinglePage);
+        
+        // Load content
+    }
+
+    private void onActionShowPageJavaDoc(ConcreteSample concreteSample) {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action show JavaDoc Page"); // NOI18N
+        
+        // Prepare the page
+        final boolean pageJavaDocIsSinglePage = concreteSample.getJavaDocURLs().size() > 1;
+        aJavaDocMultiPages.setManaged(!pageJavaDocIsSinglePage);
+        aJavaDocMultiPages.setVisible(!pageJavaDocIsSinglePage);
+        
+        wvJavaDocSinglePage.setManaged(pageJavaDocIsSinglePage);
+        wvJavaDocSinglePage.setVisible(pageJavaDocIsSinglePage);
+        
+        // Load content
+    }
+
+    private void onActionShowPageProject(ConcreteProject concreteProject) {
         LoggerFacade.getDefault().debug(this.getClass(), "On action show Project Page"); // NOI18N
         
-        // TODO update only first tab
+    }
+
+    private void onActionShowPageSample(ConcreteSample concreteSample) {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action show Sample Page"); // NOI18N
+        
+    }
+
+    private void onActionShowPageSourceCode(ConcreteSample concreteSample) {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action show SourceCode Page"); // NOI18N
+        
+        // Prepare the page
+        final boolean pageSourceCodeIsSinglePage = concreteSample.getSourceCodeURLs().size() > 1;
+        aSourceCodeMultiPages.setManaged(!pageSourceCodeIsSinglePage);
+        aSourceCodeMultiPages.setVisible(!pageSourceCodeIsSinglePage);
+        wvSourceCodeSinglePage.setManaged(pageSourceCodeIsSinglePage);
+        wvSourceCodeSinglePage.setVisible(pageSourceCodeIsSinglePage);
+        
+        // Load content
     }
     
     @Override
