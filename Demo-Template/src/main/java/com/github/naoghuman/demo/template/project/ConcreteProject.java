@@ -17,6 +17,7 @@
 package com.github.naoghuman.demo.template.project;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.StringJoiner;
 import javafx.collections.FXCollections;
 
@@ -26,8 +27,10 @@ import javafx.collections.FXCollections;
  */
 public final class ConcreteProject implements Comparable<ConcreteProject> {
     
+    private static final String UNDEFINED = "[undefined]"; // NOI18N
+    
     public static final ConcreteProject create(final String name) {
-        return create(name, "[undefined]", "[undefined]"); // NOI18N
+        return create(name, UNDEFINED, UNDEFINED);
     }
     
     public static final ConcreteProject create(final String name, final String projectURL, final String version) {
@@ -45,14 +48,14 @@ public final class ConcreteProject implements Comparable<ConcreteProject> {
     private final long id;
     
     private final String name;
-    private final String projectURL;
-    private final String version;
+    private final Optional<String> projectURL;
+    private final Optional<String> version;
     
     private ConcreteProject(final long id, final String name, final String projectURL, final String version) {
         this.id = id;
         this.name = name;
-        this.projectURL = projectURL;
-        this.version = version;
+        this.projectURL = Optional.ofNullable(projectURL);
+        this.version = Optional.ofNullable(version);
     }
     
     public void add(ConcreteSample concreteSample) {
@@ -61,7 +64,7 @@ public final class ConcreteProject implements Comparable<ConcreteProject> {
         }
     }
     
-    public String getProjectURL() {
+    public Optional<String> getProjectURL() {
         return projectURL;
     }
     
@@ -76,8 +79,8 @@ public final class ConcreteProject implements Comparable<ConcreteProject> {
     public final List<ConcreteSample> getConcreteSamples() {
         return concreteSamples;
     }
-
-    public final String getVersion() {
+    
+    public Optional<String> getVersion() {
         return version;
     }
     
@@ -88,14 +91,34 @@ public final class ConcreteProject implements Comparable<ConcreteProject> {
             return compareTo;
         }
         
-        compareTo = this.getVersion().compareTo(other.getVersion());
-        if (compareTo != 0) {
-            return compareTo;
+        if (this.getVersion().isPresent() && other.getVersion().isPresent()) {
+            compareTo = this.getVersion().get().compareTo(other.getVersion().get());
+            if (compareTo != 0) {
+                return compareTo;
+            }
         }
         
-        compareTo = this.getProjectURL().compareTo(other.getProjectURL());
-        if (compareTo != 0) {
-            return compareTo;
+        if (this.getVersion().isPresent() && !other.getVersion().isPresent()) {
+            return +1;
+        }
+        
+        if (!this.getVersion().isPresent() && other.getVersion().isPresent()) {
+            return -1;
+        }
+        
+        if (this.getProjectURL().isPresent() && other.getProjectURL().isPresent()) {
+            compareTo = this.getProjectURL().get().compareTo(other.getProjectURL().get());
+            if (compareTo != 0) {
+                return compareTo;
+            }
+        }
+        
+        if (this.getProjectURL().isPresent() && !other.getProjectURL().isPresent()) {
+            return +1;
+        }
+        
+        if (!this.getProjectURL().isPresent() && other.getProjectURL().isPresent()) {
+            return -1;
         }
 
         compareTo = Long.compare(this.getId(), other.getId());
@@ -155,7 +178,7 @@ public final class ConcreteProject implements Comparable<ConcreteProject> {
         
         sb.append("id=")          .append(this.getId());          // NOI18N
         sb.append(", name=")      .append(this.getName());        // NOI18N
-        sb.append(", projectURL=").append(this.getProjectURL()); // NOI18N
+        sb.append(", projectURL=").append(this.getProjectURL().isPresent() ? this.getProjectURL().get() : UNDEFINED); // NOI18N
         
         if (!concreteSamples.isEmpty()) {
             final StringJoiner stringJoiner = new StringJoiner(", ", ", ConcreteSample[", "]"); // NOI18N
@@ -168,7 +191,7 @@ public final class ConcreteProject implements Comparable<ConcreteProject> {
             sb.append(stringJoiner.toString());
         }
         
-        sb.append(", version=").append(this.getVersion()); // NOI18N
+        sb.append(", version=").append(this.getVersion().isPresent() ? this.getVersion().get() : UNDEFINED); // NOI18N
         sb.append("]"); // NOI18N
         
         return sb.toString();
