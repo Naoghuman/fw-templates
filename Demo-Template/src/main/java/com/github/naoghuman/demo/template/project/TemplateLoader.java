@@ -52,6 +52,8 @@ public class TemplateLoader {
     private static String noProjectURLisDefinedTemplate = null;
     
     public static final ObservableList<String> loadCSStemplates(final ObservableList<String> cssURLs) {
+        LoggerFacade.getDefault().debug(TemplateLoader.class, "Load css templates"); // NOI18N
+        
         final ObservableList<String> loadedCSStemplates = FXCollections.observableArrayList();
     
         cssURLs.stream()
@@ -69,6 +71,8 @@ public class TemplateLoader {
     }
     
     public static final String loadLoadingTemplate() {
+        LoggerFacade.getDefault().debug(TemplateLoader.class, "Load loading template"); // NOI18N
+        
         if (loadingTemplate == null) {
             loadingTemplate = getResource(TemplateLoader.class.getResourceAsStream(TEMPLATE__LOADING));
         }
@@ -77,6 +81,8 @@ public class TemplateLoader {
     }
     
     public static final String loadNoCSSURLsAreDefinedTemplate() {
+        LoggerFacade.getDefault().debug(TemplateLoader.class, "Load no css urls are defined template"); // NOI18N
+        
         if (noCSSURLsAreDefinedTemplate == null) {
             noCSSURLsAreDefinedTemplate = getResource(TemplateLoader.class.getResourceAsStream(TEMPLATE__NO_CSS_URLS_ARE_DEFINED));
         }
@@ -85,6 +91,8 @@ public class TemplateLoader {
     }
     
     public static final String loadNoProjectURLisDefinedTemplate() {
+        LoggerFacade.getDefault().debug(TemplateLoader.class, "Load no projectURL is defined template"); // NOI18N
+        
         if (noProjectURLisDefinedTemplate == null) {
             noProjectURLisDefinedTemplate = getResource(TemplateLoader.class.getResourceAsStream(TEMPLATE__NO_PROJECT_URL_IS_DEFINED));
         }
@@ -93,12 +101,16 @@ public class TemplateLoader {
     }
     
     public static final void loadResourcesInCache() {
+        LoggerFacade.getDefault().debug(TemplateLoader.class, "Load resources in cache"); // NOI18N
+        
         TemplateLoader.loadLoadingTemplate();
         TemplateLoader.loadNoCSSURLsAreDefinedTemplate();
         TemplateLoader.loadNoProjectURLisDefinedTemplate();
     }
     
     public static final ObservableList<String> loadSourceCodeTemplates(final ObservableList<String> sourceCodeURLs) {
+        LoggerFacade.getDefault().debug(TemplateLoader.class, "Load SourceCode templates"); // NOI18N
+        
         final ObservableList<String> loadedJavaDocTemplate = FXCollections.observableArrayList();
     
         sourceCodeURLs.stream()
