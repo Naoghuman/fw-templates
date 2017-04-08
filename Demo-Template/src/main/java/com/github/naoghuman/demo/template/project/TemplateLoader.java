@@ -41,13 +41,15 @@ public class TemplateLoader {
     private static final String REPLACE__TARGET      = "<"; // NOI18N
     private static final String REPLACE__REPLACEMENT = "&lt;"; // NOI18N
     
-    private static final String TEMPLATE__CSS                    = "/com/github/naoghuman/demo/template/templates/CssTemplate.html"; // NOI18N
-    private static final String TEMPLATE__LOADING                = "/com/github/naoghuman/demo/template/templates/LoadingTemplate.html"; // NOI18N
-    private static final String TEMPLATE__NO_PROJECT_URL_DEFINED = "/com/github/naoghuman/demo/template/templates/NoProjectURLdefinedTemplate.html"; // NOI18N
-    private static final String TEMPLATE__SOURCE_CODE            = "/com/github/naoghuman/demo/template/templates/SourceCodeTemplate.html"; // NOI18N
+    private static final String TEMPLATE__CSS                       = "/com/github/naoghuman/demo/template/templates/CssTemplate.html"; // NOI18N
+    private static final String TEMPLATE__LOADING                   = "/com/github/naoghuman/demo/template/templates/LoadingTemplate.html"; // NOI18N
+    private static final String TEMPLATE__NO_CSS_URLS_ARE_DEFINED   = "/com/github/naoghuman/demo/template/templates/NoCSSURLsAreDefinedTemplate.html"; // NOI18N
+    private static final String TEMPLATE__NO_PROJECT_URL_IS_DEFINED = "/com/github/naoghuman/demo/template/templates/NoProjectURLisDefinedTemplate.html"; // NOI18N
+    private static final String TEMPLATE__SOURCE_CODE               = "/com/github/naoghuman/demo/template/templates/SourceCodeTemplate.html"; // NOI18N
     
-    private static String loadingTemplate             = null;
-    private static String noProjectURLdefinedTemplate = null;
+    private static String loadingTemplate               = null;
+    private static String noCSSURLsAreDefinedTemplate   = null;
+    private static String noProjectURLisDefinedTemplate = null;
     
     public static final ObservableList<String> loadCSStemplates(final ObservableList<String> cssURLs) {
         final ObservableList<String> loadedCSStemplates = FXCollections.observableArrayList();
@@ -74,12 +76,26 @@ public class TemplateLoader {
         return loadingTemplate;
     }
     
-    public static final String loadNoProjectURLdefinedTemplate() {
-        if (noProjectURLdefinedTemplate == null) {
-            noProjectURLdefinedTemplate = getResource(TemplateLoader.class.getResourceAsStream(TEMPLATE__NO_PROJECT_URL_DEFINED));
+    public static final String loadNoCSSURLsAreDefinedTemplate() {
+        if (noCSSURLsAreDefinedTemplate == null) {
+            noCSSURLsAreDefinedTemplate = getResource(TemplateLoader.class.getResourceAsStream(TEMPLATE__NO_CSS_URLS_ARE_DEFINED));
         }
         
-        return noProjectURLdefinedTemplate;
+        return noCSSURLsAreDefinedTemplate;
+    }
+    
+    public static final String loadNoProjectURLisDefinedTemplate() {
+        if (noProjectURLisDefinedTemplate == null) {
+            noProjectURLisDefinedTemplate = getResource(TemplateLoader.class.getResourceAsStream(TEMPLATE__NO_PROJECT_URL_IS_DEFINED));
+        }
+        
+        return noProjectURLisDefinedTemplate;
+    }
+    
+    public static final void loadResourcesInCache() {
+        TemplateLoader.loadLoadingTemplate();
+        TemplateLoader.loadNoCSSURLsAreDefinedTemplate();
+        TemplateLoader.loadNoProjectURLisDefinedTemplate();
     }
     
     public static final ObservableList<String> loadSourceCodeTemplates(final ObservableList<String> sourceCodeURLs) {
