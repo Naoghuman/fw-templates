@@ -42,8 +42,12 @@ public class TemplateLoader {
     private static final String REPLACE__REPLACEMENT = "&lt;"; // NOI18N
     
     private static final String TEMPLATE__CSS                    = "/com/github/naoghuman/demo/template/templates/CssTemplate.html"; // NOI18N
+    private static final String TEMPLATE__LOADING                = "/com/github/naoghuman/demo/template/templates/LoadingTemplate.html"; // NOI18N
     private static final String TEMPLATE__NO_PROJECT_URL_DEFINED = "/com/github/naoghuman/demo/template/templates/NoProjectURLdefinedTemplate.html"; // NOI18N
     private static final String TEMPLATE__SOURCE_CODE            = "/com/github/naoghuman/demo/template/templates/SourceCodeTemplate.html"; // NOI18N
+    
+    private static String loadingTemplate             = null;
+    private static String noProjectURLdefinedTemplate = null;
     
     public static final ObservableList<String> loadCSStemplates(final ObservableList<String> cssURLs) {
         final ObservableList<String> loadedCSStemplates = FXCollections.observableArrayList();
@@ -62,8 +66,20 @@ public class TemplateLoader {
         return loadedCSStemplates;
     }
     
-    public static final String loadNoProjectURLdefined() {
-        return getResource(TemplateLoader.class.getResourceAsStream(TEMPLATE__NO_PROJECT_URL_DEFINED));
+    public static final String loadLoadingTemplate() {
+        if (loadingTemplate == null) {
+            loadingTemplate = getResource(TemplateLoader.class.getResourceAsStream(TEMPLATE__LOADING));
+        }
+        
+        return loadingTemplate;
+    }
+    
+    public static final String loadNoProjectURLdefinedTemplate() {
+        if (noProjectURLdefinedTemplate == null) {
+            noProjectURLdefinedTemplate = getResource(TemplateLoader.class.getResourceAsStream(TEMPLATE__NO_PROJECT_URL_DEFINED));
+        }
+        
+        return noProjectURLdefinedTemplate;
     }
     
     public static final ObservableList<String> loadSourceCodeTemplates(final ObservableList<String> sourceCodeURLs) {

@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -44,6 +45,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
 import javafx.util.Callback;
+import javafx.util.Duration;
 
 /**
  *
@@ -302,13 +304,20 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
 
     private void onActionShowPageProject(final ConcreteProject concreteProject) {
         LoggerFacade.getDefault().debug(this.getClass(), "On action show Project Page"); // NOI18N
-
+        
         Platform.runLater(() -> {
             if (concreteProject.hasProjectURL()) {
-                wvProjectSinglePage.getEngine().load(concreteProject.getProjectURL().get());
+                wvProjectSinglePage.getEngine().loadContent(TemplateLoader.loadLoadingTemplate());
+                
+                final PauseTransition pt = new PauseTransition();
+                pt.setDuration(Duration.millis(25.0d));
+                pt.setOnFinished(event -> {
+                    wvProjectSinglePage.getEngine().load(concreteProject.getProjectURL().get());
+                });
+                pt.playFromStart();
             }
             else {
-                wvProjectSinglePage.getEngine().loadContent(TemplateLoader.loadNoProjectURLdefined());
+                wvProjectSinglePage.getEngine().loadContent(TemplateLoader.loadNoProjectURLdefinedTemplate());
             }
         });
     }

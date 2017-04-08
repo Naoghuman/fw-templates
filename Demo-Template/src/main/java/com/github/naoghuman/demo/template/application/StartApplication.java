@@ -20,6 +20,7 @@ import static javafx.application.Application.launch;
 
 import com.airhacks.afterburner.injection.Injector;
 import com.github.naoghuman.demo.template.configuration.IApplicationConfiguration;
+import com.github.naoghuman.demo.template.project.TemplateLoader;
 import com.github.naoghuman.lib.database.api.DatabaseFacade;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.lib.preferences.api.PreferencesFacade;
@@ -55,6 +56,9 @@ public class StartApplication extends Application implements IApplicationConfigu
         
         final Boolean dropPreferencesFileAtStart = Boolean.FALSE;
         PreferencesFacade.getDefault().init(dropPreferencesFileAtStart);
+        
+        TemplateLoader.loadLoadingTemplate();
+        TemplateLoader.loadNoProjectURLdefinedTemplate();
         
         DatabaseFacade.getDefault().register(this.getProperty(KEY__APPLICATION__DATABASE));
     }
