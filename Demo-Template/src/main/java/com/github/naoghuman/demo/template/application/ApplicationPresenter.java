@@ -22,6 +22,7 @@ import com.github.naoghuman.demo.template.project.ProjectCollector;
 import com.github.naoghuman.demo.template.project.ProjectConverter;
 import com.github.naoghuman.demo.template.project.ProjectFilter;
 import com.github.naoghuman.demo.template.project.ProjectMapper;
+import com.github.naoghuman.demo.template.project.TemplateLoader;
 import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import java.io.File;
@@ -299,9 +300,17 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         // Load content
     }
 
-    private void onActionShowPageProject(ConcreteProject concreteProject) {
+    private void onActionShowPageProject(final ConcreteProject concreteProject) {
         LoggerFacade.getDefault().debug(this.getClass(), "On action show Project Page"); // NOI18N
-        
+
+        Platform.runLater(() -> {
+            if (concreteProject.hasProjectURL()) {
+                wvProjectSinglePage.getEngine().load(concreteProject.getProjectURL().get());
+            }
+            else {
+                wvProjectSinglePage.getEngine().loadContent(TemplateLoader.loadNoProjectURLdefined());
+            }
+        });
     }
 
     private void onActionShowPageSample(ConcreteSample concreteSample) {

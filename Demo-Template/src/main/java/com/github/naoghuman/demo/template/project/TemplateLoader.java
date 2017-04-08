@@ -41,8 +41,9 @@ public class TemplateLoader {
     private static final String REPLACE__TARGET      = "<"; // NOI18N
     private static final String REPLACE__REPLACEMENT = "&lt;"; // NOI18N
     
-    private static final String TEMPLATE__CSS         = "/com/github/naoghuman/demo/template/templates/CssTemplate.html"; // NOI18N
-    private static final String TEMPLATE__SOURCE_CODE = "/com/github/naoghuman/demo/template/templates/SourceCodeTemplate.html"; // NOI18N
+    private static final String TEMPLATE__CSS                    = "/com/github/naoghuman/demo/template/templates/CssTemplate.html"; // NOI18N
+    private static final String TEMPLATE__NO_PROJECT_URL_DEFINED = "/com/github/naoghuman/demo/template/templates/NoProjectURLdefinedTemplate.html"; // NOI18N
+    private static final String TEMPLATE__SOURCE_CODE            = "/com/github/naoghuman/demo/template/templates/SourceCodeTemplate.html"; // NOI18N
     
     public static final ObservableList<String> loadCSStemplates(final ObservableList<String> cssURLs) {
         final ObservableList<String> loadedCSStemplates = FXCollections.observableArrayList();
@@ -59,6 +60,10 @@ public class TemplateLoader {
                 });
         
         return loadedCSStemplates;
+    }
+    
+    public static final String loadNoProjectURLdefined() {
+        return getResource(TemplateLoader.class.getResourceAsStream(TEMPLATE__NO_PROJECT_URL_DEFINED));
     }
     
     public static final ObservableList<String> loadSourceCodeTemplates(final ObservableList<String> sourceCodeURLs) {
