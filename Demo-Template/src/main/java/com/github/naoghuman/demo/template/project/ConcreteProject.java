@@ -164,15 +164,45 @@ public final class ConcreteProject implements Comparable<ConcreteProject> {
             return false;
         }
         
+        // version
         if (!this.getName().equals(other.getName())) {
             return false;
         }
         
-        if (!this.getVersion().equals(other.getVersion())) {
+        if (this.getVersion().isPresent() && !other.getVersion().isPresent()) {
             return false;
         }
         
-        return !this.getProjectURL().equals(other.getProjectURL());
+        if (!this.getVersion().isPresent() && other.getVersion().isPresent()) {
+            return false;
+        }
+        
+        if (
+                this.getVersion().isPresent()
+                && other.getVersion().isPresent()
+                && !this.getVersion().get().equals(other.getVersion().get())
+        ) {
+            return false;
+        }
+        
+        // project-url
+        if (this.getProjectURL().isPresent() && !other.getProjectURL().isPresent()) {
+            return false;
+        }
+        
+        if (!this.getProjectURL().isPresent() && other.getProjectURL().isPresent()) {
+            return false;
+        }
+        
+        if (
+                this.getProjectURL().isPresent()
+                && other.getProjectURL().isPresent()
+                && !this.getProjectURL().get().equals(other.getProjectURL().get())
+        ) {
+            return false;
+        }
+        
+        return true;
     }
     
     @Override
