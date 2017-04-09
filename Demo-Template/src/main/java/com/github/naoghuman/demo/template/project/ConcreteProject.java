@@ -65,7 +65,9 @@ public final class ConcreteProject implements Comparable<ConcreteProject> {
     }
     
     public boolean hasProjectURL() {
-        return this.getProjectURL().isPresent() && !this.getProjectURL().get().equals(UNDEFINED);
+        return this.getProjectURL().isPresent()
+                && !this.getProjectURL().get().isEmpty()
+                && !this.getProjectURL().get().equals(UNDEFINED);
     }
     
     public Optional<String> getProjectURL() {

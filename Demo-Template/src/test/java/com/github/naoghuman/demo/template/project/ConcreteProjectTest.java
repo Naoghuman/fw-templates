@@ -97,6 +97,16 @@ public class ConcreteProjectTest {
     }
 
     @Test
+    public void testHasCssURL_false_empty() {
+        String name = "Project X";
+        String projectURL = "";
+        String version = "0.0.1";
+        ConcreteProject result = ConcreteProject.create(name, projectURL, version);
+        
+        assertFalse(result.hasProjectURL());
+    }
+
+    @Test
     public void testHasProjectURL_true() {
         String name = "Project X";
         String projectURL = "www.project.com";
