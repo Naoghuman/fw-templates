@@ -33,6 +33,6 @@ public @interface Project {
     
     public String name();
     public String projectURL() default "[undefined]"; // NOI18N
-    public String version() default "[undefined]"; // NOI18N
+    public String version()    default "[undefined]"; // NOI18N
     
 }

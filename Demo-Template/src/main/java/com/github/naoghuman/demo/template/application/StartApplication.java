@@ -16,7 +16,6 @@
  */
 package com.github.naoghuman.demo.template.application;
 
-import static javafx.application.Application.launch;
 
 import com.airhacks.afterburner.injection.Injector;
 import com.github.naoghuman.demo.template.configuration.IApplicationConfiguration;
@@ -32,6 +31,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import static javafx.application.Application.launch;
 
 /**
  *
@@ -57,8 +57,7 @@ public class StartApplication extends Application implements IApplicationConfigu
         final Boolean dropPreferencesFileAtStart = Boolean.FALSE;
         PreferencesFacade.getDefault().init(dropPreferencesFileAtStart);
         
-        TemplateLoader.loadLoadingTemplate();
-        TemplateLoader.loadNoProjectURLdefinedTemplate();
+        TemplateLoader.loadResourcesInCache();
         
         DatabaseFacade.getDefault().register(this.getProperty(KEY__APPLICATION__DATABASE));
     }

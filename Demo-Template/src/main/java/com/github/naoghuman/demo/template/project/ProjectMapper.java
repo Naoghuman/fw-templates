@@ -34,18 +34,12 @@ public class ProjectMapper {
 
         convertedProjectsToConcreteProjects.stream()
                 .forEach(concreteProject -> {
-                    System.out.println(": " + concreteProject.toString());
                     convertedSamplesToConcreteSamples.stream()
-//                            .filter(concreteSample -> !concreteProject.getName().equals(concreteSample.getProject().getName()))
                             .forEach(concreteSample -> {
-//                                System.out.println("project(" + concreteProject.getName() + ")==sample.project(" + concreteSample.getProject().getName() + ")");
                                 if (concreteProject.getName().equals(concreteSample.getProject().getName())) {
-//                                    System.out.println("  -> add sample");
                                     concreteProject.add(concreteSample);
                                 }
-//                                concreteProject.add(concreteSample);
                             });
-                    System.out.println("- " + concreteProject.toString());
                 });
         
         final List<ConcreteProject> mappedConcreteSampelsToConcreteProjects = FXCollections.observableArrayList();
