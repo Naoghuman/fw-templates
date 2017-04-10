@@ -40,13 +40,9 @@
                 <TabPane fx:id="tpProjectPages" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                         <Tab fx:id="tProject" closable="false" text="Project">
-                            <content>
-                                <VBox>
-                                    <children>
-                                        <WebView fx:id="wvProjectSinglePage" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS" />
-                                    </children>
-                                </VBox>
-                            </content>
+                     <content>
+                                  <WebView fx:id="wvProjectSinglePage" prefHeight="-1.0" prefWidth="-1.0" />
+                     </content>
                         </Tab>
                         <Tab fx:id="tSample" closable="false" text="Sample">
                             <content>
@@ -74,14 +70,9 @@
                             </content>
                         </Tab>
                         <Tab fx:id="tCSS" closable="false" text="Css">
-                            <content>
-                                <VBox prefHeight="200.0" prefWidth="100.0">
-                                    <children>
-                                        <WebView fx:id="wvCssSinglePage" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS" />
-                                        <Accordion fx:id="aCssMultiPages" VBox.vgrow="ALWAYS" />
-                                    </children>
-                                </VBox>
-                            </content>
+                     <content>
+                                  <WebView fx:id="wvCssSinglePage" prefHeight="-1.0" prefWidth="-1.0" />
+                     </content>
                         </Tab>
                     </tabs>
                 </TabPane>

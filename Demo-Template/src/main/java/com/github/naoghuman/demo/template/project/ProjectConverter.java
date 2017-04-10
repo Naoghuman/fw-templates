@@ -74,26 +74,25 @@ public class ProjectConverter {
         convertedSamplesToClasses.stream()
                 .forEach(projectAsClass -> {
                     final Annotation annotation = projectAsClass.getAnnotation(Sample.class);
-                    final Sample sample         = (Sample) annotation;
+                    final Sample sample   = (Sample) annotation;
                     
-                    final String name        = sample.name();
-                    final String description = sample.description();
-                    final boolean visible    = sample.visible();
-                    
+                    final String name     = sample.name();
                     final Project project = sample.project();
                     final ConcreteProject concreteProject = ConcreteProject.create(project.name(), project.projectURL(), project.version());
                     
-                    final ObservableList<String> cssURLs = FXCollections.observableArrayList();
-                    cssURLs.addAll(sample.cssURLs());
-                    
+                    final ObservableList<String> sourceCodeURLs = FXCollections.observableArrayList();
+                    sourceCodeURLs.addAll(sample.sourceCodeURLs());
                     final ObservableList<String> javaDocURLs = FXCollections.observableArrayList();
                     javaDocURLs.addAll(sample.javaDocURLs());
                     
-                    final ObservableList<String> sourceCodeURLs = FXCollections.observableArrayList();
-                    sourceCodeURLs.addAll(sample.sourceCodeURLs());
+                    final String cssURL      = sample.cssURL();
+                    final String description = sample.description();
+                    final boolean visible    = sample.visible();
                     
-                    final ConcreteSample concreteSample = ConcreteSample.create(name, concreteProject,
-                            sourceCodeURLs, javaDocURLs, cssURLs, description, visible);
+                    final ConcreteSample concreteSample = ConcreteSample.create(
+                            name, concreteProject,
+                            sourceCodeURLs, javaDocURLs, 
+                            cssURL, description, visible);
                     convertedSamplesToConcreteSamples.add(concreteSample);
                 });
         

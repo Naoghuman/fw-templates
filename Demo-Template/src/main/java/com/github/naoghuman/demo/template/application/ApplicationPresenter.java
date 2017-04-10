@@ -58,7 +58,6 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     private static final int INDEX_TAB__JAVADOC    = 2;
     private static final int INDEX_TAB__CSS        = 3;
     
-    @FXML private Accordion aCssMultiPages;
     @FXML private Accordion aJavaDocMultiPages;
     @FXML private Accordion aSourceCodeMultiPages;
     @FXML private ListView<ConcreteProject> lvNavigationProjects;
@@ -168,7 +167,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         
         tpProjectPages.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) -> {
             if (tpProjectPages.getTabs().size() > 1) {
-                this.onActionShowPageSample(concreteSample);
+                this.onActionShowConcreteSample();
             }
         });
     }
@@ -262,30 +261,47 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         }
     }
 
-    private void onActionShowConcreteSample(final ConcreteSample concreteSample) {
+    private void onActionShowConcreteSample() {
         LoggerFacade.getDefault().debug(this.getClass(), "On action show ConcreteSample"); // NOI18N
         
         // TODO update only the selected tab
-        final int selectedIndex = tpProjectPages.getSelectionModel().getSelectedIndex();
-        switch (selectedIndex) {
-            case INDEX_TAB__SAMPLE:     { this.onActionShowPageSample(concreteSample);     break; }
-            case INDEX_TAB__SOURCECODE: { this.onActionShowPageSourceCode(concreteSample); break; }
-            case INDEX_TAB__JAVADOC:    { this.onActionShowPageJavaDoc(concreteSample);    break; }
-            case INDEX_TAB__CSS:        { this.onActionShowPageCSS(concreteSample);        break; }
+        final ConcreteSample concreteSample = lvNavigationSamples.getSelectionModel().getSelectedItem();
+        if (concreteSample != null) {
+            final int selectedIndex = tpProjectPages.getSelectionModel().getSelectedIndex();
+            switch (selectedIndex) {
+                case INDEX_TAB__SAMPLE:     { this.onActionShowPageSample(concreteSample);     break; }
+                case INDEX_TAB__SOURCECODE: { this.onActionShowPageSourceCode(concreteSample); break; }
+                case INDEX_TAB__JAVADOC:    { this.onActionShowPageJavaDoc(concreteSample);    break; }
+                case INDEX_TAB__CSS:        { this.onActionShowPageCSS(concreteSample);        break; }
+            }
         }
     }
 
     private void onActionShowPageCSS(ConcreteSample concreteSample) {
         LoggerFacade.getDefault().debug(this.getClass(), "On action show CSS Page"); // NOI18N
         
-        // Prepare the page
-        final boolean pageCSSisSinglePage = concreteSample.getCssURLs().size() > 1;
-        aCssMultiPages.setManaged(!pageCSSisSinglePage);
-        aCssMultiPages.setVisible(!pageCSSisSinglePage);
-        wvCssSinglePage.setManaged(pageCSSisSinglePage);
-        wvCssSinglePage.setVisible(pageCSSisSinglePage);
-        
-        // Load content
+        Platform.runLater(() -> {
+            final boolean hasCssURL = concreteSample.hasCssURL();
+            if (hasCssURL) {
+                LoggerFacade.getDefault().debug(this.getClass(), "Only one css-url is defined."); // NOI18N
+                
+                wvCssSinglePage.getEngine().loadContent(TemplateLoader.loadLoadingTemplate());
+
+                final PauseTransition pt = new PauseTransition();
+                pt.setDuration(Duration.millis(25.0d));
+                pt.setOnFinished(event -> {
+                    LoggerFacade.getDefault().debug(this.getClass(), "Load css-url..."); // NOI18N
+                
+                    wvCssSinglePage.getEngine().loadContent(TemplateLoader.loadCSStemplate(concreteSample.getCssURL().get()));
+                });
+                pt.playFromStart();
+            }
+            else {
+                LoggerFacade.getDefault().warn(this.getClass(), "No css-url is defined!"); // NOI18N
+                
+                wvCssSinglePage.getEngine().loadContent(TemplateLoader.loadNoCSSURLsAreDefinedTemplate());
+            }
+        });
     }
 
     private void onActionShowPageJavaDoc(ConcreteSample concreteSample) {
@@ -303,21 +319,27 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     }
 
     private void onActionShowPageProject(final ConcreteProject concreteProject) {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action show Project Page"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "On action show Project Page for: " + concreteProject.getName()); // NOI18N
         
         Platform.runLater(() -> {
             if (concreteProject.hasProjectURL()) {
+                LoggerFacade.getDefault().debug(this.getClass(), "Project-url is defined."); // NOI18N
+                
                 wvProjectSinglePage.getEngine().loadContent(TemplateLoader.loadLoadingTemplate());
                 
                 final PauseTransition pt = new PauseTransition();
                 pt.setDuration(Duration.millis(25.0d));
                 pt.setOnFinished(event -> {
+                    LoggerFacade.getDefault().debug(this.getClass(), "Load project-url..."); // NOI18N
+                
                     wvProjectSinglePage.getEngine().load(concreteProject.getProjectURL().get());
                 });
                 pt.playFromStart();
             }
             else {
-                wvProjectSinglePage.getEngine().loadContent(TemplateLoader.loadNoProjectURLdefinedTemplate());
+                LoggerFacade.getDefault().warn(this.getClass(), "No project-url is defined!"); // NOI18N
+                
+                wvProjectSinglePage.getEngine().loadContent(TemplateLoader.loadNoProjectURLisDefinedTemplate());
             }
         });
     }

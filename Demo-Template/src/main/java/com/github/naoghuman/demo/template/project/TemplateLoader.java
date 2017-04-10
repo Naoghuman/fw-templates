@@ -21,9 +21,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.net.URL;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -51,23 +49,16 @@ public class TemplateLoader {
     private static String noCSSURLsAreDefinedTemplate   = null;
     private static String noProjectURLisDefinedTemplate = null;
     
-    public static final ObservableList<String> loadCSStemplates(final ObservableList<String> cssURLs) {
-        LoggerFacade.getDefault().debug(TemplateLoader.class, "Load css templates"); // NOI18N
+    public static final String loadCSStemplate(final String cssURL) {
+        LoggerFacade.getDefault().debug(TemplateLoader.class, "Load css template"); // NOI18N
         
-        final ObservableList<String> loadedCSStemplates = FXCollections.observableArrayList();
-    
-        cssURLs.stream()
-                .forEach(cssURL -> {
-                    String src = getResource(cssURL);
-                    src = src.replace(REPLACE__TARGET, REPLACE__REPLACEMENT);
-                    
-                    String template = getResource(TemplateLoader.class.getResourceAsStream(TEMPLATE__CSS));
-                    template = template.replace(PLACE_HOLDER__CSS, src);
-                    
-                    loadedCSStemplates.add(template);
-                });
+        String src = getResource(cssURL);
+        src = src.replace(REPLACE__TARGET, REPLACE__REPLACEMENT);
+
+        String template = getResource(TemplateLoader.class.getResourceAsStream(TEMPLATE__CSS));
+        template = template.replace(PLACE_HOLDER__CSS, src);
         
-        return loadedCSStemplates;
+        return template;
     }
     
     public static final String loadLoadingTemplate() {
@@ -130,8 +121,9 @@ public class TemplateLoader {
     private static String getResource(String name) {
         String loadedResource = null;
         try {
-            loadedResource = new String(Files.readAllBytes(Paths.get(TemplateLoader.class.getResource(name).toURI())));
-        } catch(URISyntaxException | IOException ex){
+            final URL url = new URL(name);
+            loadedResource = getResource(url.openStream());
+        } catch(IOException ex){
             LoggerFacade.getDefault().error(ProjectCollector.class, "Error read resources: " + name, ex); // NOI18N
         }
         

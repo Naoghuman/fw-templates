@@ -14,23 +14,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.demo.template.test.testprojecta.testsampleb1;
+package com.github.naoghuman.demo.template.test.testprojectb.testsampleb1;
 
-import com.github.naoghuman.lib.logger.api.LoggerFacade;
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.fxml.Initializable;
+import com.airhacks.afterburner.views.FXMLView;
 
 /**
  *
  * @author Naoghuman
  */
-public class TestSampleA1Presenter implements Initializable {
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        LoggerFacade.getDefault().info(this.getClass(), "Initialize TestSampleA1Presenter"); // NOI18N
-        
+public class TestSampleB1View extends FXMLView {
+    
+    public TestSampleB1Presenter getRealPresenter() {
+        return (TestSampleB1Presenter) super.getPresenter();
     }
     
 }

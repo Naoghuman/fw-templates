@@ -31,8 +31,8 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE})
 public @interface Sample {
     
-    public String[] cssURLs()        default { "[undefined]" }; // NOI18N
-    public String description()      default   "[undefined]"; // NOI18N
+    public String cssURL()           default "[undefined]"; // NOI18N
+    public String description()      default "[undefined]"; // NOI18N
     public String[] javaDocURLs()    default { "[undefined]" }; // NOI18N
     public String name();
     public Project project();
