@@ -322,6 +322,12 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         LoggerFacade.getDefault().debug(this.getClass(), "On action show Project Page for: " + concreteProject.getName()); // NOI18N
         
         Platform.runLater(() -> {
+            // Reset previous shown content in sample-view
+            wvCssSinglePage       .getEngine().loadContent(""); // NOI18N
+            wvJavaDocSinglePage   .getEngine().loadContent(""); // NOI18N
+            wvSourceCodeSinglePage.getEngine().loadContent(""); // NOI18N
+            
+            // Show new project-view
             if (concreteProject.hasProjectURL()) {
                 LoggerFacade.getDefault().debug(this.getClass(), "Project-url is defined."); // NOI18N
                 
