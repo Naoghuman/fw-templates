@@ -41,12 +41,14 @@ public class TemplateLoader {
     
     private static final String TEMPLATE__CSS                       = "/com/github/naoghuman/demo/template/templates/CssTemplate.html"; // NOI18N
     private static final String TEMPLATE__LOADING                   = "/com/github/naoghuman/demo/template/templates/LoadingTemplate.html"; // NOI18N
-    private static final String TEMPLATE__NO_CSS_URLS_ARE_DEFINED   = "/com/github/naoghuman/demo/template/templates/NoCSSURLsAreDefinedTemplate.html"; // NOI18N
+    private static final String TEMPLATE__NO_CSS_URL_IS_DEFINED     = "/com/github/naoghuman/demo/template/templates/NoCSSURLisDefinedTemplate.html"; // NOI18N
+    private static final String TEMPLATE__NO_JAVADOC_URL_IS_DEFINED = "/com/github/naoghuman/demo/template/templates/NoJavaDocURLisDefinedTemplate.html"; // NOI18N
     private static final String TEMPLATE__NO_PROJECT_URL_IS_DEFINED = "/com/github/naoghuman/demo/template/templates/NoProjectURLisDefinedTemplate.html"; // NOI18N
     private static final String TEMPLATE__SOURCE_CODE               = "/com/github/naoghuman/demo/template/templates/SourceCodeTemplate.html"; // NOI18N
     
     private static String loadingTemplate               = null;
-    private static String noCSSURLsAreDefinedTemplate   = null;
+    private static String noCSSURLisDefinedTemplate     = null;
+    private static String noJavaDocURLisDefinedTemplate = null;
     private static String noProjectURLisDefinedTemplate = null;
     
     public static final String loadCSStemplate(final String cssURL) {
@@ -71,18 +73,28 @@ public class TemplateLoader {
         return loadingTemplate;
     }
     
-    public static final String loadNoCSSURLsAreDefinedTemplate() {
-        LoggerFacade.getDefault().debug(TemplateLoader.class, "Load no css urls are defined template"); // NOI18N
+    public static final String loadNoCSSURLisDefinedTemplate() {
+        LoggerFacade.getDefault().debug(TemplateLoader.class, "Load no css-url is defined template"); // NOI18N
         
-        if (noCSSURLsAreDefinedTemplate == null) {
-            noCSSURLsAreDefinedTemplate = getResource(TemplateLoader.class.getResourceAsStream(TEMPLATE__NO_CSS_URLS_ARE_DEFINED));
+        if (noCSSURLisDefinedTemplate == null) {
+            noCSSURLisDefinedTemplate = getResource(TemplateLoader.class.getResourceAsStream(TEMPLATE__NO_CSS_URL_IS_DEFINED));
         }
         
-        return noCSSURLsAreDefinedTemplate;
+        return noCSSURLisDefinedTemplate;
+    }
+    
+    public static final String loadNoJavaDocURLisDefinedTemplate() {
+        LoggerFacade.getDefault().debug(TemplateLoader.class, "Load no javadoc-url is defined template"); // NOI18N
+        
+        if (noJavaDocURLisDefinedTemplate == null) {
+            noJavaDocURLisDefinedTemplate = getResource(TemplateLoader.class.getResourceAsStream(TEMPLATE__NO_JAVADOC_URL_IS_DEFINED));
+        }
+        
+        return noJavaDocURLisDefinedTemplate;
     }
     
     public static final String loadNoProjectURLisDefinedTemplate() {
-        LoggerFacade.getDefault().debug(TemplateLoader.class, "Load no projectURL is defined template"); // NOI18N
+        LoggerFacade.getDefault().debug(TemplateLoader.class, "Load no project-url is defined template"); // NOI18N
         
         if (noProjectURLisDefinedTemplate == null) {
             noProjectURLisDefinedTemplate = getResource(TemplateLoader.class.getResourceAsStream(TEMPLATE__NO_PROJECT_URL_IS_DEFINED));
@@ -95,7 +107,8 @@ public class TemplateLoader {
         LoggerFacade.getDefault().debug(TemplateLoader.class, "Load resources in cache"); // NOI18N
         
         TemplateLoader.loadLoadingTemplate();
-        TemplateLoader.loadNoCSSURLsAreDefinedTemplate();
+        TemplateLoader.loadNoCSSURLisDefinedTemplate();
+        TemplateLoader.loadNoJavaDocURLisDefinedTemplate();
         TemplateLoader.loadNoProjectURLisDefinedTemplate();
     }
     

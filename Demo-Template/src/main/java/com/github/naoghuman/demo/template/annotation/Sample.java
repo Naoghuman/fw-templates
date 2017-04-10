@@ -33,7 +33,7 @@ public @interface Sample {
     
     public String cssURL()           default "[undefined]"; // NOI18N
     public String description()      default "[undefined]"; // NOI18N
-    public String[] javaDocURLs()    default { "[undefined]" }; // NOI18N
+    public String javaDocURL()       default "[undefined]"; // NOI18N
     public String name();
     public Project project();
     public String[] sourceCodeURLs() default { "[undefined]" }; // NOI18N

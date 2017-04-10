@@ -28,7 +28,6 @@ public final class ConcreteSample implements Comparable<ConcreteSample> {
     
     private static final String UNDEFINED = "[undefined]"; // NOI18N
     
-    private final ObservableList<String> javaDocURLs    = FXCollections.observableArrayList();
     private final ObservableList<String> sourceCodeURLs = FXCollections.observableArrayList();
 
     private final long id;
@@ -36,6 +35,7 @@ public final class ConcreteSample implements Comparable<ConcreteSample> {
     
     private final Optional<String> cssURL;
     private final Optional<String> description;
+    private final Optional<String> javaDocURL;
     private final String name;
     
     private final ConcreteProject project;
@@ -43,28 +43,28 @@ public final class ConcreteSample implements Comparable<ConcreteSample> {
     public static final ConcreteSample create(
             final String name, final ConcreteProject project,
             final ObservableList<String> sourceCodeURLs,
-            final ObservableList<String> javaDocURLs,
-            final String cssURL, final String description, final boolean visible
+            final String javaDocURL, final String cssURL,
+            final String description, final boolean visible
     ) {
         return create(System.nanoTime(), name, project, sourceCodeURLs, 
-                javaDocURLs, cssURL, description, visible);
+                javaDocURL, cssURL, description, visible);
     }
     
     public static final ConcreteSample create(
             final long id, final String name, final ConcreteProject project,
             final ObservableList<String> sourceCodeURLs,
-            final ObservableList<String> javaDocURLs,
-            final String cssURL, final String description, final boolean visible
+            final String javaDocURL, final String cssURL,
+            final String description, final boolean visible
     ) {
         final ConcreteSample concreteSample = new ConcreteSample(id, name, project, 
-                sourceCodeURLs, javaDocURLs, cssURL, description, visible);
+                sourceCodeURLs, javaDocURL, cssURL, description, visible);
         
         return concreteSample;
     }
     
     private ConcreteSample(
             final long id, final String name, final ConcreteProject project,
-            final ObservableList<String> sourceCodeURLs, final ObservableList<String> javaDocURLs, 
+            final ObservableList<String> sourceCodeURLs, final String javaDocURL, 
             final String cssURL, final String description, final boolean visible
     ) {
         this.id = id;
@@ -72,7 +72,7 @@ public final class ConcreteSample implements Comparable<ConcreteSample> {
         this.project = project;
         
         this.sourceCodeURLs.addAll(sourceCodeURLs);
-        this.javaDocURLs.addAll(javaDocURLs);
+        this.javaDocURL = Optional.ofNullable(javaDocURL);
         
         this.cssURL = Optional.ofNullable(cssURL);
         this.description = Optional.ofNullable(description);
@@ -93,17 +93,14 @@ public final class ConcreteSample implements Comparable<ConcreteSample> {
         return id;
     }
     
-    public boolean hasJavaDocURLs() {
-        final boolean isNotEmpty = !this.getJavaDocURLs().isEmpty();
-        final boolean sizeIsOne = this.getJavaDocURLs().size() == 1;
-        final boolean firstElementIsUndefined = (sizeIsOne && this.getJavaDocURLs().get(0).equals(UNDEFINED));
-        final boolean hasJavaDocURLs = isNotEmpty && !firstElementIsUndefined;
-        
-        return hasJavaDocURLs;
+    public boolean hasJavaDocURL() {
+        return this.getJavaDocURL().isPresent()
+                && !this.getJavaDocURL().get().isEmpty()
+                && !this.getJavaDocURL().get().equals(UNDEFINED);
     }
 
-    public final ObservableList<String> getJavaDocURLs() {
-        return javaDocURLs;
+    public final Optional<String> getJavaDocURL() {
+        return javaDocURL;
     }
     
     public boolean hasSourceCodeURLs() {
@@ -194,6 +191,7 @@ public final class ConcreteSample implements Comparable<ConcreteSample> {
         sb.append("id=")           .append(this.getId()); // NOI18N
         sb.append(", name=")       .append(this.getName()); // NOI18N
         sb.append(", project=")    .append(this.getProject().getName()); // NOI18N
+        sb.append(", javaDocURL=") .append(this.getJavaDocURL() .isPresent() ? this.getJavaDocURL() .get() : UNDEFINED); // NOI18N
         sb.append(", cssURL=")     .append(this.getCssURL()     .isPresent() ? this.getCssURL()     .get() : UNDEFINED); // NOI18N
         sb.append(", description=").append(this.getDescription().isPresent() ? this.getDescription().get() : UNDEFINED); // NOI18N
         sb.append(", visible=")    .append(this.isVisible()); // NOI18N

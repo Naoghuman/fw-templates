@@ -40,9 +40,9 @@
                 <TabPane fx:id="tpProjectPages" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                         <Tab fx:id="tProject" closable="false" text="Project">
-                     <content>
-                                  <WebView fx:id="wvProjectSinglePage" prefHeight="-1.0" prefWidth="-1.0" />
-                     </content>
+                            <content>
+                                <WebView fx:id="wvProjectSinglePage" prefHeight="-1.0" prefWidth="-1.0" />
+                            </content>
                         </Tab>
                         <Tab fx:id="tSample" closable="false" text="Sample">
                             <content>
@@ -61,18 +61,13 @@
                         </Tab>
                         <Tab fx:id="tJavaDoc" closable="false" text="JavaDoc">
                             <content>
-                                <VBox prefHeight="200.0" prefWidth="100.0">
-                                    <children>
-                                        <WebView fx:id="wvJavaDocSinglePage" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS" />
-                                        <Accordion fx:id="aJavaDocMultiPages" VBox.vgrow="ALWAYS" />
-                                    </children>
-                                </VBox>
+                                <WebView fx:id="wvJavaDocSinglePage" prefHeight="-1.0" prefWidth="-1.0" />
                             </content>
                         </Tab>
                         <Tab fx:id="tCSS" closable="false" text="Css">
-                     <content>
-                                  <WebView fx:id="wvCssSinglePage" prefHeight="-1.0" prefWidth="-1.0" />
-                     </content>
+                            <content>
+                                <WebView fx:id="wvCssSinglePage" prefHeight="-1.0" prefWidth="-1.0" />
+                            </content>
                         </Tab>
                     </tabs>
                 </TabPane>

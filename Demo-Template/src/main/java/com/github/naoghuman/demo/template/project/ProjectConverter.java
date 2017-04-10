@@ -82,16 +82,15 @@ public class ProjectConverter {
                     
                     final ObservableList<String> sourceCodeURLs = FXCollections.observableArrayList();
                     sourceCodeURLs.addAll(sample.sourceCodeURLs());
-                    final ObservableList<String> javaDocURLs = FXCollections.observableArrayList();
-                    javaDocURLs.addAll(sample.javaDocURLs());
                     
+                    final String javaDocURL  = sample.javaDocURL();
                     final String cssURL      = sample.cssURL();
                     final String description = sample.description();
                     final boolean visible    = sample.visible();
                     
                     final ConcreteSample concreteSample = ConcreteSample.create(
                             name, concreteProject,
-                            sourceCodeURLs, javaDocURLs, 
+                            sourceCodeURLs, javaDocURL, 
                             cssURL, description, visible);
                     convertedSamplesToConcreteSamples.add(concreteSample);
                 });

@@ -76,16 +76,15 @@ public class ConcreteSampleTest {
     @Test
     public void testHasCssURL_false_empty() {
         final ObservableList<String> sourceCodeURLs = FXCollections.observableArrayList();
-        final ObservableList<String> javaDocURLs = FXCollections.observableArrayList();
         
-
         String name = "Sample";
+        String javaDocURL = "";
         String cssURL = "";
         String description = "description";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
                 name, null,
-                sourceCodeURLs, javaDocURLs, cssURL,
+                sourceCodeURLs, javaDocURL, cssURL,
                 description, visible);
         
         assertFalse(concreteSample.hasCssURL());
@@ -94,17 +93,15 @@ public class ConcreteSampleTest {
     @Test
     public void testHasCssURL_false_undefined() {
         final ObservableList<String> sourceCodeURLs = FXCollections.observableArrayList();
-        final ObservableList<String> javaDocURLs = FXCollections.observableArrayList();
-        final ObservableList<String> cssURLs = FXCollections.observableArrayList();
-        cssURLs.add("[undefined]");
 
         String name = "Sample";
+        String javaDocURL = "";
         String cssURL = "[undefined]";
         String description = "description";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
                 name, null,
-                sourceCodeURLs, javaDocURLs, cssURL,
+                sourceCodeURLs, javaDocURL, cssURL,
                 description, visible);
         
         assertFalse(concreteSample.hasCssURL());
@@ -113,15 +110,15 @@ public class ConcreteSampleTest {
     @Test
     public void testHasCssURL_true() {
         final ObservableList<String> sourceCodeURLs = FXCollections.observableArrayList();
-        final ObservableList<String> javaDocURLs = FXCollections.observableArrayList();
 
         String name = "Sample";
+        String javaDocURL = "";
         String cssURL = "www.css-url.com";
         String description = "description";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
                 name, null,
-                sourceCodeURLs, javaDocURLs, cssURL,
+                sourceCodeURLs, javaDocURL, cssURL,
                 description, visible);
         
         assertTrue(concreteSample.hasCssURL());
@@ -130,39 +127,111 @@ public class ConcreteSampleTest {
     @Test
     public void testGetCssURL() {
         final ObservableList<String> sourceCodeURLs = FXCollections.observableArrayList();
-        final ObservableList<String> javaDocURLs = FXCollections.observableArrayList();
 
         String name = "Sample";
+        String javaDocURL = "";
         String cssURL = "www.css-url.com";
         String description = "description";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
                 name, null,
-                sourceCodeURLs, javaDocURLs, cssURL,
+                sourceCodeURLs, javaDocURL, cssURL,
                 description, visible);
         
         assertTrue(concreteSample.hasCssURL());
         assertEquals("www.css-url.com", concreteSample.getCssURL().get());
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     @Test
-    public void testHasJavaDocURLs() {
-//        System.out.println("hasJavaDocURLs");
-//        ConcreteSample instance = null;
-//        boolean expResult = false;
-//        boolean result = instance.hasJavaDocURLs();
-//        assertEquals(expResult, result);
-//        fail("The test case is a prototype.");
+    public void testHasJavaDocURL_false_empty() {
+        final ObservableList<String> sourceCodeURLs = FXCollections.observableArrayList();
+        
+        String name = "Sample";
+        String javaDocURL = "";
+        String cssURL = "";
+        String description = "description";
+        boolean visible = true;
+        final ConcreteSample concreteSample = ConcreteSample.create(
+                name, null,
+                sourceCodeURLs, javaDocURL, cssURL,
+                description, visible);
+        
+        assertFalse(concreteSample.hasJavaDocURL());
     }
 
     @Test
-    public void testGetJavaDocURLs() {
-//        System.out.println("getJavaDocURLs");
-//        ConcreteSample instance = null;
-//        ObservableList<String> expResult = null;
-//        ObservableList<String> result = instance.getJavaDocURLs();
-//        assertEquals(expResult, result);
-//        fail("The test case is a prototype.");
+    public void testHasJavaDocURL_false_undefined() {
+        final ObservableList<String> sourceCodeURLs = FXCollections.observableArrayList();
+
+        String name = "Sample";
+        String javaDocURL = "[undefined]";
+        String cssURL = "";
+        String description = "description";
+        boolean visible = true;
+        final ConcreteSample concreteSample = ConcreteSample.create(
+                name, null,
+                sourceCodeURLs, javaDocURL, cssURL,
+                description, visible);
+        
+        assertFalse(concreteSample.hasJavaDocURL());
+    }
+
+    @Test
+    public void testHasJavaDocURL_true() {
+        final ObservableList<String> sourceCodeURLs = FXCollections.observableArrayList();
+
+        String name = "Sample";
+        String javaDocURL = "www.javadoc-url.com";
+        String cssURL = "";
+        String description = "description";
+        boolean visible = true;
+        final ConcreteSample concreteSample = ConcreteSample.create(
+                name, null,
+                sourceCodeURLs, javaDocURL, cssURL,
+                description, visible);
+        
+        assertTrue(concreteSample.hasJavaDocURL());
+    }
+
+    @Test
+    public void testGetJavaDocURL() {
+        final ObservableList<String> sourceCodeURLs = FXCollections.observableArrayList();
+
+        String name = "Sample";
+        String javaDocURL = "www.javadoc-url.com";
+        String cssURL = "";
+        String description = "description";
+        boolean visible = true;
+        final ConcreteSample concreteSample = ConcreteSample.create(
+                name, null,
+                sourceCodeURLs, javaDocURL, cssURL,
+                description, visible);
+        
+        assertTrue(concreteSample.getJavaDocURL().isPresent());
+        assertEquals("www.javadoc-url.com", concreteSample.getJavaDocURL().get());
     }
 
     @Test

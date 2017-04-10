@@ -24,14 +24,9 @@ import com.github.naoghuman.demo.template.annotation.Sample;
  * @author Naoghuman
  */
 @Sample(
-        cssURL = "https://raw.githubusercontent.com/glyphsoft/JavaFX-CSS-Themes/master/win7glass.css", // NOI18N
+        cssURL      = "https://raw.githubusercontent.com/glyphsoft/JavaFX-CSS-Themes/master/win7glass.css", // NOI18N
         description = "Description TestSampleB1", // NOI18N
-        javaDocURLs = {
-            "https://www.google.de/", // NOI18N
-            "https://www.google.de/", // NOI18N
-            "https://www.google.de/", // NOI18N
-            "https://www.google.de/" // NOI18N
-        },
+        javaDocURL  = "https://www.google.de/", // NOI18N
         name = "TestSampleB1", // NOI18N
         project = @Project(name = "TestProjectB"), // NOI18N
         sourceCodeURLs = {
