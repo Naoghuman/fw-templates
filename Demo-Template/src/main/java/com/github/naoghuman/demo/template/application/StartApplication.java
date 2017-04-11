@@ -32,7 +32,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import static javafx.application.Application.launch;
-import static javafx.application.Application.launch;
 
 /**
  *

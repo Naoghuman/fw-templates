@@ -49,9 +49,9 @@
                             </content>
                         </Tab>
                         <Tab fx:id="tSourceCode" closable="false" text="SourceCode">
-                     <content>
-                                  <WebView fx:id="wvSourceCodeSinglePage" prefHeight="-1.0" prefWidth="-1.0" />
-                     </content>
+                            <content>
+                                <WebView fx:id="wvSourceCodeSinglePage" prefHeight="-1.0" prefWidth="-1.0" />
+                            </content>
                         </Tab>
                         <Tab fx:id="tJavaDoc" closable="false" text="JavaDoc">
                             <content>

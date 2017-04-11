@@ -37,7 +37,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Accordion;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
@@ -58,7 +57,6 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     private static final int INDEX_TAB__JAVADOC    = 2;
     private static final int INDEX_TAB__CSS        = 3;
     
-    @FXML private Accordion aSourceCodeMultiPages;
     @FXML private ListView<ConcreteProject> lvNavigationProjects;
     @FXML private ListView<ConcreteSample> lvNavigationSamples;
     @FXML private Tab tCSS;
