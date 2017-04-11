@@ -24,16 +24,13 @@ import com.github.naoghuman.demo.template.annotation.Sample;
  * @author Naoghuman
  */
 @Sample(
-        cssURL      = "https://raw.githubusercontent.com/glyphsoft/JavaFX-CSS-Themes/master/win7glass.css", // NOI18N
-        description = "Description TestSampleB1", // NOI18N
-        javaDocURL  = "https://www.google.de/", // NOI18N
-        name = "TestSampleB1", // NOI18N
-        project = @Project(name = "TestProjectB"), // NOI18N
-        sourceCodeURLs = {
-            "https://raw.githubusercontent.com/Naoghuman/Project-Templates/master/Demo-Template/src/main/java/com/github/naoghuman/demo/template/application/ApplicationPresenter.java", // NOI18N
-            "https://raw.githubusercontent.com/Naoghuman/Project-Templates/master/Demo-Template/src/main/java/com/github/naoghuman/demo/template/application/ApplicationPresenter.java" // NOI18N
-        },
-        visible = true
+        cssURL        = "https://raw.githubusercontent.com/glyphsoft/JavaFX-CSS-Themes/master/win7glass.css", // NOI18N
+        description   = "Description TestSampleB1", // NOI18N
+        javaDocURL    = "https://www.google.de/", // NOI18N
+        name          = "TestSampleB1", // NOI18N
+        project       = @Project(name = "TestProjectB"), // NOI18N
+        sourceCodeURL = "https://raw.githubusercontent.com/Naoghuman/Project-Templates/master/Demo-Template/src/main/java/com/github/naoghuman/demo/template/application/ApplicationPresenter.java", // NOI18N
+        visible       = true
 )
 public class TestSampleB1 {
     

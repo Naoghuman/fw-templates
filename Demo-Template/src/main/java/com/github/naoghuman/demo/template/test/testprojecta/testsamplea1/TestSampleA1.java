@@ -24,9 +24,12 @@ import com.github.naoghuman.demo.template.annotation.Sample;
  * @author Naoghuman
  */
 @Sample(
+        /* cssURL = "[undefined]"; */
         description = "Description TestSampleA1", // NOI18N
+        /* javaDocURL = "[undefined]"; */
         name = "TestSampleA1", // NOI18N
         project = @Project(name = "TestProjectA"), // NOI18N
+        /* sourceCodeURL = "[undefined]"; */
         visible = true
 )
 public class TestSampleA1 {

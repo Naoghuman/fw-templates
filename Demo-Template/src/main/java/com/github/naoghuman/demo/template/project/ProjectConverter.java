@@ -22,7 +22,6 @@ import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import java.lang.annotation.Annotation;
 import java.util.List;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 /**
  *
@@ -80,17 +79,15 @@ public class ProjectConverter {
                     final Project project = sample.project();
                     final ConcreteProject concreteProject = ConcreteProject.create(project.name(), project.projectURL(), project.version());
                     
-                    final ObservableList<String> sourceCodeURLs = FXCollections.observableArrayList();
-                    sourceCodeURLs.addAll(sample.sourceCodeURLs());
-                    
-                    final String javaDocURL  = sample.javaDocURL();
-                    final String cssURL      = sample.cssURL();
-                    final String description = sample.description();
-                    final boolean visible    = sample.visible();
+                    final String sourceCodeURL = sample.sourceCodeURL();
+                    final String javaDocURL    = sample.javaDocURL();
+                    final String cssURL        = sample.cssURL();
+                    final String description   = sample.description();
+                    final boolean visible      = sample.visible();
                     
                     final ConcreteSample concreteSample = ConcreteSample.create(
                             name, concreteProject,
-                            sourceCodeURLs, javaDocURL, 
+                            sourceCodeURL, javaDocURL, 
                             cssURL, description, visible);
                     convertedSamplesToConcreteSamples.add(concreteSample);
                 });

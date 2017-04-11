@@ -369,14 +369,25 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     private void onActionShowPageSourceCode(ConcreteSample concreteSample) {
         LoggerFacade.getDefault().debug(this.getClass(), "On action show SourceCode Page"); // NOI18N
         
-        // Prepare the page
-        final boolean pageSourceCodeIsSinglePage = concreteSample.getSourceCodeURLs().size() > 1;
-        aSourceCodeMultiPages.setManaged(!pageSourceCodeIsSinglePage);
-        aSourceCodeMultiPages.setVisible(!pageSourceCodeIsSinglePage);
-        wvSourceCodeSinglePage.setManaged(pageSourceCodeIsSinglePage);
-        wvSourceCodeSinglePage.setVisible(pageSourceCodeIsSinglePage);
+        final PauseTransition pt = new PauseTransition();
+        pt.setDuration(Duration.millis(25.0d));
+        pt.setOnFinished(event -> {
+            LoggerFacade.getDefault().debug(this.getClass(), "Load sourcecode-url..."); // NOI18N
+            
+            final boolean hasCssURL = concreteSample.hasCssURL();
+            if (hasCssURL) {
+                LoggerFacade.getDefault().debug(this.getClass(), "A sourcecode-url is defined."); // NOI18N
+                
+                wvSourceCodeSinglePage.getEngine().loadContent(TemplateLoader.loadSourceCodeTemplate(concreteSample.getSourceCodeURL().get()));
+            }
+            else {
+                LoggerFacade.getDefault().warn(this.getClass(), "No sourcecode-url is defined!"); // NOI18N
+                
+                wvSourceCodeSinglePage.getEngine().loadContent(TemplateLoader.loadNoSourceCodeURLisDefinedTemplate());
+            }
+        });
         
-        // Load content
+        pt.playFromStart();
     }
     
     @Override

@@ -22,8 +22,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 /**
  *
@@ -34,22 +32,24 @@ public class TemplateLoader {
     private static final String APPEND__NEWLINE = "\n";  // NOI18N
     
     private static final String PLACE_HOLDER__CSS         = "<css/>";  // NOI18N
-    private static final String PLACE_HOLDER__SOURCE_CODE = "<sourceCode/>"; // NOI18N
+    private static final String PLACE_HOLDER__SOURCE_CODE = "<sourcecode/>"; // NOI18N
     
     private static final String REPLACE__TARGET      = "<"; // NOI18N
     private static final String REPLACE__REPLACEMENT = "&lt;"; // NOI18N
     
-    private static final String TEMPLATE__CSS                       = "/com/github/naoghuman/demo/template/templates/CssTemplate.html"; // NOI18N
-    private static final String TEMPLATE__LOADING                   = "/com/github/naoghuman/demo/template/templates/LoadingTemplate.html"; // NOI18N
-    private static final String TEMPLATE__NO_CSS_URL_IS_DEFINED     = "/com/github/naoghuman/demo/template/templates/NoCSSURLisDefinedTemplate.html"; // NOI18N
-    private static final String TEMPLATE__NO_JAVADOC_URL_IS_DEFINED = "/com/github/naoghuman/demo/template/templates/NoJavaDocURLisDefinedTemplate.html"; // NOI18N
-    private static final String TEMPLATE__NO_PROJECT_URL_IS_DEFINED = "/com/github/naoghuman/demo/template/templates/NoProjectURLisDefinedTemplate.html"; // NOI18N
-    private static final String TEMPLATE__SOURCE_CODE               = "/com/github/naoghuman/demo/template/templates/SourceCodeTemplate.html"; // NOI18N
+    private static final String TEMPLATE__CSS                          = "/com/github/naoghuman/demo/template/templates/CssTemplate.html"; // NOI18N
+    private static final String TEMPLATE__LOADING                      = "/com/github/naoghuman/demo/template/templates/LoadingTemplate.html"; // NOI18N
+    private static final String TEMPLATE__NO_CSS_URL_IS_DEFINED        = "/com/github/naoghuman/demo/template/templates/NoCSSURLisDefinedTemplate.html"; // NOI18N
+    private static final String TEMPLATE__NO_JAVADOC_URL_IS_DEFINED    = "/com/github/naoghuman/demo/template/templates/NoJavaDocURLisDefinedTemplate.html"; // NOI18N
+    private static final String TEMPLATE__NO_PROJECT_URL_IS_DEFINED    = "/com/github/naoghuman/demo/template/templates/NoProjectURLisDefinedTemplate.html"; // NOI18N
+    private static final String TEMPLATE__NO_SOURCECODE_URL_IS_DEFINED = "/com/github/naoghuman/demo/template/templates/NoSourceCodeURLisDefinedTemplate.html"; // NOI18N
+    private static final String TEMPLATE__SOURCE_CODE                  = "/com/github/naoghuman/demo/template/templates/SourceCodeTemplate.html"; // NOI18N
     
-    private static String loadingTemplate               = null;
-    private static String noCSSURLisDefinedTemplate     = null;
-    private static String noJavaDocURLisDefinedTemplate = null;
-    private static String noProjectURLisDefinedTemplate = null;
+    private static String loadingTemplate                  = null;
+    private static String noCSSURLisDefinedTemplate        = null;
+    private static String noJavaDocURLisDefinedTemplate    = null;
+    private static String noProjectURLisDefinedTemplate    = null;
+    private static String noSourceCodeURLisDefinedTemplate = null;
     
     public static final String loadCSStemplate(final String cssURL) {
         LoggerFacade.getDefault().debug(TemplateLoader.class, "Load css template"); // NOI18N
@@ -103,6 +103,16 @@ public class TemplateLoader {
         return noProjectURLisDefinedTemplate;
     }
     
+    public static final String loadNoSourceCodeURLisDefinedTemplate() {
+        LoggerFacade.getDefault().debug(TemplateLoader.class, "Load no sourcecode-url is defined template"); // NOI18N
+        
+        if (noSourceCodeURLisDefinedTemplate == null) {
+            noSourceCodeURLisDefinedTemplate = getResource(TemplateLoader.class.getResourceAsStream(TEMPLATE__NO_SOURCECODE_URL_IS_DEFINED));
+        }
+        
+        return noSourceCodeURLisDefinedTemplate;
+    }
+    
     public static final void loadResourcesInCache() {
         LoggerFacade.getDefault().debug(TemplateLoader.class, "Load resources in cache"); // NOI18N
         
@@ -112,23 +122,16 @@ public class TemplateLoader {
         TemplateLoader.loadNoProjectURLisDefinedTemplate();
     }
     
-    public static final ObservableList<String> loadSourceCodeTemplates(final ObservableList<String> sourceCodeURLs) {
-        LoggerFacade.getDefault().debug(TemplateLoader.class, "Load SourceCode templates"); // NOI18N
+    public static final String loadSourceCodeTemplate(final String sourceCodeURL) {
+        LoggerFacade.getDefault().debug(TemplateLoader.class, "Load SourceCode template"); // NOI18N
         
-        final ObservableList<String> loadedJavaDocTemplate = FXCollections.observableArrayList();
-    
-        sourceCodeURLs.stream()
-                .forEach(sourceCodeURL -> {
-                    String src = getResource(sourceCodeURL);
-                    src = src.replace(REPLACE__TARGET, REPLACE__REPLACEMENT);
-                    
-                    String template = getResource(TemplateLoader.class.getResourceAsStream(TEMPLATE__SOURCE_CODE));
-                    template = template.replace(PLACE_HOLDER__SOURCE_CODE, src);
-                    
-                    loadedJavaDocTemplate.add(template);
-                });
+        String src = getResource(sourceCodeURL);
+        src = src.replace(REPLACE__TARGET, REPLACE__REPLACEMENT);
+
+        String template = getResource(TemplateLoader.class.getResourceAsStream(TEMPLATE__SOURCE_CODE));
+        template = template.replace(PLACE_HOLDER__SOURCE_CODE, src);
         
-        return loadedJavaDocTemplate;
+        return template;
     }
     
     private static String getResource(String name) {

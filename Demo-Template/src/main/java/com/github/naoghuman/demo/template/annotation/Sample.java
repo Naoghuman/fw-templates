@@ -31,12 +31,12 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE})
 public @interface Sample {
     
-    public String cssURL()           default "[undefined]"; // NOI18N
-    public String description()      default "[undefined]"; // NOI18N
-    public String javaDocURL()       default "[undefined]"; // NOI18N
+    public String cssURL()        default "[undefined]"; // NOI18N
+    public String description()   default "[undefined]"; // NOI18N
+    public String javaDocURL()    default "[undefined]"; // NOI18N
     public String name();
     public Project project();
-    public String[] sourceCodeURLs() default { "[undefined]" }; // NOI18N
-    public boolean visible()         default true;
+    public String sourceCodeURL() default "[undefined]"; // NOI18N
+    public boolean visible()      default true;
     
 }
