@@ -273,13 +273,13 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         LoggerFacade.getDefault().debug(this.getClass(), "On action show ConcreteSample"); // NOI18N
         
         // TODO update only the selected tab
-        final ConcreteSample concreteSample = lvNavigationSamples.getSelectionModel().getSelectedItem();
-        if (concreteSample != null) {
+        final ConcreteSample selectedConcreteSample = lvNavigationSamples.getSelectionModel().getSelectedItem();
+        if (selectedConcreteSample != null) {
             switch (selectedIndex) {
-                case INDEX_TAB__SAMPLE:     { this.onActionShowPageSample(concreteSample);     break; }
-                case INDEX_TAB__SOURCECODE: { this.onActionShowPageSourceCode(concreteSample); break; }
-                case INDEX_TAB__JAVADOC:    { this.onActionShowPageJavaDoc(concreteSample);    break; }
-                case INDEX_TAB__CSS:        { this.onActionShowPageCSS(concreteSample);        break; }
+                case INDEX_TAB__SAMPLE:     { this.onActionShowPageSample(selectedConcreteSample);     break; }
+                case INDEX_TAB__SOURCECODE: { this.onActionShowPageSourceCode(selectedConcreteSample); break; }
+                case INDEX_TAB__JAVADOC:    { this.onActionShowPageJavaDoc(selectedConcreteSample);    break; }
+                case INDEX_TAB__CSS:        { this.onActionShowPageCSS(selectedConcreteSample);        break; }
             }
         }
     }
@@ -301,7 +301,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
             else {
                 LoggerFacade.getDefault().warn(this.getClass(), "No css-url is defined!"); // NOI18N
                 
-                wvCssSinglePage.getEngine().loadContent(TemplateLoader.loadNoCSSURLisDefinedTemplate());
+                wvCssSinglePage.getEngine().loadContent(TemplateLoader.loadNoCssURLisDefinedTemplate());
             }
         });
         

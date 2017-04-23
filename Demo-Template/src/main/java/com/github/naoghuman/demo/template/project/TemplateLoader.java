@@ -39,7 +39,7 @@ public class TemplateLoader {
     
     private static final String TEMPLATE__CSS                          = "/com/github/naoghuman/demo/template/templates/CssTemplate.html"; // NOI18N
     private static final String TEMPLATE__LOADING                      = "/com/github/naoghuman/demo/template/templates/LoadingTemplate.html"; // NOI18N
-    private static final String TEMPLATE__NO_CSS_URL_IS_DEFINED        = "/com/github/naoghuman/demo/template/templates/NoCSSURLisDefinedTemplate.html"; // NOI18N
+    private static final String TEMPLATE__NO_CSS_URL_IS_DEFINED        = "/com/github/naoghuman/demo/template/templates/NoCssURLisDefinedTemplate.html"; // NOI18N
     private static final String TEMPLATE__NO_JAVADOC_URL_IS_DEFINED    = "/com/github/naoghuman/demo/template/templates/NoJavaDocURLisDefinedTemplate.html"; // NOI18N
     private static final String TEMPLATE__NO_PROJECT_URL_IS_DEFINED    = "/com/github/naoghuman/demo/template/templates/NoProjectURLisDefinedTemplate.html"; // NOI18N
     private static final String TEMPLATE__NO_SOURCECODE_URL_IS_DEFINED = "/com/github/naoghuman/demo/template/templates/NoSourceCodeURLisDefinedTemplate.html"; // NOI18N
@@ -73,7 +73,7 @@ public class TemplateLoader {
         return loadingTemplate;
     }
     
-    public static final String loadNoCSSURLisDefinedTemplate() {
+    public static final String loadNoCssURLisDefinedTemplate() {
         LoggerFacade.getDefault().debug(TemplateLoader.class, "Load no css-url is defined template"); // NOI18N
         
         if (noCSSURLisDefinedTemplate == null) {
@@ -117,9 +117,10 @@ public class TemplateLoader {
         LoggerFacade.getDefault().debug(TemplateLoader.class, "Load resources in cache"); // NOI18N
         
         TemplateLoader.loadLoadingTemplate();
-        TemplateLoader.loadNoCSSURLisDefinedTemplate();
+        TemplateLoader.loadNoCssURLisDefinedTemplate();
         TemplateLoader.loadNoJavaDocURLisDefinedTemplate();
         TemplateLoader.loadNoProjectURLisDefinedTemplate();
+        TemplateLoader.loadNoSourceCodeURLisDefinedTemplate();
     }
     
     public static final String loadSourceCodeTemplate(final String sourceCodeURL) {
