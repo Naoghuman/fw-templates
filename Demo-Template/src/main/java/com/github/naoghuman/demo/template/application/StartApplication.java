@@ -68,6 +68,8 @@ public class StartApplication extends Application implements IApplicationConfigu
         final ApplicationPresenter applicationPresenter = applicationView.getRealPresenter();
         
         final Scene scene = new Scene(applicationView.getView(), 1280, 720);
+//        scene.getStylesheets().add("/com/github/naoghuman/demo/template/applcation/application.css");
+        
         primaryStage.setTitle(this.getProperty(KEY__APPLICATION__TITLE) + this.getProperty(KEY__APPLICATION__VERSION));
         primaryStage.setScene(scene);
         primaryStage.setOnCloseRequest((WindowEvent we) -> {

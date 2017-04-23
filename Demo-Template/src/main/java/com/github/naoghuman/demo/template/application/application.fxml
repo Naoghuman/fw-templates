@@ -1,42 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: AQUAMARINE;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.demo.template.application.ApplicationPresenter">
     <children>
-        <ToolBar layoutX="14.0" layoutY="14.0" prefHeight="40.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
-            <items>
-                <Button mnemonicParsing="false" text="Button" />
-            </items>
-        </ToolBar>
-        <SplitPane dividerPositions="0.33" layoutX="14.0" layoutY="71.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="61.0">
+        <SplitPane dividerPositions="0.33" layoutX="14.0" layoutY="71.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
             <items>
                 <SplitPane dividerPositions="0.5" orientation="VERTICAL">
                     <items>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
+                        <VBox>
                             <children>
-                                <Label text="Projects" />
+                                <Label text="Projects">
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                </Label>
                                 <ListView fx:id="lvNavigationProjects" VBox.vgrow="ALWAYS" />
                             </children>
+                            <padding>
+                                <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                            </padding>
                         </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
+                        <VBox>
                             <children>
-                                <Label text="Samples" />
+                                <Label text="Samples">
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                </Label>
                                 <ListView fx:id="lvNavigationSamples" VBox.vgrow="ALWAYS" />
                             </children>
+                            <padding>
+                                <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                            </padding>
                         </VBox>
                     </items>
                 </SplitPane>
-                <TabPane fx:id="tpProjectPages" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+                <TabPane fx:id="tpProjectPages" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                         <Tab fx:id="tProject" closable="false" text="Project">
                             <content>
@@ -64,6 +73,9 @@
                             </content>
                         </Tab>
                     </tabs>
+                    <padding>
+                        <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                    </padding>
                 </TabPane>
             </items>
         </SplitPane>
