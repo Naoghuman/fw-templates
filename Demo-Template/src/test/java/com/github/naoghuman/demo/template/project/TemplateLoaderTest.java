@@ -143,7 +143,7 @@ public class TemplateLoaderTest {
 "            Warning\n"+
 "        </div>\n"+
 "        <div align=\"center\" class=\"margin-20\">\n"+
-"            For this project a CSS-URL isn't defined!\n"+
+"            For this project no CSS-URL is defined!\n"+
 "        </div>\n"+
 "    </body>\n"+
 "</html>\n";
@@ -194,7 +194,7 @@ public class TemplateLoaderTest {
 "            Warning\n"+
 "        </div>\n"+
 "        <div align=\"center\" class=\"margin-20\">\n"+
-"            For this project a JavaDoc-URL isn't defined!\n"+
+"            For this project no JavaDoc-URL is defined!\n"+
 "        </div>\n"+
 "    </body>\n"+
 "</html>\n";
