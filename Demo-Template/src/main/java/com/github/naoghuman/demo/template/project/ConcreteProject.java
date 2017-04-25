@@ -16,6 +16,7 @@
  */
 package com.github.naoghuman.demo.template.project;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.StringJoiner;
@@ -83,6 +84,8 @@ public final class ConcreteProject implements Comparable<ConcreteProject> {
     }
     
     public final List<ConcreteSample> getConcreteSamples() {
+        Collections.sort(concreteSamples);
+        
         return concreteSamples;
     }
     
