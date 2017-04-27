@@ -16,6 +16,7 @@
  */
 package com.github.naoghuman.demo.template.application;
 
+import com.github.naoghuman.demo.template.annotation.SampleType;
 import com.github.naoghuman.demo.template.project.ConcreteProject;
 import com.github.naoghuman.demo.template.project.ConcreteSample;
 import com.github.naoghuman.demo.template.project.ProjectCollector;
@@ -58,18 +59,20 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     private static final int INDEX_TAB__CSS        = 3;
     
     @FXML private ListView<ConcreteProject> lvNavigationProjects;
-    @FXML private ListView<ConcreteSample> lvNavigationSamples;
+    @FXML private ListView<ConcreteSample>  lvNavigationSamples;
     @FXML private Tab tCSS;
     @FXML private Tab tJavaDoc;
+    @FXML private Tab tOverview;
     @FXML private Tab tProject;
     @FXML private Tab tSample;
     @FXML private Tab tSourceCode;
     @FXML private TabPane tpProjectPages;
     @FXML private VBox vbSamplePage;
-    @FXML private WebView wvCssSinglePage;
-    @FXML private WebView wvJavaDocSinglePage;
-    @FXML private WebView wvSourceCodeSinglePage;
-    @FXML private WebView wvProjectSinglePage;
+    @FXML private WebView wvCssPage;
+    @FXML private WebView wvJavaDocPage;
+    @FXML private WebView wvOverviewPage;
+    @FXML private WebView wvSourceCodePage;
+    @FXML private WebView wvProjectPage;
     
     private final List<ConcreteProject> concreteProjects = FXCollections.observableArrayList();
     
@@ -151,10 +154,12 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         
         lvNavigationSamples.setOnMouseClicked(event -> {
             if (!lvNavigationSamples.getSelectionModel().isEmpty()) {
-                this.onActionPrepareTabsForSamples();
-                
                 concreteSample = lvNavigationSamples.getSelectionModel().getSelectedItem();
-                this.onActionShowPageSample(concreteSample);
+                this.onActionPrepareTabsForSamples(concreteSample);
+                
+                // Show new page
+                final int selectedIndex = tpProjectPages.getSelectionModel().getSelectedIndex();
+                this.onActionShowConcreteSample(selectedIndex);
             }
         });
     }
@@ -163,11 +168,11 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         LoggerFacade.getDefault().info(this.getClass(), "Initialize TabPanePages"); // NOI18N
         
         tpProjectPages.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) -> {
-            if (tpProjectPages.getTabs().size() > 1) {
+            if (tpProjectPages.getTabs().size() > 1) {// TODO ist das in ordnung so?
                 // Reset gui
-                wvSourceCodeSinglePage.getEngine().loadContent(TemplateLoader.loadLoadingTemplate());
-                wvJavaDocSinglePage   .getEngine().loadContent(TemplateLoader.loadLoadingTemplate());
-                wvCssSinglePage       .getEngine().loadContent(TemplateLoader.loadLoadingTemplate());
+                wvSourceCodePage.getEngine().loadContent(TemplateLoader.loadLoadingTemplate());
+                wvJavaDocPage   .getEngine().loadContent(TemplateLoader.loadLoadingTemplate());
+                wvCssPage       .getEngine().loadContent(TemplateLoader.loadLoadingTemplate());
                 
                 // Show new page
                 final int selectedIndex = tpProjectPages.getSelectionModel().getSelectedIndex();
@@ -185,22 +190,30 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         });
     }
     
-    private void onActionPrepareTabsForSamples() {
+    private void onActionPrepareTabsForSamples(ConcreteSample concreteSample) {
         LoggerFacade.getDefault().debug(this.getClass(), "On action prepare Tabs for Samples"); // NOI18N
 
         Platform.runLater(() -> {
             final ObservableList<Tab> tabs = tpProjectPages.getTabs();
             tabs.clear();
-            tabs.add(tSample);
-            tabs.add(tSourceCode);
-            tabs.add(tJavaDoc);
-            tabs.add(tCSS);
+            
+            if (SampleType.isNormal(concreteSample.getSampleType())) {
+                tabs.add(tSample);
+                tabs.add(tSourceCode);
+                tabs.add(tJavaDoc);
+                tabs.add(tCSS);
+            
+                wvSourceCodePage.getEngine().loadContent(TemplateLoader.loadLoadingTemplate());
+                wvJavaDocPage   .getEngine().loadContent(TemplateLoader.loadLoadingTemplate());
+                wvCssPage       .getEngine().loadContent(TemplateLoader.loadLoadingTemplate());
+            }
+            else {
+                tabs.add(tOverview);
+                
+                wvOverviewPage   .getEngine().loadContent(TemplateLoader.loadLoadingTemplate());
+            }
             
             tpProjectPages.getSelectionModel().selectFirst();
-            
-            wvSourceCodeSinglePage.getEngine().loadContent(TemplateLoader.loadLoadingTemplate());
-            wvJavaDocSinglePage   .getEngine().loadContent(TemplateLoader.loadLoadingTemplate());
-            wvCssSinglePage       .getEngine().loadContent(TemplateLoader.loadLoadingTemplate());
         });
     }
     
@@ -272,14 +285,18 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     private void onActionShowConcreteSample(final int selectedIndex) {
         LoggerFacade.getDefault().debug(this.getClass(), "On action show ConcreteSample"); // NOI18N
         
-        // TODO update only the selected tab
         final ConcreteSample selectedConcreteSample = lvNavigationSamples.getSelectionModel().getSelectedItem();
         if (selectedConcreteSample != null) {
-            switch (selectedIndex) {
-                case INDEX_TAB__SAMPLE:     { this.onActionShowPageSample(selectedConcreteSample);     break; }
-                case INDEX_TAB__SOURCECODE: { this.onActionShowPageSourceCode(selectedConcreteSample); break; }
-                case INDEX_TAB__JAVADOC:    { this.onActionShowPageJavaDoc(selectedConcreteSample);    break; }
-                case INDEX_TAB__CSS:        { this.onActionShowPageCSS(selectedConcreteSample);        break; }
+            if (SampleType.isNormal(selectedConcreteSample.getSampleType())) {
+                switch (selectedIndex) {
+                    case INDEX_TAB__SAMPLE:     { this.onActionShowPageSample(selectedConcreteSample);     break; }
+                    case INDEX_TAB__SOURCECODE: { this.onActionShowPageSourceCode(selectedConcreteSample); break; }
+                    case INDEX_TAB__JAVADOC:    { this.onActionShowPageJavaDoc(selectedConcreteSample);    break; }
+                    case INDEX_TAB__CSS:        { this.onActionShowPageCSS(selectedConcreteSample);        break; }
+                }
+            }
+            else {
+                this.onActionShowPageOverview(selectedConcreteSample);
             }
         }
     }
@@ -296,12 +313,12 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
             if (hasCssURL) {
                 LoggerFacade.getDefault().debug(this.getClass(), "A css-url is defined."); // NOI18N
                 
-              wvCssSinglePage.getEngine().loadContent(TemplateLoader.loadCSStemplate(concreteSample.getCssURL().get()));
+                wvCssPage.getEngine().loadContent(TemplateLoader.loadCSStemplate(concreteSample.getCssURL().get()));
             }
             else {
                 LoggerFacade.getDefault().warn(this.getClass(), "No css-url is defined!"); // NOI18N
                 
-                wvCssSinglePage.getEngine().loadContent(TemplateLoader.loadNoCssURLisDefinedTemplate());
+                wvCssPage.getEngine().loadContent(TemplateLoader.loadNoCssURLisDefinedTemplate());
             }
         });
         
@@ -320,12 +337,36 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
             if (hasJavaDocURL) {
                 LoggerFacade.getDefault().debug(this.getClass(), "A javadoc-url is defined."); // NOI18N
             
-                wvJavaDocSinglePage.getEngine().load(concreteSample.getJavaDocURL().get());
+                wvJavaDocPage.getEngine().load(concreteSample.getJavaDocURL().get());
             }
             else {
                 LoggerFacade.getDefault().warn(this.getClass(), "No javadoc-url is defined!"); // NOI18N
                 
-                wvJavaDocSinglePage.getEngine().loadContent(TemplateLoader.loadNoJavaDocURLisDefinedTemplate());
+                wvJavaDocPage.getEngine().loadContent(TemplateLoader.loadNoJavaDocURLisDefinedTemplate());
+            }
+        });
+        
+        pt.playFromStart();
+    }
+    
+    private void onActionShowPageOverview(ConcreteSample concreteSample) {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action show Overview Page"); // NOI18N
+        
+        final PauseTransition pt = new PauseTransition();
+        pt.setDuration(Duration.millis(25.0d));
+        pt.setOnFinished(event -> {
+            LoggerFacade.getDefault().debug(this.getClass(), "Load overview-url..."); // NOI18N
+            
+            final boolean hasOverviewURL = concreteSample.hasOverviewURL();
+            if (hasOverviewURL) {
+                LoggerFacade.getDefault().debug(this.getClass(), "A overview-url is defined."); // NOI18N
+            
+                wvOverviewPage.getEngine().load(concreteSample.getOverviewURL().get());
+            }
+            else {
+                LoggerFacade.getDefault().warn(this.getClass(), "No overview-url is defined!"); // NOI18N
+                
+                wvOverviewPage.getEngine().loadContent(TemplateLoader.loadNoOverviewURLisDefinedTemplate());
             }
         });
         
@@ -336,7 +377,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         LoggerFacade.getDefault().debug(this.getClass(), "On action show Project Page for: " + concreteProject.getName()); // NOI18N
         
         // Reset previous shown content in sample-view
-        wvProjectSinglePage   .getEngine().loadContent(TemplateLoader.loadLoadingTemplate());
+        wvProjectPage.getEngine().loadContent(TemplateLoader.loadLoadingTemplate());
 
         final PauseTransition pt = new PauseTransition();
         pt.setDuration(Duration.millis(25.0d));
@@ -347,12 +388,12 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
             if (concreteProject.hasProjectURL()) {
                 LoggerFacade.getDefault().debug(this.getClass(), "A project-url is defined."); // NOI18N
 
-                wvProjectSinglePage.getEngine().load(concreteProject.getProjectURL().get());
+                wvProjectPage.getEngine().load(concreteProject.getProjectURL().get());
             }
             else {
                 LoggerFacade.getDefault().warn(this.getClass(), "No project-url is defined!"); // NOI18N
 
-                wvProjectSinglePage.getEngine().loadContent(TemplateLoader.loadNoProjectURLisDefinedTemplate());
+                wvProjectPage.getEngine().loadContent(TemplateLoader.loadNoProjectURLisDefinedTemplate());
             }
         });
         
@@ -362,6 +403,9 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     private void onActionShowPageSample(ConcreteSample concreteSample) {
         LoggerFacade.getDefault().debug(this.getClass(), "On action show Sample Page"); // NOI18N
         
+        Platform.runLater(() -> {
+            LoggerFacade.getDefault().debug(this.getClass(), "# --> load tab sample"); // NOI18N
+        });
     }
 
     private void onActionShowPageSourceCode(ConcreteSample concreteSample) {
@@ -376,12 +420,12 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
             if (hasCssURL) {
                 LoggerFacade.getDefault().debug(this.getClass(), "A sourcecode-url is defined."); // NOI18N
                 
-                wvSourceCodeSinglePage.getEngine().loadContent(TemplateLoader.loadSourceCodeTemplate(concreteSample.getSourceCodeURL().get()));
+                wvSourceCodePage.getEngine().loadContent(TemplateLoader.loadSourceCodeTemplate(concreteSample.getSourceCodeURL().get()));
             }
             else {
                 LoggerFacade.getDefault().warn(this.getClass(), "No sourcecode-url is defined!"); // NOI18N
                 
-                wvSourceCodeSinglePage.getEngine().loadContent(TemplateLoader.loadNoSourceCodeURLisDefinedTemplate());
+                wvSourceCodePage.getEngine().loadContent(TemplateLoader.loadNoSourceCodeURLisDefinedTemplate());
             }
         });
         

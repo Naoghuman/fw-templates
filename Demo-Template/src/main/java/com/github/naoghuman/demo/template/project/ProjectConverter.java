@@ -18,6 +18,7 @@ package com.github.naoghuman.demo.template.project;
 
 import com.github.naoghuman.demo.template.annotation.Project;
 import com.github.naoghuman.demo.template.annotation.Sample;
+import com.github.naoghuman.demo.template.annotation.SampleType;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import java.lang.annotation.Annotation;
 import java.util.List;
@@ -79,16 +80,18 @@ public class ProjectConverter {
                     final Project project = sample.project();
                     final ConcreteProject concreteProject = ConcreteProject.create(project.name(), project.projectURL(), project.version());
                     
-                    final String sourceCodeURL = sample.sourceCodeURL();
-                    final String javaDocURL    = sample.javaDocURL();
-                    final String cssURL        = sample.cssURL();
-                    final String description   = sample.description();
-                    final boolean visible      = sample.visible();
+                    final String overviewURL    = sample.overviewURL();
+                    final String sourceCodeURL  = sample.sourceCodeURL();
+                    final String javaDocURL     = sample.javaDocURL();
+                    final String cssURL         = sample.cssURL();
+                    
+                    final SampleType sampleType = sample.sampleType();
+                    final String description    = sample.description();
+                    final boolean visible       = sample.visible();
                     
                     final ConcreteSample concreteSample = ConcreteSample.create(
-                            name, concreteProject,
-                            sourceCodeURL, javaDocURL, 
-                            cssURL, description, visible);
+                            name, concreteProject, overviewURL, sourceCodeURL, 
+                            javaDocURL, cssURL, sampleType, description, visible);
                     convertedSamplesToConcreteSamples.add(concreteSample);
                 });
         

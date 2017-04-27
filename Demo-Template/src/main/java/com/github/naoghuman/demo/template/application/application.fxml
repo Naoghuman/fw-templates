@@ -15,9 +15,9 @@
     <children>
         <SplitPane dividerPositions="0.33" layoutX="14.0" layoutY="71.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
             <items>
-                <SplitPane dividerPositions="0.5" orientation="VERTICAL">
+                <SplitPane dividerPositions="0.33" orientation="VERTICAL" SplitPane.resizableWithParent="false">
                     <items>
-                        <VBox>
+                        <VBox SplitPane.resizableWithParent="false">
                             <children>
                                 <Label text="Projects">
                                     <font>
@@ -49,7 +49,12 @@
                     <tabs>
                         <Tab fx:id="tProject" closable="false" text="Project">
                             <content>
-                                <WebView fx:id="wvProjectSinglePage" prefHeight="-1.0" prefWidth="-1.0" />
+                                <WebView fx:id="wvProjectPage" prefHeight="-1.0" prefWidth="-1.0" />
+                            </content>
+                        </Tab>
+                        <Tab fx:id="tOverview" closable="false" text="Overview">
+                            <content>
+                                <WebView fx:id="wvOverviewPage" prefHeight="-1.0" prefWidth="-1.0" />
                             </content>
                         </Tab>
                         <Tab fx:id="tSample" closable="false" text="Sample">
@@ -59,17 +64,17 @@
                         </Tab>
                         <Tab fx:id="tSourceCode" closable="false" text="SourceCode">
                             <content>
-                                <WebView fx:id="wvSourceCodeSinglePage" prefHeight="-1.0" prefWidth="-1.0" />
+                                <WebView fx:id="wvSourceCodePage" prefHeight="-1.0" prefWidth="-1.0" />
                             </content>
                         </Tab>
                         <Tab fx:id="tJavaDoc" closable="false" text="JavaDoc">
                             <content>
-                                <WebView fx:id="wvJavaDocSinglePage" prefHeight="-1.0" prefWidth="-1.0" />
+                                <WebView fx:id="wvJavaDocPage" prefHeight="-1.0" prefWidth="-1.0" />
                             </content>
                         </Tab>
                         <Tab fx:id="tCSS" closable="false" text="Css">
                             <content>
-                                <WebView fx:id="wvCssSinglePage" prefHeight="-1.0" prefWidth="-1.0" />
+                                <WebView fx:id="wvCssPage" prefHeight="-1.0" prefWidth="-1.0" />
                             </content>
                         </Tab>
                     </tabs>

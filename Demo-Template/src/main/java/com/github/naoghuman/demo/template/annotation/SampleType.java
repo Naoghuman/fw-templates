@@ -14,26 +14,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.demo.template.test.testprojecta.testsamplea1;
-
-import com.github.naoghuman.demo.template.annotation.Project;
-import com.github.naoghuman.demo.template.annotation.Sample;
+package com.github.naoghuman.demo.template.annotation;
 
 /**
  *
  * @author Naoghuman
  */
-@Sample(
-        /* cssURL = "[undefined]"; */
-        description = "Description TestSampleA1", // NOI18N
-        /* javaDocURL = "[undefined]"; */
-        name = "TestSampleA1", // NOI18N
-        /* overviewURL = "[undefined]", */
-        project = @Project(name = "TestProjectA"), // NOI18N
-        /* sampleType = SampleType.NORMAL, */
-        /* sourceCodeURL = "[undefined]"; */
-        visible = true
-)
-public class TestSampleA1 {
+public enum SampleType {
+    
+    NORMAL,
+    OVERVIEW;
+    
+    public static boolean isNormal(SampleType sampleType) {
+        return sampleType.equals(NORMAL);
+    }
     
 }

@@ -28,7 +28,9 @@ import com.github.naoghuman.demo.template.annotation.Sample;
         description   = "Description TestSampleA2", // NOI18N
         javaDocURL    = "https://www.google.de/", // NOI18N
         name          = "TestSampleA2", // NOI18N
+        /* overviewURL = "[undefined]", */
         project       = @Project(name = "TestProjectA"), // NOI18N
+        /* sampleType = SampleType.NORMAL, */
         sourceCodeURL = "https://raw.githubusercontent.com/Naoghuman/Project-Templates/master/Demo-Template/src/main/java/com/github/naoghuman/demo/template/application/ApplicationPresenter.java", // NOI18N
         visible       = false
 )

@@ -41,6 +41,7 @@ public class TemplateLoader {
     private static final String TEMPLATE__LOADING                      = "/com/github/naoghuman/demo/template/templates/LoadingTemplate.html"; // NOI18N
     private static final String TEMPLATE__NO_CSS_URL_IS_DEFINED        = "/com/github/naoghuman/demo/template/templates/NoCssURLisDefinedTemplate.html"; // NOI18N
     private static final String TEMPLATE__NO_JAVADOC_URL_IS_DEFINED    = "/com/github/naoghuman/demo/template/templates/NoJavaDocURLisDefinedTemplate.html"; // NOI18N
+    private static final String TEMPLATE__NO_OVERVIEW_URL_IS_DEFINED   = "/com/github/naoghuman/demo/template/templates/NoOverviewURLisDefinedTemplate.html"; // NOI18N
     private static final String TEMPLATE__NO_PROJECT_URL_IS_DEFINED    = "/com/github/naoghuman/demo/template/templates/NoProjectURLisDefinedTemplate.html"; // NOI18N
     private static final String TEMPLATE__NO_SOURCECODE_URL_IS_DEFINED = "/com/github/naoghuman/demo/template/templates/NoSourceCodeURLisDefinedTemplate.html"; // NOI18N
     private static final String TEMPLATE__SOURCE_CODE                  = "/com/github/naoghuman/demo/template/templates/SourceCodeTemplate.html"; // NOI18N
@@ -48,6 +49,7 @@ public class TemplateLoader {
     private static String loadingTemplate                  = null;
     private static String noCSSURLisDefinedTemplate        = null;
     private static String noJavaDocURLisDefinedTemplate    = null;
+    private static String noOverviewURLisDefinedTemplate   = null;
     private static String noProjectURLisDefinedTemplate    = null;
     private static String noSourceCodeURLisDefinedTemplate = null;
     
@@ -92,6 +94,16 @@ public class TemplateLoader {
         
         return noJavaDocURLisDefinedTemplate;
     }
+
+    public static String loadNoOverviewURLisDefinedTemplate() {
+        LoggerFacade.getDefault().debug(TemplateLoader.class, "Load no overview-url is defined template"); // NOI18N
+        
+        if (noOverviewURLisDefinedTemplate == null) {
+            noOverviewURLisDefinedTemplate = getResource(TemplateLoader.class.getResourceAsStream(TEMPLATE__NO_OVERVIEW_URL_IS_DEFINED));
+        }
+        
+        return noOverviewURLisDefinedTemplate;
+    }
     
     public static final String loadNoProjectURLisDefinedTemplate() {
         LoggerFacade.getDefault().debug(TemplateLoader.class, "Load no project-url is defined template"); // NOI18N
@@ -119,6 +131,7 @@ public class TemplateLoader {
         TemplateLoader.loadLoadingTemplate();
         TemplateLoader.loadNoCssURLisDefinedTemplate();
         TemplateLoader.loadNoJavaDocURLisDefinedTemplate();
+        TemplateLoader.loadNoOverviewURLisDefinedTemplate();
         TemplateLoader.loadNoProjectURLisDefinedTemplate();
         TemplateLoader.loadNoSourceCodeURLisDefinedTemplate();
     }

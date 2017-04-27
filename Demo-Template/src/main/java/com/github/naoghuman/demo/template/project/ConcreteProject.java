@@ -219,10 +219,10 @@ public final class ConcreteProject implements Comparable<ConcreteProject> {
         sb.append(", name=")      .append(this.getName());        // NOI18N
         sb.append(", projectURL=").append(this.getProjectURL().isPresent() ? this.getProjectURL().get() : UNDEFINED); // NOI18N
         
-        if (!concreteSamples.isEmpty()) {
+        if (!this.getConcreteSamples().isEmpty()) {
             final StringJoiner stringJoiner = new StringJoiner(", ", ", ConcreteSample[", "]"); // NOI18N
             
-            concreteSamples.stream()
+            this.getConcreteSamples().stream()
                     .forEach(concreteSample -> {
                         stringJoiner.add("concreteSample=" + concreteSample.toString()); // NOI18N
                     });
