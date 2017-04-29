@@ -17,6 +17,7 @@
 package com.github.naoghuman.demo.template.application;
 
 import com.github.naoghuman.demo.template.annotation.SampleType;
+import com.github.naoghuman.demo.template.project.ComingSoonView;
 import com.github.naoghuman.demo.template.project.ConcreteProject;
 import com.github.naoghuman.demo.template.project.ConcreteSample;
 import com.github.naoghuman.demo.template.project.ProjectCollector;
@@ -43,6 +44,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.scene.web.WebView;
 import javafx.util.Callback;
 import javafx.util.Duration;
@@ -109,10 +111,9 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
                 super.updateItem(concreteProject, empty);
                 
                 this.setGraphic(null);
+                this.setText(null);
                 
-                if (concreteProject == null || empty) {
-                    this.setText(null);
-                } else {
+                if (concreteProject != null && !empty) {
                     this.setText(concreteProject.getName());
                 }
             }
@@ -136,16 +137,29 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         LoggerFacade.getDefault().info(this.getClass(), "Initialize Navigation Samples"); // NOI18N
         
         final Callback callbackConcreteSamples = (Callback<ListView<ConcreteSample>, ListCell<ConcreteSample>>) (ListView<ConcreteSample> listView) -> new ListCell<ConcreteSample>() {
+            
+            private final Text TEXT = new Text();
+            {
+                TEXT.setStrikethrough(Boolean.TRUE);
+            }
+            
             @Override
             protected void updateItem(ConcreteSample concreteSample, boolean empty) {
                 super.updateItem(concreteSample, empty);
                 
                 this.setGraphic(null);
+                this.setText(null);
                 
-                if (concreteSample == null || empty) {
-                    this.setText(null);
-                } else {
-                    this.setText(concreteSample.getName());
+                if (concreteSample != null && !empty) {
+                    final boolean isSampleVisible = concreteSample.isVisible();
+                    
+                    if (isSampleVisible) {
+                        this.setText(concreteSample.getName());
+                    }
+                    else {
+                        TEXT.setText(concreteSample.getName());
+                        this.setGraphic(TEXT);
+                    }
                 }
             }
         };
@@ -157,8 +171,8 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
                 concreteSample = lvNavigationSamples.getSelectionModel().getSelectedItem();
                 this.onActionPrepareTabsForSamples(concreteSample);
                 
-                // Show new page
-                final int selectedIndex = tpProjectPages.getSelectionModel().getSelectedIndex();
+                // Select new sample in navigation shows the first tab
+                final int selectedIndex = 0;
                 this.onActionShowConcreteSample(selectedIndex);
             }
         });
@@ -168,7 +182,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         LoggerFacade.getDefault().info(this.getClass(), "Initialize TabPanePages"); // NOI18N
         
         tpProjectPages.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) -> {
-            if (tpProjectPages.getTabs().size() > 1) {// TODO ist das in ordnung so?
+            if (tpProjectPages.getTabs().size() > 1) {
                 // Reset gui
                 wvSourceCodePage.getEngine().loadContent(TemplateLoader.loadLoadingTemplate());
                 wvJavaDocPage   .getEngine().loadContent(TemplateLoader.loadLoadingTemplate());
@@ -197,20 +211,27 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
             final ObservableList<Tab> tabs = tpProjectPages.getTabs();
             tabs.clear();
             
+            final boolean isSampleVisible = concreteSample.isVisible();
             if (SampleType.isNormal(concreteSample.getSampleType())) {
                 tabs.add(tSample);
                 tabs.add(tSourceCode);
                 tabs.add(tJavaDoc);
                 tabs.add(tCSS);
+                
+                tSourceCode.setDisable(!isSampleVisible);
+                tJavaDoc   .setDisable(!isSampleVisible);
+                tCSS       .setDisable(!isSampleVisible);
             
-                wvSourceCodePage.getEngine().loadContent(TemplateLoader.loadLoadingTemplate());
-                wvJavaDocPage   .getEngine().loadContent(TemplateLoader.loadLoadingTemplate());
-                wvCssPage       .getEngine().loadContent(TemplateLoader.loadLoadingTemplate());
+                if (isSampleVisible) {
+                    wvSourceCodePage.getEngine().loadContent(TemplateLoader.loadLoadingTemplate());
+                    wvJavaDocPage   .getEngine().loadContent(TemplateLoader.loadLoadingTemplate());
+                    wvCssPage       .getEngine().loadContent(TemplateLoader.loadLoadingTemplate());
+                }
             }
             else {
                 tabs.add(tOverview);
                 
-                wvOverviewPage   .getEngine().loadContent(TemplateLoader.loadLoadingTemplate());
+                wvOverviewPage.getEngine().loadContent(TemplateLoader.loadLoadingTemplate());
             }
             
             tpProjectPages.getSelectionModel().selectFirst();
@@ -302,7 +323,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     }
 
     private void onActionShowPageCSS(ConcreteSample concreteSample) {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action show CSS Page"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "On action show page [CSS]"); // NOI18N
         
         final PauseTransition pt = new PauseTransition();
         pt.setDuration(Duration.millis(25.0d));
@@ -326,7 +347,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     }
 
     private void onActionShowPageJavaDoc(ConcreteSample concreteSample) {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action show JavaDoc Page"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "On action show page [JavaDoc]"); // NOI18N
         
         final PauseTransition pt = new PauseTransition();
         pt.setDuration(Duration.millis(25.0d));
@@ -350,7 +371,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     }
     
     private void onActionShowPageOverview(ConcreteSample concreteSample) {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action show Overview Page"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "On action show page [Overview]"); // NOI18N
         
         final PauseTransition pt = new PauseTransition();
         pt.setDuration(Duration.millis(25.0d));
@@ -374,7 +395,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     }
 
     private void onActionShowPageProject(final ConcreteProject concreteProject) {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action show Project Page for: " + concreteProject.getName()); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "On action show page [Project] for: " + concreteProject.getName()); // NOI18N
         
         // Reset previous shown content in sample-view
         wvProjectPage.getEngine().loadContent(TemplateLoader.loadLoadingTemplate());
@@ -401,15 +422,25 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     }
 
     private void onActionShowPageSample(ConcreteSample concreteSample) {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action show Sample Page"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "On action show page [Sample]"); // NOI18N
         
-        Platform.runLater(() -> {
-            LoggerFacade.getDefault().debug(this.getClass(), "# --> load tab sample"); // NOI18N
-        });
+        vbSamplePage.getChildren().clear();
+        
+        final boolean isSampleVisible = concreteSample.isVisible();
+        if (isSampleVisible) {
+            LoggerFacade.getDefault().debug(this.getClass(), "  -> show [Sample]"); // NOI18N
+            
+            // TODO show sample
+        }
+        else {
+            LoggerFacade.getDefault().debug(this.getClass(), "  -> show [ComingSoonView]"); // NOI18N
+            
+            vbSamplePage.getChildren().add(ComingSoonView.getComingSoonView());
+        }
     }
 
     private void onActionShowPageSourceCode(ConcreteSample concreteSample) {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action show SourceCode Page"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "On action show Page [SourceCode]"); // NOI18N
         
         final PauseTransition pt = new PauseTransition();
         pt.setDuration(Duration.millis(25.0d));

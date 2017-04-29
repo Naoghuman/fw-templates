@@ -23,12 +23,10 @@
         <!-- COMMENT OUT for release -->
         <plugins>
             <!-- 
-                See 'JavaFX-Maven-Plugin Generator' how to create the plugin 
-                configuration.
-                 - https://javafx-maven-plugin.github.io/
-                 - Run in your project folder the command: mvn jfx:jar 
-                   which create then the runable jar with all needed libraries
-                   into the folder \target\jfx\app\.
+                Hint:
+                 - See 'JavaFX-Maven-Plugin Generator' how to configure the plugin: https://javafx-maven-plugin.github.io/
+                 - Run in your project folder following command: mvn jfx:jar 
+                 - The command create then the runable jar with all needed libraries into the folder \target\jfx\app\.
             -->
             <plugin>
                 <groupId>com.zenjava</groupId>
@@ -44,28 +42,30 @@
         </plugins>
         <resources>
             <!--
-                Hint: Add here the suffixes from the files with should be in the
-                jar included.
+                Hint:
+                Add here the suffixes from the files with should be included into the jar file.
             -->
             <resource>
                 <directory>src/main/java</directory>
                 <includes>
-                    <include>**/*.fxml</include>
-                    <include>**/*.xml</include>
                     <include>**/*.css</include>
-                    <include>**/*.properties</include>
+                    <include>**/*.fxml</include>
                     <include>**/*.html</include>
+                    <include>**/*.png</include>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
                 </includes>
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
                 <includes>
-                    <include>**/*.fxml</include>
-                    <include>**/*.xml</include>
                     <include>**/*.css</include>
-                    <include>**/*.properties</include>
+                    <include>**/*.fxml</include>
                     <include>**/*.html</include>
+                    <include>**/*.png</include>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
                 </includes>
             </resource>
         </resources>
