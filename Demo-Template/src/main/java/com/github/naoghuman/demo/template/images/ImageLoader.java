@@ -16,7 +16,9 @@
  */
 package com.github.naoghuman.demo.template.images;
 
+import com.github.naoghuman.demo.template.configuration.ITemplateConfiguration;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
+import com.github.naoghuman.lib.properties.api.PropertiesFacade;
 import java.net.URI;
 import java.util.Optional;
 import javafx.scene.image.Image;
@@ -25,9 +27,9 @@ import javafx.scene.image.Image;
  *
  * @author Naoghuman
  */
-public class ImageLoader {
+public class ImageLoader implements ITemplateConfiguration {
     
-    private static final String COMING_SOON__ICON = "3-2-coming-soon-picture.png"; // NOI18N
+    private static final String COMING_SOON__ICON = PropertiesFacade.getDefault().getProperty(KEY__TEMPLATE__RESOURCE_BUNDLE, KEY__TEMPLATE__IMAGES_IMAGELOADER_IMAGE_COMINGSOON);
 	
     private static final Optional<ImageLoader> INSTANCE = Optional.of(new ImageLoader());
 
@@ -39,7 +41,7 @@ public class ImageLoader {
 
     }
     
-    public Optional<Image> loadPlaceHolderIcon() {
+    public Optional<Image> loadComingSoonImage() {
         Optional<Image> placeHolderImage;
         try {
             final URI uri = ImageLoader.class.getResource(COMING_SOON__ICON).toURI();

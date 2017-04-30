@@ -16,8 +16,11 @@
  */
 package com.github.naoghuman.demo.template.project;
 
+import com.github.naoghuman.demo.template.configuration.ITemplateConfiguration;
+import com.github.naoghuman.lib.properties.api.PropertiesFacade;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -28,6 +31,12 @@ import static org.junit.Assert.*;
 public class TemplateLoaderTest {
     
     public TemplateLoaderTest() {
+        
+    }
+    
+    @BeforeClass
+    public static void setUpBeforeClass() {
+        PropertiesFacade.getDefault().register(ITemplateConfiguration.KEY__TEMPLATE__RESOURCE_BUNDLE);
     }
     
     @Before
@@ -102,7 +111,7 @@ public class TemplateLoaderTest {
     }
 
     @Test
-    public void testLoadNoCSSURLisDefinedTemplate() {
+    public void testLoadNoXyURLisDefinedTemplateWithUrlTypeCSS() {
         final String TEMPLATE__NO_CSS_URL_IS_DEFINED = 
 "<!DOCTYPE html>\n"+
 "<!--\n"+
@@ -123,7 +132,7 @@ public class TemplateLoaderTest {
 "-->\n"+
 "<html>\n"+
 "    <head>\n"+
-"        <title>No css-url is defined</title>\n"+
+"        <title>No CSS-URL is defined</title>\n"+
 "        <meta charset=\"UTF-8\">\n"+
 "        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"+
 "        <style>\n"+
@@ -148,59 +157,8 @@ public class TemplateLoaderTest {
 "    </body>\n"+
 "</html>\n";
         
-        String result = TemplateLoader.loadNoCssURLisDefinedTemplate();
+        String result = TemplateLoader.loadNoXyURLisDefinedTemplate(TemplateLoader.UrlType.CSS);
         assertEquals(TEMPLATE__NO_CSS_URL_IS_DEFINED, result);
-    }
-
-    @Test
-    public void testLoadNoJavaDocURLisDefinedTemplate() {
-        final String TEMPLATE__NO_JAVADOC_URL_IS_DEFINED =
-"<!DOCTYPE html>\n"+
-"<!--\n"+
-"Copyright (C) 2017 Naoghuman\n"+
-"\n"+
-"This program is free software: you can redistribute it and/or modify\n"+
-"it under the terms of the GNU General Public License as published by\n"+
-"the Free Software Foundation, either version 3 of the License, or\n"+
-"(at your option) any later version.\n"+
-"\n"+
-"This program is distributed in the hope that it will be useful,\n"+
-"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"+
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"+
-"GNU General Public License for more details.\n"+
-"\n"+
-"You should have received a copy of the GNU General Public License\n"+
-"along with this program.  If not, see <http://www.gnu.org/licenses/>.\n"+
-"-->\n"+
-"<html>\n"+
-"    <head>\n"+
-"        <title>No javadoc-url is defined</title>\n"+
-"        <meta charset=\"UTF-8\">\n"+
-"        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"+
-"        <style>\n"+
-"            .margin-100 {\n"+
-"                color: red;\n"+
-"                font-size: 44px;\n"+
-"                margin-top: 100px;\n"+
-"            }\n"+
-"            .margin-20 {\n"+
-"                font-size: 22px;\n"+
-"                margin-top: 11px;\n"+
-"            }\n"+
-"        </style>\n"+
-"    </head>\n"+
-"    <body>\n"+
-"        <div align=\"center\" class=\"margin-100\">\n"+
-"            Warning\n"+
-"        </div>\n"+
-"        <div align=\"center\" class=\"margin-20\">\n"+
-"            For this project no JavaDoc-URL is defined!\n"+
-"        </div>\n"+
-"    </body>\n"+
-"</html>\n";
-
-        String result = TemplateLoader.loadNoJavaDocURLisDefinedTemplate();
-        assertEquals(TEMPLATE__NO_JAVADOC_URL_IS_DEFINED, result);
     }
 
     @Test

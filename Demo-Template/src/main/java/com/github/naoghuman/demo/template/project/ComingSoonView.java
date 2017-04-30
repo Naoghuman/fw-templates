@@ -16,7 +16,9 @@
  */
 package com.github.naoghuman.demo.template.project;
 
+import com.github.naoghuman.demo.template.configuration.ITemplateConfiguration;
 import com.github.naoghuman.demo.template.images.ImageLoader;
+import com.github.naoghuman.lib.properties.api.PropertiesFacade;
 import java.util.Optional;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
@@ -33,7 +35,7 @@ import javafx.scene.text.Text;
  *
  * @author Naoghuman
  */
-public final class ComingSoonView {
+public final class ComingSoonView implements ITemplateConfiguration {
     
     private static final Text TEXT = new Text();
     private static final VBox VBOX = new VBox();
@@ -46,13 +48,13 @@ public final class ComingSoonView {
         final Font FONT = Font.font(Font.getDefault().getFamily(), FontWeight.BOLD, FontPosture.ITALIC, 48.0d);
         TEXT.setFont(FONT);
         TEXT.setFill(Color.RED);
-        TEXT.setText("Coming soon"); // NOI18N
+        TEXT.setText(PropertiesFacade.getDefault().getProperty(KEY__TEMPLATE__RESOURCE_BUNDLE, KEY__TEMPLATE__PROJECT_COMINGSOONVIEW_TEXT));
     }
     
     public static final VBox getComingSoonView() {
         VBOX.getChildren().clear();
         
-        final Optional<Image> image = ImageLoader.getDefault().loadPlaceHolderIcon();
+        final Optional<Image> image = ImageLoader.getDefault().loadComingSoonImage();
         if (image.isPresent()) {
             final ImageView imageView = new ImageView();
             imageView.setImage(image.get());

@@ -16,12 +16,15 @@
  */
 package com.github.naoghuman.demo.template.project;
 
+import com.github.naoghuman.demo.template.configuration.ITemplateConfiguration;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
+import com.github.naoghuman.lib.properties.api.PropertiesFacade;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.HashMap;
 
 /**
  *
@@ -33,25 +36,19 @@ public class TemplateLoader {
     
     private static final String PLACE_HOLDER__CSS         = "<css/>";  // NOI18N
     private static final String PLACE_HOLDER__SOURCE_CODE = "<sourcecode/>"; // NOI18N
+    private static final String PLACE_HOLDER__URL_NAME    = "<url-name/>"; // NOI18N
     
     private static final String REPLACE__TARGET      = "<"; // NOI18N
     private static final String REPLACE__REPLACEMENT = "&lt;"; // NOI18N
     
-    private static final String TEMPLATE__CSS                          = "/com/github/naoghuman/demo/template/templates/CssTemplate.html"; // NOI18N
-    private static final String TEMPLATE__LOADING                      = "/com/github/naoghuman/demo/template/templates/LoadingTemplate.html"; // NOI18N
-    private static final String TEMPLATE__NO_CSS_URL_IS_DEFINED        = "/com/github/naoghuman/demo/template/templates/NoCssURLisDefinedTemplate.html"; // NOI18N
-    private static final String TEMPLATE__NO_JAVADOC_URL_IS_DEFINED    = "/com/github/naoghuman/demo/template/templates/NoJavaDocURLisDefinedTemplate.html"; // NOI18N
-    private static final String TEMPLATE__NO_OVERVIEW_URL_IS_DEFINED   = "/com/github/naoghuman/demo/template/templates/NoOverviewURLisDefinedTemplate.html"; // NOI18N
-    private static final String TEMPLATE__NO_PROJECT_URL_IS_DEFINED    = "/com/github/naoghuman/demo/template/templates/NoProjectURLisDefinedTemplate.html"; // NOI18N
-    private static final String TEMPLATE__NO_SOURCECODE_URL_IS_DEFINED = "/com/github/naoghuman/demo/template/templates/NoSourceCodeURLisDefinedTemplate.html"; // NOI18N
-    private static final String TEMPLATE__SOURCE_CODE                  = "/com/github/naoghuman/demo/template/templates/SourceCodeTemplate.html"; // NOI18N
+    private static final String TEMPLATE__CSS                  = "/com/github/naoghuman/demo/template/templates/CssTemplate.html"; // NOI18N
+    private static final String TEMPLATE__LOADING              = "/com/github/naoghuman/demo/template/templates/LoadingTemplate.html"; // NOI18N
+    private static final String TEMPLATE__NO_XY_URL_IS_DEFINED = "/com/github/naoghuman/demo/template/templates/NoXyURLisDefinedTemplate.html"; // NOI18N
+    private static final String TEMPLATE__SOURCE_CODE          = "/com/github/naoghuman/demo/template/templates/SourceCodeTemplate.html"; // NOI18N
     
-    private static String loadingTemplate                  = null;
-    private static String noCSSURLisDefinedTemplate        = null;
-    private static String noJavaDocURLisDefinedTemplate    = null;
-    private static String noOverviewURLisDefinedTemplate   = null;
-    private static String noProjectURLisDefinedTemplate    = null;
-    private static String noSourceCodeURLisDefinedTemplate = null;
+    private static final HashMap<String, String> NO_XY_URL_IS_DEFINED_TEMPLATES = new HashMap<>();
+    
+    private static String loadingTemplate = null;
     
     public static final String loadCSStemplate(final String cssURL) {
         LoggerFacade.getDefault().debug(TemplateLoader.class, "Load css template"); // NOI18N
@@ -75,65 +72,29 @@ public class TemplateLoader {
         return loadingTemplate;
     }
     
-    public static final String loadNoCssURLisDefinedTemplate() {
-        LoggerFacade.getDefault().debug(TemplateLoader.class, "Load no css-url is defined template"); // NOI18N
+    public static final String loadNoXyURLisDefinedTemplate(final UrlType urlName) {
+        LoggerFacade.getDefault().debug(TemplateLoader.class, "Load no xy-url is defined template for: " + urlName.name()); // NOI18N
         
-        if (noCSSURLisDefinedTemplate == null) {
-            noCSSURLisDefinedTemplate = getResource(TemplateLoader.class.getResourceAsStream(TEMPLATE__NO_CSS_URL_IS_DEFINED));
+        if (!NO_XY_URL_IS_DEFINED_TEMPLATES.containsKey(urlName.name())) {
+            String noXyURLisDefinedTemplate = getResource(TemplateLoader.class.getResourceAsStream(TEMPLATE__NO_XY_URL_IS_DEFINED));
+            noXyURLisDefinedTemplate = noXyURLisDefinedTemplate.replace(PLACE_HOLDER__URL_NAME, urlName.getType());
+            
+            NO_XY_URL_IS_DEFINED_TEMPLATES.put(urlName.name(), noXyURLisDefinedTemplate);
         }
         
-        return noCSSURLisDefinedTemplate;
-    }
-    
-    public static final String loadNoJavaDocURLisDefinedTemplate() {
-        LoggerFacade.getDefault().debug(TemplateLoader.class, "Load no javadoc-url is defined template"); // NOI18N
-        
-        if (noJavaDocURLisDefinedTemplate == null) {
-            noJavaDocURLisDefinedTemplate = getResource(TemplateLoader.class.getResourceAsStream(TEMPLATE__NO_JAVADOC_URL_IS_DEFINED));
-        }
-        
-        return noJavaDocURLisDefinedTemplate;
-    }
-
-    public static String loadNoOverviewURLisDefinedTemplate() {
-        LoggerFacade.getDefault().debug(TemplateLoader.class, "Load no overview-url is defined template"); // NOI18N
-        
-        if (noOverviewURLisDefinedTemplate == null) {
-            noOverviewURLisDefinedTemplate = getResource(TemplateLoader.class.getResourceAsStream(TEMPLATE__NO_OVERVIEW_URL_IS_DEFINED));
-        }
-        
-        return noOverviewURLisDefinedTemplate;
-    }
-    
-    public static final String loadNoProjectURLisDefinedTemplate() {
-        LoggerFacade.getDefault().debug(TemplateLoader.class, "Load no project-url is defined template"); // NOI18N
-        
-        if (noProjectURLisDefinedTemplate == null) {
-            noProjectURLisDefinedTemplate = getResource(TemplateLoader.class.getResourceAsStream(TEMPLATE__NO_PROJECT_URL_IS_DEFINED));
-        }
-        
-        return noProjectURLisDefinedTemplate;
-    }
-    
-    public static final String loadNoSourceCodeURLisDefinedTemplate() {
-        LoggerFacade.getDefault().debug(TemplateLoader.class, "Load no sourcecode-url is defined template"); // NOI18N
-        
-        if (noSourceCodeURLisDefinedTemplate == null) {
-            noSourceCodeURLisDefinedTemplate = getResource(TemplateLoader.class.getResourceAsStream(TEMPLATE__NO_SOURCECODE_URL_IS_DEFINED));
-        }
-        
-        return noSourceCodeURLisDefinedTemplate;
+        return NO_XY_URL_IS_DEFINED_TEMPLATES.get(urlName.name());
     }
     
     public static final void loadResourcesInCache() {
         LoggerFacade.getDefault().debug(TemplateLoader.class, "Load resources in cache"); // NOI18N
         
         TemplateLoader.loadLoadingTemplate();
-        TemplateLoader.loadNoCssURLisDefinedTemplate();
-        TemplateLoader.loadNoJavaDocURLisDefinedTemplate();
-        TemplateLoader.loadNoOverviewURLisDefinedTemplate();
-        TemplateLoader.loadNoProjectURLisDefinedTemplate();
-        TemplateLoader.loadNoSourceCodeURLisDefinedTemplate();
+        
+        TemplateLoader.loadNoXyURLisDefinedTemplate(UrlType.CSS);
+        TemplateLoader.loadNoXyURLisDefinedTemplate(UrlType.JAVA_DOC);
+        TemplateLoader.loadNoXyURLisDefinedTemplate(UrlType.OVERVIEW);
+        TemplateLoader.loadNoXyURLisDefinedTemplate(UrlType.PROJECT);
+        TemplateLoader.loadNoXyURLisDefinedTemplate(UrlType.SOURCE_CODE);
     }
     
     public static final String loadSourceCodeTemplate(final String sourceCodeURL) {
@@ -173,6 +134,26 @@ public class TemplateLoader {
         }
         
         return sb.toString();
+    }
+    
+    public enum UrlType implements ITemplateConfiguration {
+        
+        CSS        (KEY__TEMPLATE__PROJECT_TEMPLATELOADER_URLTYPE_CSS),
+        JAVA_DOC   (KEY__TEMPLATE__PROJECT_TEMPLATELOADER_URLTYPE_JAVADOC),
+        OVERVIEW   (KEY__TEMPLATE__PROJECT_TEMPLATELOADER_URLTYPE_OVERVIEW),
+        PROJECT    (KEY__TEMPLATE__PROJECT_TEMPLATELOADER_URLTYPE_PROJECT),
+        SOURCE_CODE(KEY__TEMPLATE__PROJECT_TEMPLATELOADER_URLTYPE_SOURCECODE);
+        
+        private final String type;
+        
+        UrlType(String type) {
+            this.type = type;
+        }
+        
+        public String getType() {
+            return PropertiesFacade.getDefault().getProperty(KEY__TEMPLATE__RESOURCE_BUNDLE, type);
+        }
+        
     }
     
 }

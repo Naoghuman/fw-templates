@@ -19,6 +19,7 @@ package com.github.naoghuman.demo.template.application;
 
 import com.airhacks.afterburner.injection.Injector;
 import com.github.naoghuman.demo.template.configuration.IApplicationConfiguration;
+import com.github.naoghuman.demo.template.configuration.ITemplateConfiguration;
 import com.github.naoghuman.demo.template.project.TemplateLoader;
 import com.github.naoghuman.lib.database.api.DatabaseFacade;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
@@ -31,7 +32,6 @@ import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import static javafx.application.Application.launch;
 
 /**
  *
@@ -48,6 +48,7 @@ public class StartApplication extends Application implements IApplicationConfigu
         super.init();
         
         PropertiesFacade.getDefault().register(KEY__APPLICATION__RESOURCE_BUNDLE);
+        PropertiesFacade.getDefault().register(ITemplateConfiguration.KEY__TEMPLATE__RESOURCE_BUNDLE);
         
         final char borderSign = this.getProperty(KEY__APPLICATION__BORDER_SIGN).charAt(0);
         final String message = this.getProperty(KEY__APPLICATION__MESSAGE_START);
