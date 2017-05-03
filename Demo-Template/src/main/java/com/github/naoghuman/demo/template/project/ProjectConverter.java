@@ -31,7 +31,7 @@ import javafx.collections.FXCollections;
 public class ProjectConverter {
     
     public static List<ConcreteProject> convertProjectsToConcreteProjects(List<Class<?>> convertedProjectsToClasses) {
-        LoggerFacade.getDefault().debug(ProjectConverter.class, "Convert Projects to ConcreteProject"); // NOI18N
+        LoggerFacade.getDefault().debug(ProjectConverter.class, "Convert projects to [ConcreteProject]s"); // NOI18N
 
         final List<ConcreteProject> convertedProjectsToConcreteProjects = FXCollections.observableArrayList();
         convertedProjectsToClasses.stream()
@@ -68,30 +68,30 @@ public class ProjectConverter {
     }
 
     public static List<ConcreteSample> convertSamplesToConcreteSamples(List<Class<?>> convertedSamplesToClasses) {
-        LoggerFacade.getDefault().debug(ProjectConverter.class, "Convert Projects to ConcreteProject"); // NOI18N
+        LoggerFacade.getDefault().debug(ProjectConverter.class, "Convert samples to [ConcreteSample]s"); // NOI18N
 
         final List<ConcreteSample> convertedSamplesToConcreteSamples = FXCollections.observableArrayList();
         convertedSamplesToClasses.stream()
-                .forEach(projectAsClass -> {
-                    final Annotation annotation = projectAsClass.getAnnotation(Sample.class);
+                .forEach(sampleAsClass -> {
+                    final Annotation annotation = sampleAsClass.getAnnotation(Sample.class);
                     final Sample sample   = (Sample) annotation;
                     
                     final String name     = sample.name();
                     final Project project = sample.project();
                     final ConcreteProject concreteProject = ConcreteProject.create(project.name(), project.projectURL(), project.version());
-                    
-                    final String overviewURL    = sample.overviewURL();
-                    final String sourceCodeURL  = sample.sourceCodeURL();
-                    final String javaDocURL     = sample.javaDocURL();
-                    final String cssURL         = sample.cssURL();
-                    
-                    final SampleType sampleType = sample.sampleType();
-                    final String description    = sample.description();
-                    final boolean visible       = sample.visible();
+                    final String overviewURL     = sample.overviewURL();
+                    final String sourceCodeURL   = sample.sourceCodeURL();
+                    final String javaDocURL      = sample.javaDocURL();
+                    final String cssURL          = sample.cssURL();
+                    final SampleType sampleType  = sample.sampleType();
+                    final String sampleViewClass = sampleAsClass.getName() + "View"; // NOI18N
+                    final String description     = sample.description();
+                    final boolean visible        = sample.visible();
                     
                     final ConcreteSample concreteSample = ConcreteSample.create(
                             name, concreteProject, overviewURL, sourceCodeURL, 
-                            javaDocURL, cssURL, sampleType, description, visible);
+                            javaDocURL, cssURL, sampleType, sampleViewClass, 
+                            description, visible);
                     convertedSamplesToConcreteSamples.add(concreteSample);
                 });
         

@@ -29,6 +29,8 @@ import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -39,10 +41,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebView;
@@ -51,6 +55,15 @@ import javafx.util.Duration;
 
 /**
  *
+// TODO show sample
+// use reflection to instanziate
+// write feature convention over configuration for sample-view-class in documentation.
+// write feature to read the annotations without instanziating -> library org.ow2.asm
+ *
+ * TODO show waring in onActionShowPageSample(ConcreteSample concreteSample)
+ * if the class cant be find during reflection. give an advice in webview with
+ * warning-template.
+ * 
  * @author Naoghuman
  */
 public class ApplicationPresenter implements Initializable, IRegisterActions {
@@ -430,7 +443,29 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         if (isSampleVisible) {
             LoggerFacade.getDefault().debug(this.getClass(), "  -> show [Sample]"); // NOI18N
             
-            // TODO show sample
+            try {
+                final String sampleViewClass = concreteSample.getSampleViewClass();
+                final Class clazz = Class.forName(sampleViewClass);
+                final Object instance = clazz.newInstance();
+                final Method method = clazz.getSuperclass().getDeclaredMethod("getView"); // NOI18N
+                final Object value = method.invoke(instance);
+                if (value instanceof Parent) {
+                    final Parent parent = (Parent) value;
+                    VBox.setVgrow(parent, Priority.ALWAYS);
+                    vbSamplePage.getChildren().add(parent);
+                }
+            } catch (
+                    ClassNotFoundException
+                    | InstantiationException
+                    | IllegalAccessException
+                    | NoSuchMethodException
+                    | SecurityException
+                    | IllegalArgumentException
+                    | InvocationTargetException ex
+            ) {
+                LoggerFacade.getDefault().error(this.getClass(), "Error during reflection!", ex); // NOI18N
+                // TODO show warning in webview with template
+            }
         }
         else {
             LoggerFacade.getDefault().debug(this.getClass(), "  -> show [ComingSoonView]"); // NOI18N

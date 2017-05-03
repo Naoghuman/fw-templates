@@ -36,6 +36,7 @@ public final class ConcreteSample implements Comparable<ConcreteSample> {
     private final String           name;
     private final Optional<String> overviewURL;
     private final SampleType       sampleType;
+    private final String           sampleViewClass;
     private final Optional<String> sourceCodeURL;
     
     private final ConcreteProject project;
@@ -44,11 +45,11 @@ public final class ConcreteSample implements Comparable<ConcreteSample> {
             final String name, final ConcreteProject project,
             final String overviewURL, final String sourceCodeURL, 
             final String javaDocURL, final String cssURL,
-            final SampleType sampleType, final String description,
-            final boolean visible
+            final SampleType sampleType, final String sampleViewClass,
+            final String description, final boolean visible
     ) {
         return create(System.nanoTime(), name, project, overviewURL, sourceCodeURL, 
-                javaDocURL, cssURL, sampleType, description, visible);
+                javaDocURL, cssURL, sampleType, sampleViewClass, description, visible);
     }
     
     public static final ConcreteSample create(
@@ -56,10 +57,12 @@ public final class ConcreteSample implements Comparable<ConcreteSample> {
             final ConcreteProject project, final String overviewURL, 
             final String sourceCodeURL, final String javaDocURL,
             final String cssURL, final SampleType sampleType,
-            final String description, final boolean visible
+            final String sampleViewClass, final String description,
+            final boolean visible
     ) {
         final ConcreteSample concreteSample = new ConcreteSample(id, name, project,
-                overviewURL, sourceCodeURL, javaDocURL, cssURL, sampleType, description, visible);
+                overviewURL, sourceCodeURL, javaDocURL, cssURL, sampleType, sampleViewClass,
+                description, visible);
         
         return concreteSample;
     }
@@ -67,21 +70,20 @@ public final class ConcreteSample implements Comparable<ConcreteSample> {
     private ConcreteSample(
             final long id, final String name, final ConcreteProject project,
             final String overviewURL, final String sourceCodeURL, final String javaDocURL,
-            final String cssURL, final SampleType sampleType,  final String description, 
-            final boolean visible
+            final String cssURL, final SampleType sampleType, final String sampleViewClass,
+            final String description, final boolean visible
     ) {
-        this.id      = id;
-        this.name    = name;
-        this.project = project;
-        
-        this.overviewURL   = Optional.ofNullable(overviewURL);
-        this.sourceCodeURL = Optional.ofNullable(sourceCodeURL);
-        this.javaDocURL    = Optional.ofNullable(javaDocURL);
-        this.cssURL        = Optional.ofNullable(cssURL);
-        
-        this.sampleType  = sampleType;
-        this.description = Optional.ofNullable(description);
-        this.visible     = visible;
+        this.id              = id;
+        this.name            = name;
+        this.project         = project;
+        this.overviewURL     = Optional.ofNullable(overviewURL);
+        this.sourceCodeURL   = Optional.ofNullable(sourceCodeURL);
+        this.javaDocURL      = Optional.ofNullable(javaDocURL);
+        this.cssURL          = Optional.ofNullable(cssURL);
+        this.sampleType      = sampleType;
+        this.sampleViewClass = sampleViewClass;
+        this.description     = Optional.ofNullable(description);
+        this.visible         = visible;
     }
     
     public boolean hasCssURL() {
@@ -126,6 +128,10 @@ public final class ConcreteSample implements Comparable<ConcreteSample> {
     
     public final SampleType getSampleType() {
         return sampleType;
+    }
+
+    public final String getSampleViewClass() {
+        return sampleViewClass;
     }
 
     public final Optional<String> getSourceCodeURL() {
@@ -214,16 +220,17 @@ public final class ConcreteSample implements Comparable<ConcreteSample> {
         final StringBuilder sb = new StringBuilder();
         sb.append("ConcreteSample ["); // NOI18N
         
-        sb.append("id=")             .append(this.getId()); // NOI18N
-        sb.append(", name=")         .append(this.getName()); // NOI18N
-        sb.append(", project=")      .append(this.getProject()      .getName()); // NOI18N
-        sb.append(", overviewURL=")  .append(this.getOverviewURL()  .isPresent() ? this.getOverviewURL()  .get() : UNDEFINED); // NOI18N
-        sb.append(", sourceCodeURL=").append(this.getSourceCodeURL().isPresent() ? this.getSourceCodeURL().get() : UNDEFINED); // NOI18N
-        sb.append(", javaDocURL=")   .append(this.getJavaDocURL()   .isPresent() ? this.getJavaDocURL()   .get() : UNDEFINED); // NOI18N
-        sb.append(", cssURL=")       .append(this.getCssURL()       .isPresent() ? this.getCssURL()       .get() : UNDEFINED); // NOI18N
-        sb.append(", sampleType=")   .append(this.getSampleType()   .name()); // NOI18N
-        sb.append(", description=")  .append(this.getDescription()  .isPresent() ? this.getDescription()  .get() : UNDEFINED); // NOI18N
-        sb.append(", visible=")      .append(this.isVisible()); // NOI18N
+        sb.append("id=")               .append(this.getId());   // NOI18N
+        sb.append(", name=")           .append(this.getName()); // NOI18N
+        sb.append(", project=")        .append(this.getProject()      .getName()); // NOI18N
+        sb.append(", overviewURL=")    .append(this.getOverviewURL()  .isPresent() ? this.getOverviewURL()  .get() : UNDEFINED); // NOI18N
+        sb.append(", sourceCodeURL=")  .append(this.getSourceCodeURL().isPresent() ? this.getSourceCodeURL().get() : UNDEFINED); // NOI18N
+        sb.append(", javaDocURL=")     .append(this.getJavaDocURL()   .isPresent() ? this.getJavaDocURL()   .get() : UNDEFINED); // NOI18N
+        sb.append(", cssURL=")         .append(this.getCssURL()       .isPresent() ? this.getCssURL()       .get() : UNDEFINED); // NOI18N
+        sb.append(", sampleType=")     .append(this.getSampleType()   .name()); // NOI18N
+        sb.append(", sampleViewClass=").append(this.getSampleViewClass());
+        sb.append(", description=")    .append(this.getDescription()  .isPresent() ? this.getDescription()  .get() : UNDEFINED); // NOI18N
+        sb.append(", visible=")        .append(this.isVisible()); // NOI18N
         
         sb.append("]"); // NOI18N
         
