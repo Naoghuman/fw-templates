@@ -48,6 +48,8 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebView;
 import javafx.util.Callback;
@@ -153,6 +155,8 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
             
             private final Text TEXT = new Text();
             {
+                final Font f = TEXT.getFont();
+                TEXT.setFont(Font.font(f.getFamily(), FontPosture.ITALIC, f.getSize()));
                 TEXT.setStrikethrough(Boolean.TRUE);
             }
             
