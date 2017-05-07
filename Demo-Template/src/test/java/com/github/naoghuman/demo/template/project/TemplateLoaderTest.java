@@ -132,7 +132,7 @@ public class TemplateLoaderTest {
 "-->\n"+
 "<html>\n"+
 "    <head>\n"+
-"        <title>No CSS-URL is defined</title>\n"+
+"        <title>Warning: No CSS-URL is defined</title>\n"+
 "        <meta charset=\"UTF-8\">\n"+
 "        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"+
 "        <style>\n"+
@@ -152,7 +152,7 @@ public class TemplateLoaderTest {
 "            Warning\n"+
 "        </div>\n"+
 "        <div align=\"center\" class=\"margin-20\">\n"+
-"            For this project no CSS-URL is defined!\n"+
+"            No <i>CSS-URL</i> is defined for this sample!\n"+
 "        </div>\n"+
 "    </body>\n"+
 "</html>\n";

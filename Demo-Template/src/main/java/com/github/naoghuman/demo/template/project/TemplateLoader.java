@@ -34,11 +34,11 @@ public class TemplateLoader {
     
     private static final String APPEND__NEWLINE = "\n";  // NOI18N
     
-    private static final String PLACE_HOLDER__CSS         = "<css/>";  // NOI18N
-    private static final String PLACE_HOLDER__SOURCE_CODE = "<sourcecode/>"; // NOI18N
-    private static final String PLACE_HOLDER__URL_NAME    = "<url-name/>"; // NOI18N
+    private static final String PLACE_HOLDER__CSS         = "<!--<css/>-->";        // NOI18N
+    private static final String PLACE_HOLDER__SOURCE_CODE = "<!--<sourcecode/>-->"; // NOI18N
+    private static final String PLACE_HOLDER__URL_NAME    = "<!--<url-name/>-->";   // NOI18N
     
-    private static final String REPLACE__TARGET      = "<"; // NOI18N
+    private static final String REPLACE__TARGET      = "<";    // NOI18N
     private static final String REPLACE__REPLACEMENT = "&lt;"; // NOI18N
     
     private static final String TEMPLATE__CSS                  = "/com/github/naoghuman/demo/template/templates/CssTemplate.html"; // NOI18N
