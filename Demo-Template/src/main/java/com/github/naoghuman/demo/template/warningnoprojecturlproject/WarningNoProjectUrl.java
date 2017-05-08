@@ -23,7 +23,7 @@ import com.github.naoghuman.demo.template.annotation.Project;
  * @author Naoghuman
  */
 @Project(
-        name = "02 Show warning no [project-url]", // NOI18N
+        name = "02 Demonstration: Show warning no [project-url]", // NOI18N
         /* projectURL = "[undefined]", */
         version = "0.1.0-SNAPSHOT" // NOI18N
 )
