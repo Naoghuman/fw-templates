@@ -338,15 +338,25 @@ public class ConcreteSampleTest {
         assertEquals(123, concreteSample.getSampleNr());
     }
     
-//    @Test
-//    public void testIsVisible() {
-//        System.out.println("isVisible");
-//        ConcreteSample instance = null;
-//        boolean expResult = false;
-//        boolean result = instance.isVisible();
-//        assertEquals(expResult, result);
-//        fail("The test case is a prototype.");
-//    }
+    @Test
+    public void testIsVisible() {
+        String name = "Sample";
+        String overviewURL = "";
+        String sourceCodeURL = "www.sourcecode-url.com";
+        String javaDocURL = "";
+        String cssURL = "";
+        int sampleNr = 123;
+        String sampleViewClass = "";
+        String description = "description";
+        boolean visible = false;
+        final ConcreteSample concreteSample = ConcreteSample.create(
+                name, null, overviewURL,
+                sourceCodeURL, javaDocURL, cssURL,
+                sampleNr, SampleType.NORMAL, sampleViewClass,
+                description, visible);
+        
+        assertEquals(false, concreteSample.isVisible());
+    }
 
 //    @Test
 //    public void testHasDescription() {
