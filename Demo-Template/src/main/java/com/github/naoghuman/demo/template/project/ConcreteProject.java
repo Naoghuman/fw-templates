@@ -33,33 +33,36 @@ public final class ConcreteProject implements Comparable<ConcreteProject> {
     private static final String UNDEFINED = "[undefined]"; // NOI18N
     
     public static final ConcreteProject create(final String name) {
-        return create(name, UNDEFINED, UNDEFINED);
+        return create(name, UNDEFINED, UNDEFINED, Boolean.TRUE);
     }
     
     public static final ConcreteProject create(Project project) {
-        return create(project.name(), project.projectNr(), project.projectURL(), project.version());
+        return create(project.name(), project.projectNr(), project.projectURL(), 
+                project.version(), project.visible());
     }
     
     public static final ConcreteProject create(
             final String name, final String projectURL,
-            final String version
+            final String version, final boolean visible
     ) {
-        return create(name, DEFAULT_PROJECT_NR, projectURL, version);
+        return create(name, DEFAULT_PROJECT_NR, projectURL, version, visible);
     }
     
     public static final ConcreteProject create(
             final String name, final int projectNr,
-            final String projectURL, final String version
+            final String projectURL, final String version,
+            final boolean visible
     ) {
-        return create(System.nanoTime(), name, projectNr, projectURL, version);
+        return create(System.nanoTime(), name, projectNr, projectURL, version, visible);
     }
     
     public static final ConcreteProject create(
             final long id, final String name, 
             final int projectNr, final String projectURL,
-            final String version
+            final String version, final boolean visible
     ) {
-        final ConcreteProject concreteProject = new ConcreteProject(id, name, projectNr, projectURL, version);
+        final ConcreteProject concreteProject = new ConcreteProject(id, name, 
+                projectNr, projectURL, version, visible);
         
         return concreteProject;
     }
@@ -68,6 +71,7 @@ public final class ConcreteProject implements Comparable<ConcreteProject> {
     
     private final int projectNr;
     private final long id;
+    private final boolean visible;
     
     private final String name;
     private final Optional<String> projectURL;
@@ -76,13 +80,14 @@ public final class ConcreteProject implements Comparable<ConcreteProject> {
     private ConcreteProject(
             final long id, final String name,
             final int projectNr, final String projectURL,
-            final String version
+            final String version, final boolean visible
     ) {
-        this.id = id;
-        this.name = name;
-        this.projectNr = projectNr;
+        this.id         = id;
+        this.name       = name;
+        this.projectNr  = projectNr;
         this.projectURL = Optional.ofNullable(projectURL);
-        this.version = Optional.ofNullable(version);
+        this.version    = Optional.ofNullable(version);
+        this.visible    = visible;
     }
     
     public void add(ConcreteSample concreteSample) {
@@ -121,6 +126,10 @@ public final class ConcreteProject implements Comparable<ConcreteProject> {
     
     public Optional<String> getVersion() {
         return version;
+    }
+
+    public final boolean isVisible() {
+        return visible;
     }
     
     @Override
@@ -267,6 +276,8 @@ public final class ConcreteProject implements Comparable<ConcreteProject> {
         }
         
         sb.append(", version=").append(this.getVersion().isPresent() ? this.getVersion().get() : UNDEFINED); // NOI18N
+        sb.append(", visible=").append(this.isVisible()); // NOI18N
+        
         sb.append("]"); // NOI18N
         
         return sb.toString();

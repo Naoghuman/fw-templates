@@ -35,5 +35,6 @@ public @interface Project {
     public int projectNr()     default -1;
     public String projectURL() default "[undefined]"; // NOI18N
     public String version()    default "[undefined]"; // NOI18N
+    public boolean visible()   default true;
     
 }

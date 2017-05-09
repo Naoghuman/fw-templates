@@ -64,7 +64,8 @@ public class ConcreteProjectTest {
         String name = "Project X";
         String projectURL = "www.project.com";
         String version = "0.0.1";
-        ConcreteProject result = ConcreteProject.create(name, projectURL, version);
+        boolean visible = true;
+        ConcreteProject result = ConcreteProject.create(name, projectURL, version, visible);
         
         assertEquals("Project X", result.getName());
         assertEquals(-1, result.getProjectNr());
@@ -81,7 +82,8 @@ public class ConcreteProjectTest {
         int projectNr = 23;
         String projectURL = "www.project.com";
         String version = "0.0.1";
-        ConcreteProject result = ConcreteProject.create(id, name, projectNr, projectURL, version);
+        boolean visible = true;
+        ConcreteProject result = ConcreteProject.create(id, name, projectNr, projectURL, version, visible);
         
         assertEquals(-1L, result.getId());
         assertEquals("Project X", result.getName());
@@ -104,7 +106,8 @@ public class ConcreteProjectTest {
         String name = "Project X";
         String projectURL = "";
         String version = "0.0.1";
-        ConcreteProject result = ConcreteProject.create(name, projectURL, version);
+        boolean visible = true;
+        ConcreteProject result = ConcreteProject.create(name, projectURL, version, visible);
         
         assertFalse(result.hasProjectURL());
     }
@@ -114,7 +117,8 @@ public class ConcreteProjectTest {
         String name = "Project X";
         String projectURL = "www.project.com";
         String version = "0.0.1";
-        ConcreteProject result = ConcreteProject.create(name, projectURL, version);
+        boolean visible = true;
+        ConcreteProject result = ConcreteProject.create(name, projectURL, version, visible);
         
         assertTrue(result.hasProjectURL());
     }
@@ -124,7 +128,8 @@ public class ConcreteProjectTest {
         String name = "Project X";
         String projectURL = "www.project.com";
         String version = "0.0.1";
-        ConcreteProject result = ConcreteProject.create(name, projectURL, version);
+        boolean visible = true;
+        ConcreteProject result = ConcreteProject.create(name, projectURL, version, visible);
         
         assertTrue(result.getProjectURL().isPresent());
         assertEquals("www.project.com", result.getProjectURL().get());
@@ -137,7 +142,8 @@ public class ConcreteProjectTest {
         int projectNr = 23;
         String projectURL = "www.project.com";
         String version = "0.0.1";
-        ConcreteProject result = ConcreteProject.create(id, name, projectNr, projectURL, version);
+        boolean visible = true;
+        ConcreteProject result = ConcreteProject.create(id, name, projectNr, projectURL, version, visible);
         
         assertEquals(-1L, result.getId());
     }
@@ -147,7 +153,8 @@ public class ConcreteProjectTest {
         String name = "Project X";
         String projectURL = "www.project.com";
         String version = "0.0.1";
-        ConcreteProject result = ConcreteProject.create(name, projectURL, version);
+        boolean visible = true;
+        ConcreteProject result = ConcreteProject.create(name, projectURL, version, visible);
         
         assertEquals("Project X", result.getName());
     }
@@ -157,10 +164,37 @@ public class ConcreteProjectTest {
         String name = "Project X";
         String projectURL = "www.project.com";
         String version = "0.0.1";
-        ConcreteProject result = ConcreteProject.create(name, projectURL, version);
+        boolean visible = true;
+        ConcreteProject result = ConcreteProject.create(name, projectURL, version, visible);
         
         assertTrue(result.getVersion().isPresent());
         assertEquals("0.0.1", result.getVersion().get());
+    }
+
+    @Test
+    public void testIsVisibleTrue() {
+        long id = -1L;
+        String name = "Project X";
+        int projectNr = 23;
+        String projectURL = "www.project.com";
+        String version = "0.0.1";
+        boolean visible = true;
+        ConcreteProject result = ConcreteProject.create(id, name, projectNr, projectURL, version, visible);
+        
+        assertEquals(true, result.isVisible());
+    }
+
+    @Test
+    public void testIsVisibleFalse() {
+        long id = -1L;
+        String name = "Project X";
+        int projectNr = 23;
+        String projectURL = "www.project.com";
+        String version = "0.0.1";
+        boolean visible = false;
+        ConcreteProject result = ConcreteProject.create(id, name, projectNr, projectURL, version, visible);
+        
+        assertEquals(false, result.isVisible());
     }
 
     @Test
@@ -168,12 +202,14 @@ public class ConcreteProjectTest {
         String name = "Project a";
         String projectURL = "www.project.com";
         String version = "0.0.1";
-        ConcreteProject result1 = ConcreteProject.create(name, projectURL, version);
+        boolean visible = true;
+        ConcreteProject result1 = ConcreteProject.create(name, projectURL, version, visible);
         
         String name2 = "Project b";
         String projectURL2 = "www.project.com";
         String version2 = "0.0.2";
-        ConcreteProject result2 = ConcreteProject.create(name2, projectURL2, version2);
+        boolean visible2 = true;
+        ConcreteProject result2 = ConcreteProject.create(name2, projectURL2, version2, visible2);
         
         assertTrue(result1.compareTo(result2) == -1);
     }
@@ -183,12 +219,14 @@ public class ConcreteProjectTest {
         String name = "Project a";
         String projectURL = "www.project.com";
         String version = "0.0.1";
-        ConcreteProject result1 = ConcreteProject.create(name, projectURL, version);
+        boolean visible = true;
+        ConcreteProject result1 = ConcreteProject.create(name, projectURL, version, visible);
         
         String name2 = "Project a";
         String projectURL2 = "www.project.com";
         String version2 = "0.0.2";
-        ConcreteProject result2 = ConcreteProject.create(name2, projectURL2, version2);
+        boolean visible2 = true;
+        ConcreteProject result2 = ConcreteProject.create(name2, projectURL2, version2, visible2);
         
         assertTrue(result1.compareTo(result2) == -1);
     }
@@ -198,12 +236,14 @@ public class ConcreteProjectTest {
         String name = "Project a";
         String projectURL = "www.project1.com";
         String version = "0.0.1";
-        ConcreteProject result1 = ConcreteProject.create(name, projectURL, version);
+        boolean visible = true;
+        ConcreteProject result1 = ConcreteProject.create(name, projectURL, version, visible);
         
         String name2 = "Project a";
         String projectURL2 = "www.project2.com";
         String version2 = "0.0.1";
-        ConcreteProject result2 = ConcreteProject.create(name2, projectURL2, version2);
+        boolean visible2 = true;
+        ConcreteProject result2 = ConcreteProject.create(name2, projectURL2, version2, visible2);
         
         assertTrue(result1.compareTo(result2) == -1);
     }
@@ -215,14 +255,16 @@ public class ConcreteProjectTest {
         int projectNr = 23;
         String projectURL = "www.project.com";
         String version = "0.0.1";
-        ConcreteProject result1 = ConcreteProject.create(id, name, projectNr, projectURL, version);
+        boolean visible = true;
+        ConcreteProject result1 = ConcreteProject.create(id, name, projectNr, projectURL, version, visible);
         
         long id2 = -123L;
         String name2 = "Project a";
         int projectNr2 = 23;
         String projectURL2 = "www.project.com";
         String version2 = "0.0.1";
-        ConcreteProject result2 = ConcreteProject.create(id2, name2, projectNr2, projectURL2, version2);
+        boolean visible2 = true;
+        ConcreteProject result2 = ConcreteProject.create(id2, name2, projectNr2, projectURL2, version2, visible2);
         
         assertTrue(result1.equals(result2));
     }
@@ -234,9 +276,11 @@ public class ConcreteProjectTest {
         int projectNr = 23;
         String projectURL = "www.project.com";
         String version = "0.0.1";
-        ConcreteProject result1 = ConcreteProject.create(id, name, projectNr, projectURL, version);
+        boolean visible = true;
+        ConcreteProject result1 = ConcreteProject.create(id, name, projectNr, projectURL, version, visible);
         
-        String expected = "ConcreteProject [id=-123, name=Project a, projectNr=23, projectURL=www.project.com, version=0.0.1]";
+        String expected = "ConcreteProject [id=-123, name=Project a, projectNr=23, "
+                + "projectURL=www.project.com, version=0.0.1, visible=true]";
         assertEquals(expected, result1.toString());
     }
     

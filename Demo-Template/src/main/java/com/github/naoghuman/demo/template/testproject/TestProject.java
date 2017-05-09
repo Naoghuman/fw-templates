@@ -27,6 +27,7 @@ import com.github.naoghuman.demo.template.annotation.Project;
         projectNr  = 1,
         projectURL = "https://github.com/Naoghuman/Project-Templates/tree/master/Demo-Template", // NOI18N
         version    = "0.1.0-SNAPSHOT" // NOI18N
+        /* visible = true; // NOI18N */ 
 )
 public class TestProject {
     

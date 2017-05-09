@@ -59,8 +59,10 @@ public class ProjectConverter {
                     final int projectNr      = project.projectNr();
                     final String projectURL  = project.projectURL();
                     final String version     = project.version();
+                    final boolean visible    = project.visible();
                     
-                    final ConcreteProject concreteProject = ConcreteProject.create(name, projectNr, projectURL, version);
+                    final ConcreteProject concreteProject = ConcreteProject.create(
+                            name, projectNr, projectURL, version, visible);
                     convertedProjectsToConcreteProjects.add(concreteProject);
                 });
         
