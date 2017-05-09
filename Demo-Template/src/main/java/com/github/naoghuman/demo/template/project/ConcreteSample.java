@@ -25,6 +25,7 @@ import java.util.Optional;
  */
 public final class ConcreteSample implements Comparable<ConcreteSample> {
     
+    private static final int DEFAULT_SAMPLE_NR = -1;
     private static final String UNDEFINED = "[undefined]"; // NOI18N
     
     private final int sampleNr;
@@ -168,7 +169,14 @@ public final class ConcreteSample implements Comparable<ConcreteSample> {
     
     @Override
     public int compareTo(final ConcreteSample other) {
-        int compareTo = this.getName().compareTo(other.getName());
+        int compareTo = 0;
+        if (this.getSampleNr() > DEFAULT_SAMPLE_NR) {
+            compareTo = (this.getSampleNr() + this.getName()).compareTo(other.getSampleNr() + other.getName());
+        }
+        else {
+            compareTo = this.getName().compareTo(other.getName());
+        }
+        
         if (compareTo != 0) {
             return compareTo;
         }

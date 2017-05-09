@@ -28,9 +28,10 @@ import com.github.naoghuman.demo.template.annotation.SampleType;
         /* cssURL = "[undefined]"; */
         description = "TODO", // NOI18N
         /* javaDocURL = "[undefined]"; */
-        name = "10 Sample", // NOI18N
+        name = "Sample", // NOI18N
         /* overviewURL = "[undefined]", */
-        project = @Project(name = "01 Demo-Template"), // NOI18N
+        project = @Project(name = "Demo-Template"), // NOI18N
+        sampleNr = 10,
         sampleType = SampleType.OVERVIEW,
         /* sourceCodeURL = "[undefined]", */
         visible = true
