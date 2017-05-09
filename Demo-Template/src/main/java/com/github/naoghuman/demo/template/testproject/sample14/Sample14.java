@@ -14,19 +14,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.demo.template.warningnoprojecturlproject;
+package com.github.naoghuman.demo.template.testproject.sample14;
 
 import com.github.naoghuman.demo.template.annotation.Project;
+import com.github.naoghuman.demo.template.annotation.Sample;
+import com.github.naoghuman.demo.template.annotation.SampleType;
 
 /**
  *
  * @author Naoghuman
  */
-@Project(
-        name = "02 Demonstration: Show warning no [project-url]", // NOI18N
-        /* projectURL = "[undefined]", */
-        version = "0.1.0-SNAPSHOT" // NOI18N
+@Sample(
+        /* cssURL = "[undefined]"; */
+        description = "TODO", // NOI18N
+        /* javaDocURL = "[undefined]"; */
+        name = "14 Sample", // NOI18N
+        /* overviewURL = "[undefined]", */
+        project = @Project(name = "01 Demo-Template"), // NOI18N
+        sampleType = SampleType.OVERVIEW,
+        /* sourceCodeURL = "[undefined]", */
+        visible = true
 )
-public class WarningNoProjectUrl {
+public class Sample14 {
     
 }
