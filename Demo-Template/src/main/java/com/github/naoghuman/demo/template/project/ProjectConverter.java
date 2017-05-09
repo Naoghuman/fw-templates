@@ -34,7 +34,7 @@ public class ProjectConverter {
         final StringBuilder sb = new StringBuilder();
         sb.append(""); // NOI18N
         
-        if (projectNrOrSampleNr != -1) {
+        if (projectNrOrSampleNr > -1) {
            sb.append(String.format("%0" + leadingZeros + "d", projectNrOrSampleNr)); // NOI18N
            sb.append(" "); // NOI18N 
         }
