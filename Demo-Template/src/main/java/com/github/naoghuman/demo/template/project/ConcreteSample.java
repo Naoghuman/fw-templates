@@ -27,6 +27,7 @@ public final class ConcreteSample implements Comparable<ConcreteSample> {
     
     private static final String UNDEFINED = "[undefined]"; // NOI18N
     
+    private final int sampleNr;
     private final long id;
     private final boolean visible;
     
@@ -45,24 +46,26 @@ public final class ConcreteSample implements Comparable<ConcreteSample> {
             final String name, final ConcreteProject project,
             final String overviewURL, final String sourceCodeURL, 
             final String javaDocURL, final String cssURL,
-            final SampleType sampleType, final String sampleViewClass,
-            final String description, final boolean visible
+            final int sampleNr, final SampleType sampleType,
+            final String sampleViewClass, final String description,
+            final boolean visible
     ) {
         return create(System.nanoTime(), name, project, overviewURL, sourceCodeURL, 
-                javaDocURL, cssURL, sampleType, sampleViewClass, description, visible);
+                javaDocURL, cssURL, sampleNr, sampleType, sampleViewClass, description,
+                visible);
     }
     
     public static final ConcreteSample create(
             final long id, final String name, 
             final ConcreteProject project, final String overviewURL, 
             final String sourceCodeURL, final String javaDocURL,
-            final String cssURL, final SampleType sampleType,
-            final String sampleViewClass, final String description,
-            final boolean visible
+            final String cssURL, final int sampleNr,
+            final SampleType sampleType, final String sampleViewClass,
+            final String description, final boolean visible
     ) {
         final ConcreteSample concreteSample = new ConcreteSample(id, name, project,
-                overviewURL, sourceCodeURL, javaDocURL, cssURL, sampleType, sampleViewClass,
-                description, visible);
+                overviewURL, sourceCodeURL, javaDocURL, cssURL, sampleNr, sampleType,
+                sampleViewClass, description, visible);
         
         return concreteSample;
     }
@@ -70,8 +73,8 @@ public final class ConcreteSample implements Comparable<ConcreteSample> {
     private ConcreteSample(
             final long id, final String name, final ConcreteProject project,
             final String overviewURL, final String sourceCodeURL, final String javaDocURL,
-            final String cssURL, final SampleType sampleType, final String sampleViewClass,
-            final String description, final boolean visible
+            final String cssURL, final int sampleNr, final SampleType sampleType,
+            final String sampleViewClass, final String description, final boolean visible
     ) {
         this.id              = id;
         this.name            = name;
@@ -80,6 +83,7 @@ public final class ConcreteSample implements Comparable<ConcreteSample> {
         this.sourceCodeURL   = Optional.ofNullable(sourceCodeURL);
         this.javaDocURL      = Optional.ofNullable(javaDocURL);
         this.cssURL          = Optional.ofNullable(cssURL);
+        this.sampleNr        = sampleNr;
         this.sampleType      = sampleType;
         this.sampleViewClass = sampleViewClass;
         this.description     = Optional.ofNullable(description);
@@ -124,6 +128,10 @@ public final class ConcreteSample implements Comparable<ConcreteSample> {
         return this.getSourceCodeURL().isPresent()
                 && !this.getSourceCodeURL().get().isEmpty()
                 && !this.getSourceCodeURL().get().equals(UNDEFINED);
+    }
+    
+    public int getSampleNr() {
+        return sampleNr;
     }
     
     public final SampleType getSampleType() {
@@ -227,6 +235,7 @@ public final class ConcreteSample implements Comparable<ConcreteSample> {
         sb.append(", sourceCodeURL=")  .append(this.getSourceCodeURL().isPresent() ? this.getSourceCodeURL().get() : UNDEFINED); // NOI18N
         sb.append(", javaDocURL=")     .append(this.getJavaDocURL()   .isPresent() ? this.getJavaDocURL()   .get() : UNDEFINED); // NOI18N
         sb.append(", cssURL=")         .append(this.getCssURL()       .isPresent() ? this.getCssURL()       .get() : UNDEFINED); // NOI18N
+        sb.append(", sampleNr=")       .append(this.getSampleNr());             // NOI18N
         sb.append(", sampleType=")     .append(this.getSampleType()   .name()); // NOI18N
         sb.append(", sampleViewClass=").append(this.getSampleViewClass());
         sb.append(", description=")    .append(this.getDescription()  .isPresent() ? this.getDescription()  .get() : UNDEFINED); // NOI18N

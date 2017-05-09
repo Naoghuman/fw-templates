@@ -82,13 +82,14 @@ public class ConcreteSampleTest {
         String sourceCodeURL = "";
         String javaDocURL = "";
         String cssURL = "";
+        int sampleNr = 0;
         String sampleViewClass = "";
         String description = "description";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
                 name, null, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
-                SampleType.NORMAL, sampleViewClass,
+                sampleNr, SampleType.NORMAL, sampleViewClass,
                 description, visible);
         
         assertFalse(concreteSample.hasCssURL());
@@ -101,13 +102,14 @@ public class ConcreteSampleTest {
         String sourceCodeURL = "";
         String javaDocURL = "";
         String cssURL = "[undefined]";
+        int sampleNr = 0;
         String sampleViewClass = "";
         String description = "description";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
                 name, null, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
-                SampleType.NORMAL, sampleViewClass,
+                sampleNr, SampleType.NORMAL, sampleViewClass,
                 description, visible);
         
         assertFalse(concreteSample.hasCssURL());
@@ -120,13 +122,14 @@ public class ConcreteSampleTest {
         String sourceCodeURL = "";
         String javaDocURL = "";
         String cssURL = "www.css-url.com";
+        int sampleNr = 0;
         String sampleViewClass = "";
         String description = "description";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
                 name, null, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
-                SampleType.NORMAL, sampleViewClass,
+                sampleNr, SampleType.NORMAL, sampleViewClass,
                 description, visible);
         
         assertTrue(concreteSample.hasCssURL());
@@ -139,13 +142,14 @@ public class ConcreteSampleTest {
         String sourceCodeURL = "";
         String javaDocURL = "";
         String cssURL = "www.css-url.com";
+        int sampleNr = 0;
         String sampleViewClass = "";
         String description = "description";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
                 name, null, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
-                SampleType.NORMAL, sampleViewClass,
+                sampleNr, SampleType.NORMAL, sampleViewClass,
                 description, visible);
         
         assertTrue(concreteSample.hasCssURL());
@@ -160,12 +164,13 @@ public class ConcreteSampleTest {
         String javaDocURL = "";
         String cssURL = "";
         String sampleViewClass = "";
+        int sampleNr = 0;
         String description = "description";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
                 name, null, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
-                SampleType.NORMAL, sampleViewClass,
+                sampleNr, SampleType.NORMAL, sampleViewClass,
                 description, visible);
         
         assertFalse(concreteSample.hasJavaDocURL());
@@ -178,13 +183,14 @@ public class ConcreteSampleTest {
         String sourceCodeURL = "";
         String javaDocURL = "[undefined]";
         String cssURL = "";
+        int sampleNr = 0;
         String sampleViewClass = "";
         String description = "description";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
                 name, null, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
-                SampleType.NORMAL, sampleViewClass,
+                sampleNr, SampleType.NORMAL, sampleViewClass,
                 description, visible);
         
         assertFalse(concreteSample.hasJavaDocURL());
@@ -197,13 +203,14 @@ public class ConcreteSampleTest {
         String sourceCodeURL = "";
         String javaDocURL = "www.javadoc-url.com";
         String cssURL = "";
+        int sampleNr = 0;
         String sampleViewClass = "";
         String description = "description";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
                 name, null, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
-                SampleType.NORMAL, sampleViewClass,
+                sampleNr, SampleType.NORMAL, sampleViewClass,
                 description, visible);
         
         assertTrue(concreteSample.hasJavaDocURL());
@@ -216,13 +223,14 @@ public class ConcreteSampleTest {
         String sourceCodeURL = "";
         String javaDocURL = "www.javadoc-url.com";
         String cssURL = "";
+        int sampleNr = 0;
         String sampleViewClass = "";
         String description = "description";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
                 name, null, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
-                SampleType.NORMAL, sampleViewClass,
+                sampleNr, SampleType.NORMAL, sampleViewClass,
                 description, visible);
         
         assertTrue(concreteSample.getJavaDocURL().isPresent());
@@ -236,13 +244,14 @@ public class ConcreteSampleTest {
         String sourceCodeURL = "";
         String javaDocURL = "";
         String cssURL = "";
+        int sampleNr = 0;
         String sampleViewClass = "";
         String description = "description";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
                 name, null, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
-                SampleType.NORMAL, sampleViewClass,
+                sampleNr, SampleType.NORMAL, sampleViewClass,
                 description, visible);
         
         assertFalse(concreteSample.hasSourceCodeURL());
@@ -255,13 +264,14 @@ public class ConcreteSampleTest {
         String sourceCodeURL = "[undefined]";
         String javaDocURL = "";
         String cssURL = "";
+        int sampleNr = 0;
         String sampleViewClass = "";
         String description = "description";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
                 name, null, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
-                SampleType.NORMAL, sampleViewClass,
+                sampleNr, SampleType.NORMAL, sampleViewClass,
                 description, visible);
         
         assertFalse(concreteSample.hasSourceCodeURL());
@@ -274,13 +284,14 @@ public class ConcreteSampleTest {
         String sourceCodeURL = "www.sourcecode-url.com";
         String javaDocURL = "";
         String cssURL = "";
+        int sampleNr = 0;
         String sampleViewClass = "";
         String description = "description";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
                 name, null, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
-                SampleType.NORMAL, sampleViewClass,
+                sampleNr, SampleType.NORMAL, sampleViewClass,
                 description, visible);
         
         assertTrue(concreteSample.hasSourceCodeURL());
@@ -293,28 +304,40 @@ public class ConcreteSampleTest {
         String sourceCodeURL = "www.sourcecode-url.com";
         String javaDocURL = "";
         String cssURL = "";
+        int sampleNr = 0;
         String sampleViewClass = "";
         String description = "description";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
                 name, null, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
-                SampleType.NORMAL, sampleViewClass,
+                sampleNr, SampleType.NORMAL, sampleViewClass,
                 description, visible);
         
         assertTrue(concreteSample.getSourceCodeURL().isPresent());
         assertEquals("www.sourcecode-url.com", concreteSample.getSourceCodeURL().get());
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
+    @Test
+    public void testGetSampleNr() {
+        String name = "Sample";
+        String overviewURL = "";
+        String sourceCodeURL = "www.sourcecode-url.com";
+        String javaDocURL = "";
+        String cssURL = "";
+        int sampleNr = 123;
+        String sampleViewClass = "";
+        String description = "description";
+        boolean visible = true;
+        final ConcreteSample concreteSample = ConcreteSample.create(
+                name, null, overviewURL,
+                sourceCodeURL, javaDocURL, cssURL,
+                sampleNr, SampleType.NORMAL, sampleViewClass,
+                description, visible);
+        
+        assertEquals(123, concreteSample.getSampleNr());
+    }
+    
 //    @Test
 //    public void testIsVisible() {
 //        System.out.println("isVisible");

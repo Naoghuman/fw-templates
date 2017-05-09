@@ -99,6 +99,7 @@ public class ProjectConverter {
                     final String sourceCodeURL            = sample.sourceCodeURL();
                     final String javaDocURL               = sample.javaDocURL();
                     final String cssURL                   = sample.cssURL();
+                    final int sampleNr                    = sample.sampleNr();
                     final SampleType sampleType           = sample.sampleType();
                     final String sampleViewClass          = sampleAsClass.getName() + "View"; // NOI18N
                     final String description              = sample.description();
@@ -106,7 +107,7 @@ public class ProjectConverter {
                     
                     final ConcreteSample concreteSample = ConcreteSample.create(
                             name, concreteProject, overviewURL, sourceCodeURL, 
-                            javaDocURL, cssURL, sampleType, sampleViewClass, 
+                            javaDocURL, cssURL, sampleNr, sampleType, sampleViewClass, 
                             description, visible);
                     convertedSamplesToConcreteSamples.add(concreteSample);
                 });
