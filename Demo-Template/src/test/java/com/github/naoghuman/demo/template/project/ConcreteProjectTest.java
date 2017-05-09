@@ -52,6 +52,7 @@ public class ConcreteProjectTest {
         ConcreteProject result = ConcreteProject.create(name);
         
         assertEquals("Project X", result.getName());
+        assertEquals(-1, result.getProjectNr());
         assertTrue(result.getProjectURL().isPresent());
         assertEquals("[undefined]", result.getProjectURL().get());
         assertTrue(result.getVersion().isPresent());
@@ -66,6 +67,7 @@ public class ConcreteProjectTest {
         ConcreteProject result = ConcreteProject.create(name, projectURL, version);
         
         assertEquals("Project X", result.getName());
+        assertEquals(-1, result.getProjectNr());
         assertTrue(result.getProjectURL().isPresent());
         assertEquals("www.project.com", result.getProjectURL().get());
         assertTrue(result.getVersion().isPresent());
@@ -73,12 +75,13 @@ public class ConcreteProjectTest {
     }
 
     @Test
-    public void testCreate_4args() {
+    public void testCreate_5args() {
         long id = -1L;
         String name = "Project X";
+        int projectNr = 23;
         String projectURL = "www.project.com";
         String version = "0.0.1";
-        ConcreteProject result = ConcreteProject.create(id, name, projectURL, version);
+        ConcreteProject result = ConcreteProject.create(id, name, projectNr, projectURL, version);
         
         assertEquals(-1L, result.getId());
         assertEquals("Project X", result.getName());
@@ -131,9 +134,10 @@ public class ConcreteProjectTest {
     public void testGetId() {
         long id = -1L;
         String name = "Project X";
+        int projectNr = 23;
         String projectURL = "www.project.com";
         String version = "0.0.1";
-        ConcreteProject result = ConcreteProject.create(id, name, projectURL, version);
+        ConcreteProject result = ConcreteProject.create(id, name, projectNr, projectURL, version);
         
         assertEquals(-1L, result.getId());
     }
@@ -208,15 +212,17 @@ public class ConcreteProjectTest {
     public void testEquals() {
         long id = -123L;
         String name = "Project a";
+        int projectNr = 23;
         String projectURL = "www.project.com";
         String version = "0.0.1";
-        ConcreteProject result1 = ConcreteProject.create(id, name, projectURL, version);
+        ConcreteProject result1 = ConcreteProject.create(id, name, projectNr, projectURL, version);
         
         long id2 = -123L;
         String name2 = "Project a";
+        int projectNr2 = 23;
         String projectURL2 = "www.project.com";
         String version2 = "0.0.1";
-        ConcreteProject result2 = ConcreteProject.create(id2, name2, projectURL2, version2);
+        ConcreteProject result2 = ConcreteProject.create(id2, name2, projectNr2, projectURL2, version2);
         
         assertTrue(result1.equals(result2));
     }
@@ -225,11 +231,12 @@ public class ConcreteProjectTest {
     public void testToString() {
         long id = -123L;
         String name = "Project a";
+        int projectNr = 23;
         String projectURL = "www.project.com";
         String version = "0.0.1";
-        ConcreteProject result1 = ConcreteProject.create(id, name, projectURL, version);
+        ConcreteProject result1 = ConcreteProject.create(id, name, projectNr, projectURL, version);
         
-        String expected = "ConcreteProject [id=-123, name=Project a, projectURL=www.project.com, version=0.0.1]";
+        String expected = "ConcreteProject [id=-123, name=Project a, projectNr=23, projectURL=www.project.com, version=0.0.1]";
         assertEquals(expected, result1.toString());
     }
     

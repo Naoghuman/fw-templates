@@ -129,7 +129,10 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
                 this.setText(null);
                 
                 if (concreteProject != null && !empty) {
-                    this.setText(concreteProject.getName());
+                    final String prefix = ProjectConverter.convertProjectNrOrSampleNrToPrefix(concreteProject.getProjectNr());
+                    final String name = concreteProject.getName();
+                    final String text = prefix + name;
+                    this.setText(text);
                 }
             }
         };

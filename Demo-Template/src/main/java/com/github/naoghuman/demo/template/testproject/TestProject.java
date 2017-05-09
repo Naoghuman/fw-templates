@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.demo.template.demotemplate;
+package com.github.naoghuman.demo.template.testproject;
 
 import com.github.naoghuman.demo.template.annotation.Project;
 
@@ -23,10 +23,11 @@ import com.github.naoghuman.demo.template.annotation.Project;
  * @author Naoghuman
  */
 @Project(
-        name       = "01 Demo-Template", // NOI18N
+        name       = "Demo-Template", // NOI18N
+        projectNr  = 1,
         projectURL = "https://github.com/Naoghuman/Project-Templates/tree/master/Demo-Template", // NOI18N
         version    = "0.1.0-SNAPSHOT" // NOI18N
 )
-public class DemoTemplate {
+public class TestProject {
     
 }

@@ -30,6 +30,22 @@ import javafx.collections.FXCollections;
  */
 public class ProjectConverter {
     
+    public static String convertProjectNrOrSampleNrToPrefix(int leadingZeros, int projectNrOrSampleNr) {
+        final StringBuilder sb = new StringBuilder();
+        sb.append(""); // NOI18N
+        
+        if (projectNrOrSampleNr != -1) {
+           sb.append(String.format("%0" + leadingZeros + "d", projectNrOrSampleNr)); // NOI18N
+           sb.append(" "); // NOI18N 
+        }
+        
+        return sb.toString();
+    }
+    
+    public static String convertProjectNrOrSampleNrToPrefix(int projectNrOrSampleNr) {
+        return convertProjectNrOrSampleNrToPrefix(3, projectNrOrSampleNr);
+    }
+    
     public static List<ConcreteProject> convertProjectsToConcreteProjects(List<Class<?>> convertedProjectsToClasses) {
         LoggerFacade.getDefault().debug(ProjectConverter.class, "Convert projects to [ConcreteProject]s"); // NOI18N
 
@@ -40,10 +56,11 @@ public class ProjectConverter {
                     final Project project       = (Project) annotation;
                     
                     final String name        = project.name();
+                    final int projectNr      = project.projectNr();
                     final String projectURL  = project.projectURL();
                     final String version     = project.version();
                     
-                    final ConcreteProject concreteProject = ConcreteProject.create(name, projectURL, version);
+                    final ConcreteProject concreteProject = ConcreteProject.create(name, projectNr, projectURL, version);
                     convertedProjectsToConcreteProjects.add(concreteProject);
                 });
         
@@ -76,17 +93,16 @@ public class ProjectConverter {
                     final Annotation annotation = sampleAsClass.getAnnotation(Sample.class);
                     final Sample sample   = (Sample) annotation;
                     
-                    final String name     = sample.name();
-                    final Project project = sample.project();
-                    final ConcreteProject concreteProject = ConcreteProject.create(project.name(), project.projectURL(), project.version());
-                    final String overviewURL     = sample.overviewURL();
-                    final String sourceCodeURL   = sample.sourceCodeURL();
-                    final String javaDocURL      = sample.javaDocURL();
-                    final String cssURL          = sample.cssURL();
-                    final SampleType sampleType  = sample.sampleType();
-                    final String sampleViewClass = sampleAsClass.getName() + "View"; // NOI18N
-                    final String description     = sample.description();
-                    final boolean visible        = sample.visible();
+                    final String name                     = sample.name();
+                    final ConcreteProject concreteProject = ConcreteProject.create(sample.project());
+                    final String overviewURL              = sample.overviewURL();
+                    final String sourceCodeURL            = sample.sourceCodeURL();
+                    final String javaDocURL               = sample.javaDocURL();
+                    final String cssURL                   = sample.cssURL();
+                    final SampleType sampleType           = sample.sampleType();
+                    final String sampleViewClass          = sampleAsClass.getName() + "View"; // NOI18N
+                    final String description              = sample.description();
+                    final boolean visible                 = sample.visible();
                     
                     final ConcreteSample concreteSample = ConcreteSample.create(
                             name, concreteProject, overviewURL, sourceCodeURL, 

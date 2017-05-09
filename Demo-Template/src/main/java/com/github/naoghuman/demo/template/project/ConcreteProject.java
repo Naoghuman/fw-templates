@@ -16,6 +16,7 @@
  */
 package com.github.naoghuman.demo.template.project;
 
+import com.github.naoghuman.demo.template.annotation.Project;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -28,33 +29,58 @@ import javafx.collections.FXCollections;
  */
 public final class ConcreteProject implements Comparable<ConcreteProject> {
     
+    private static final int DEFAULT_PROJECT_NR = -1;
     private static final String UNDEFINED = "[undefined]"; // NOI18N
     
     public static final ConcreteProject create(final String name) {
         return create(name, UNDEFINED, UNDEFINED);
     }
     
-    public static final ConcreteProject create(final String name, final String projectURL, final String version) {
-        return create(System.nanoTime(), name, projectURL, version);
+    public static final ConcreteProject create(Project project) {
+        return create(project.name(), project.projectNr(), project.projectURL(), project.version());
     }
     
-    public static final ConcreteProject create(final long id, final String name, final String projectURL, final String version) {
-        final ConcreteProject concreteProject = new ConcreteProject(id, name, projectURL, version);
+    public static final ConcreteProject create(
+            final String name, final String projectURL,
+            final String version
+    ) {
+        return create(name, DEFAULT_PROJECT_NR, projectURL, version);
+    }
+    
+    public static final ConcreteProject create(
+            final String name, final int projectNr,
+            final String projectURL, final String version
+    ) {
+        return create(System.nanoTime(), name, projectNr, projectURL, version);
+    }
+    
+    public static final ConcreteProject create(
+            final long id, final String name, 
+            final int projectNr, final String projectURL,
+            final String version
+    ) {
+        final ConcreteProject concreteProject = new ConcreteProject(id, name, projectNr, projectURL, version);
         
         return concreteProject;
     }
     
     private final List<ConcreteSample> concreteSamples = FXCollections.observableArrayList();
     
+    private final int projectNr;
     private final long id;
     
     private final String name;
     private final Optional<String> projectURL;
     private final Optional<String> version;
     
-    private ConcreteProject(final long id, final String name, final String projectURL, final String version) {
+    private ConcreteProject(
+            final long id, final String name,
+            final int projectNr, final String projectURL,
+            final String version
+    ) {
         this.id = id;
         this.name = name;
+        this.projectNr = projectNr;
         this.projectURL = Optional.ofNullable(projectURL);
         this.version = Optional.ofNullable(version);
     }
@@ -63,6 +89,10 @@ public final class ConcreteProject implements Comparable<ConcreteProject> {
         if (!concreteSamples.contains(concreteSample)) {
             concreteSamples.add(concreteSample);
         }
+    }
+    
+    public int getProjectNr() {
+        return projectNr;
     }
     
     public boolean hasProjectURL() {
@@ -215,18 +245,17 @@ public final class ConcreteProject implements Comparable<ConcreteProject> {
         final StringBuilder sb = new StringBuilder();
         sb.append("ConcreteProject ["); // NOI18N
         
-        sb.append("id=")          .append(this.getId());          // NOI18N
-        sb.append(", name=")      .append(this.getName());        // NOI18N
+        sb.append("id=")          .append(this.getId());        // NOI18N
+        sb.append(", name=")      .append(this.getName());      // NOI18N
+        sb.append(", projectNr=") .append(this.getProjectNr()); // NOI18N
         sb.append(", projectURL=").append(this.getProjectURL().isPresent() ? this.getProjectURL().get() : UNDEFINED); // NOI18N
         
         if (!this.getConcreteSamples().isEmpty()) {
             final StringJoiner stringJoiner = new StringJoiner(", ", ", ConcreteSample[", "]"); // NOI18N
-            
             this.getConcreteSamples().stream()
                     .forEach(concreteSample -> {
                         stringJoiner.add("concreteSample=" + concreteSample.toString()); // NOI18N
                     });
-            
             sb.append(stringJoiner.toString());
         }
         

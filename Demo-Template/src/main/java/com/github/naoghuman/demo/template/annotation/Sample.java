@@ -37,6 +37,7 @@ public @interface Sample {
     public String overviewURL()    default "[undefined]"; // NOI18N
     public String name();
     public Project project();
+    public int sampleNr()          default -1;
     public SampleType sampleType() default SampleType.NORMAL;
     public String sourceCodeURL()  default "[undefined]"; // NOI18N
     public boolean visible()       default true;
