@@ -17,6 +17,8 @@
 package com.github.naoghuman.demo.template.project;
 
 import com.github.naoghuman.demo.template.annotation.SampleType;
+
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -77,23 +79,34 @@ public final class ConcreteSample implements Comparable<ConcreteSample> {
             final String cssURL, final int sampleNr, final SampleType sampleType,
             final String sampleViewClass, final String description, final boolean visible
     ) {
+        Objects.requireNonNull(name);
+        Objects.requireNonNull(sampleViewClass);
+        
+        if (
+                sampleViewClass.isEmpty()
+                || !sampleViewClass.endsWith("View") // NOI18N
+                || sampleViewClass.length() <= 4
+        ) {
+            throw new IllegalArgumentException("The [sampleViewClass] can't be EMPTY " // NOI18N
+                    + "or <= 4 signs. Also it must end with the suffix [View]"); // NOI18N
+        }
+        
         this.id              = id;
         this.name            = name;
         this.project         = project;
-        this.overviewURL     = Optional.ofNullable(overviewURL);
-        this.sourceCodeURL   = Optional.ofNullable(sourceCodeURL);
-        this.javaDocURL      = Optional.ofNullable(javaDocURL);
-        this.cssURL          = Optional.ofNullable(cssURL);
-        this.sampleNr        = sampleNr;
+        this.overviewURL     = Optional.ofNullable(overviewURL.isEmpty()   ? null : overviewURL);
+        this.sourceCodeURL   = Optional.ofNullable(sourceCodeURL.isEmpty() ? null : sourceCodeURL);
+        this.javaDocURL      = Optional.ofNullable(javaDocURL.isEmpty()    ? null : javaDocURL);
+        this.cssURL          = Optional.ofNullable(cssURL.isEmpty()        ? null : cssURL);
+        this.sampleNr        = (sampleNr > DEFAULT_SAMPLE_NR)              ? sampleNr : DEFAULT_SAMPLE_NR;
         this.sampleType      = sampleType;
         this.sampleViewClass = sampleViewClass;
-        this.description     = Optional.ofNullable(description);
+        this.description     = Optional.ofNullable(description.isEmpty()   ? null : description);
         this.visible         = visible;
     }
     
     public boolean hasCssURL() {
         return this.getCssURL().isPresent()
-                && !this.getCssURL().get().isEmpty()
                 && !this.getCssURL().get().equals(UNDEFINED);
     }
 
@@ -107,7 +120,6 @@ public final class ConcreteSample implements Comparable<ConcreteSample> {
     
     public boolean hasJavaDocURL() {
         return this.getJavaDocURL().isPresent()
-                && !this.getJavaDocURL().get().isEmpty()
                 && !this.getJavaDocURL().get().equals(UNDEFINED);
     }
 
@@ -117,7 +129,6 @@ public final class ConcreteSample implements Comparable<ConcreteSample> {
     
     public boolean hasOverviewURL() {
         return this.getOverviewURL().isPresent()
-                && !this.getOverviewURL().get().isEmpty()
                 && !this.getOverviewURL().get().equals(UNDEFINED);
     }
 
@@ -127,7 +138,6 @@ public final class ConcreteSample implements Comparable<ConcreteSample> {
     
     public boolean hasSourceCodeURL() {
         return this.getSourceCodeURL().isPresent()
-                && !this.getSourceCodeURL().get().isEmpty()
                 && !this.getSourceCodeURL().get().equals(UNDEFINED);
     }
     
@@ -152,7 +162,8 @@ public final class ConcreteSample implements Comparable<ConcreteSample> {
     }
     
     public boolean hasDescription() {
-        return this.getDescription().isPresent() && !this.getDescription().get().equals(UNDEFINED);
+        return this.getDescription().isPresent()
+                && !this.getDescription().get().equals(UNDEFINED);
     }
 
     public final Optional<String> getDescription() {
@@ -236,18 +247,18 @@ public final class ConcreteSample implements Comparable<ConcreteSample> {
         final StringBuilder sb = new StringBuilder();
         sb.append("ConcreteSample ["); // NOI18N
         
-        sb.append("id=")               .append(this.getId());   // NOI18N
-        sb.append(", name=")           .append(this.getName()); // NOI18N
+        sb.append("id=")               .append(this.getId());                      // NOI18N
+        sb.append(", name=")           .append(this.getName());                    // NOI18N
         sb.append(", project=")        .append(this.getProject()      .getName()); // NOI18N
         sb.append(", overviewURL=")    .append(this.getOverviewURL()  .isPresent() ? this.getOverviewURL()  .get() : UNDEFINED); // NOI18N
         sb.append(", sourceCodeURL=")  .append(this.getSourceCodeURL().isPresent() ? this.getSourceCodeURL().get() : UNDEFINED); // NOI18N
         sb.append(", javaDocURL=")     .append(this.getJavaDocURL()   .isPresent() ? this.getJavaDocURL()   .get() : UNDEFINED); // NOI18N
         sb.append(", cssURL=")         .append(this.getCssURL()       .isPresent() ? this.getCssURL()       .get() : UNDEFINED); // NOI18N
-        sb.append(", sampleNr=")       .append(this.getSampleNr());             // NOI18N
-        sb.append(", sampleType=")     .append(this.getSampleType()   .name()); // NOI18N
-        sb.append(", sampleViewClass=").append(this.getSampleViewClass());
+        sb.append(", sampleNr=")       .append(this.getSampleNr());                // NOI18N
+        sb.append(", sampleType=")     .append(this.getSampleType()   .name());    // NOI18N
+        sb.append(", sampleViewClass=").append(this.getSampleViewClass());         // NOI18N
         sb.append(", description=")    .append(this.getDescription()  .isPresent() ? this.getDescription()  .get() : UNDEFINED); // NOI18N
-        sb.append(", visible=")        .append(this.isVisible()); // NOI18N
+        sb.append(", visible=")        .append(this.isVisible());                  // NOI18N
         
         sb.append("]"); // NOI18N
         
