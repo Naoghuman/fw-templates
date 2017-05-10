@@ -48,6 +48,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.Text;
@@ -70,6 +71,14 @@ import javafx.util.Duration;
  */
 public class ApplicationPresenter implements Initializable, IRegisterActions {
     
+    private final Text TEXT = new Text();
+    {
+        final Font f = TEXT.getFont();
+        TEXT.setFill(Color.DIMGRAY.darker());
+        TEXT.setFont(Font.font(f.getFamily(), FontPosture.ITALIC, f.getSize()));
+        TEXT.setStrikethrough(Boolean.TRUE);
+    }
+            
     private static final int INDEX_TAB__SAMPLE     = 0;
     private static final int INDEX_TAB__SOURCECODE = 1;
     private static final int INDEX_TAB__JAVADOC    = 2;
@@ -121,6 +130,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         LoggerFacade.getDefault().info(this.getClass(), "Initialize Navigation Projects"); // NOI18N
         
         final Callback callbackConcreteProjects = (Callback<ListView<ConcreteProject>, ListCell<ConcreteProject>>) (ListView<ConcreteProject> listView) -> new ListCell<ConcreteProject>() {
+            
             @Override
             protected void updateItem(ConcreteProject concreteProject, boolean empty) {
                 super.updateItem(concreteProject, empty);
@@ -132,7 +142,14 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
                     final String prefix = ProjectConverter.convertProjectNrOrSampleNrToPrefix(concreteProject.getProjectNr());
                     final String name = concreteProject.getName();
                     final String text = prefix + name;
-                    this.setText(text);
+                    final boolean isProjectVisible = concreteProject.isVisible();
+                    if (isProjectVisible) {
+                        this.setText(text);
+                    }
+                    else {
+                        TEXT.setText(text);
+                        this.setGraphic(TEXT);
+                    }
                 }
             }
         };
@@ -145,9 +162,13 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
             }
         });
         
-        lvNavigationProjects.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends ConcreteProject> observable, ConcreteProject oldValue, ConcreteProject newValue) -> {
-            this.onActionShowPageProject(newValue);
-            this.onActionRefreshNavigationSamples(newValue.getConcreteSamples());
+        lvNavigationProjects.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends ConcreteProject> observable, ConcreteProject oldValue, ConcreteProject concreteProject) -> {
+            this.onActionShowPageProject(concreteProject);
+            
+            final boolean isProjectVisible = concreteProject.isVisible();
+            if (isProjectVisible) {
+                this.onActionRefreshNavigationSamples(concreteProject.getConcreteSamples());
+            }
         });
     }
     
@@ -155,13 +176,6 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         LoggerFacade.getDefault().info(this.getClass(), "Initialize Navigation Samples"); // NOI18N
         
         final Callback callbackConcreteSamples = (Callback<ListView<ConcreteSample>, ListCell<ConcreteSample>>) (ListView<ConcreteSample> listView) -> new ListCell<ConcreteSample>() {
-            
-            private final Text TEXT = new Text();
-            {
-                final Font f = TEXT.getFont();
-                TEXT.setFont(Font.font(f.getFamily(), FontPosture.ITALIC, f.getSize()));
-                TEXT.setStrikethrough(Boolean.TRUE);
-            }
             
             @Override
             protected void updateItem(ConcreteSample concreteSample, boolean empty) {
