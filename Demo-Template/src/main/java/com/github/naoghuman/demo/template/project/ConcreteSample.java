@@ -80,6 +80,8 @@ public final class ConcreteSample implements Comparable<ConcreteSample> {
             final String sampleViewClass, final String description, final boolean visible
     ) {
         Objects.requireNonNull(name);
+        Objects.requireNonNull(project);
+        Objects.requireNonNull(sampleType);
         Objects.requireNonNull(sampleViewClass);
         
         if (

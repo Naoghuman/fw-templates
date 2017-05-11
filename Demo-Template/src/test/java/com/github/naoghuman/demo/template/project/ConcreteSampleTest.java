@@ -26,7 +26,7 @@ import static org.junit.Assert.*;
  * Unittests
     ( ) id
     (v) name
-    ( ) project
+    (v) project
     (v) overviewURL
     (v) sourceCodeURL
     (v) javaDocURL
@@ -56,8 +56,8 @@ public class ConcreteSampleTest {
     }
 
     @Test (expected=NullPointerException.class)
-    public void testGetName_null() {
-        String name = null;
+    public void testGetProject_null() {
+        String name = "my-name";
         String overviewURL = "";
         String sourceCodeURL = "";
         String javaDocURL = "";
@@ -74,8 +74,9 @@ public class ConcreteSampleTest {
     }
 
     @Test
-    public void testGetName_empty() {
-        String name = "";
+    public void testGetProject_name() {
+        String name = "my-name";
+        ConcreteProject concreteProject = ConcreteProject.create("new-project");
         String overviewURL = "";
         String sourceCodeURL = "";
         String javaDocURL = "";
@@ -85,7 +86,48 @@ public class ConcreteSampleTest {
         String description = "description";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
-                name, null, overviewURL,
+                name, concreteProject, overviewURL,
+                sourceCodeURL, javaDocURL, cssURL,
+                sampleNr, SampleType.NORMAL, sampleViewClass,
+                description, visible);
+        
+        assertNotNull(concreteSample.getProject());
+        assertEquals("new-project", concreteSample.getProject().getName());
+    }
+
+    @Test (expected=NullPointerException.class)
+    public void testGetName_null() {
+        String name = null;
+        ConcreteProject concreteProject = ConcreteProject.create("new-project");
+        String overviewURL = "";
+        String sourceCodeURL = "";
+        String javaDocURL = "";
+        String cssURL = "";
+        int sampleNr = 0;
+        String sampleViewClass = "sampleClassView";
+        String description = "description";
+        boolean visible = true;
+        ConcreteSample.create(
+                name, concreteProject, overviewURL,
+                sourceCodeURL, javaDocURL, cssURL,
+                sampleNr, SampleType.NORMAL, sampleViewClass,
+                description, visible);
+    }
+
+    @Test
+    public void testGetName_empty() {
+        String name = "";
+        ConcreteProject concreteProject = ConcreteProject.create("new-project");
+        String overviewURL = "";
+        String sourceCodeURL = "";
+        String javaDocURL = "";
+        String cssURL = "";
+        int sampleNr = 0;
+        String sampleViewClass = "sampleClassView";
+        String description = "description";
+        boolean visible = true;
+        final ConcreteSample concreteSample = ConcreteSample.create(
+                name, concreteProject, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
                 sampleNr, SampleType.NORMAL, sampleViewClass,
                 description, visible);
@@ -96,6 +138,7 @@ public class ConcreteSampleTest {
     @Test
     public void testGetName_valid() {
         String name = "my-name";
+        ConcreteProject concreteProject = ConcreteProject.create("new-project");
         String overviewURL = "";
         String sourceCodeURL = "";
         String javaDocURL = "";
@@ -105,7 +148,7 @@ public class ConcreteSampleTest {
         String description = "description";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
-                name, null, overviewURL,
+                name, concreteProject, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
                 sampleNr, SampleType.NORMAL, sampleViewClass,
                 description, visible);
@@ -116,6 +159,7 @@ public class ConcreteSampleTest {
     @Test
     public void testHasCssURL_false_empty() {
         String name = "Sample";
+        ConcreteProject concreteProject = ConcreteProject.create("new-project");
         String overviewURL = "";
         String sourceCodeURL = "";
         String javaDocURL = "";
@@ -125,7 +169,7 @@ public class ConcreteSampleTest {
         String description = "description";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
-                name, null, overviewURL,
+                name, concreteProject, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
                 sampleNr, SampleType.NORMAL, sampleViewClass,
                 description, visible);
@@ -137,6 +181,7 @@ public class ConcreteSampleTest {
     @Test
     public void testHasCssURL_false_undefined() {
         String name = "Sample";
+        ConcreteProject concreteProject = ConcreteProject.create("new-project");
         String overviewURL = "";
         String sourceCodeURL = "";
         String javaDocURL = "";
@@ -146,7 +191,7 @@ public class ConcreteSampleTest {
         String description = "description";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
-                name, null, overviewURL,
+                name, concreteProject, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
                 sampleNr, SampleType.NORMAL, sampleViewClass,
                 description, visible);
@@ -159,6 +204,7 @@ public class ConcreteSampleTest {
     @Test
     public void testGetCssURL_true() {
         String name = "Sample";
+        ConcreteProject concreteProject = ConcreteProject.create("new-project");
         String overviewURL = "";
         String sourceCodeURL = "";
         String javaDocURL = "";
@@ -168,7 +214,7 @@ public class ConcreteSampleTest {
         String description = "description";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
-                name, null, overviewURL,
+                name, concreteProject, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
                 sampleNr, SampleType.NORMAL, sampleViewClass,
                 description, visible);
@@ -181,6 +227,7 @@ public class ConcreteSampleTest {
     @Test
     public void testHasJavaDocURL_false_empty() {
         String name = "Sample";
+        ConcreteProject concreteProject = ConcreteProject.create("new-project");
         String overviewURL = "";
         String sourceCodeURL = "";
         String javaDocURL = "";
@@ -190,7 +237,7 @@ public class ConcreteSampleTest {
         String description = "description";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
-                name, null, overviewURL,
+                name, concreteProject, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
                 sampleNr, SampleType.NORMAL, sampleViewClass,
                 description, visible);
@@ -202,6 +249,7 @@ public class ConcreteSampleTest {
     @Test
     public void testHasJavaDocURL_false_undefined() {
         String name = "Sample";
+        ConcreteProject concreteProject = ConcreteProject.create("new-project");
         String overviewURL = "";
         String sourceCodeURL = "";
         String javaDocURL = "[undefined]";
@@ -211,7 +259,7 @@ public class ConcreteSampleTest {
         String description = "description";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
-                name, null, overviewURL,
+                name, concreteProject, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
                 sampleNr, SampleType.NORMAL, sampleViewClass,
                 description, visible);
@@ -224,6 +272,7 @@ public class ConcreteSampleTest {
     @Test
     public void testGetJavaDocURL_true() {
         String name = "Sample";
+        ConcreteProject concreteProject = ConcreteProject.create("new-project");
         String overviewURL = "";
         String sourceCodeURL = "";
         String javaDocURL = "www.javadoc-url.com";
@@ -233,7 +282,7 @@ public class ConcreteSampleTest {
         String description = "description";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
-                name, null, overviewURL,
+                name, concreteProject, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
                 sampleNr, SampleType.NORMAL, sampleViewClass,
                 description, visible);
@@ -246,6 +295,7 @@ public class ConcreteSampleTest {
     @Test
     public void testHasSourceCodeURL_false_empty() {
         String name = "Sample";
+        ConcreteProject concreteProject = ConcreteProject.create("new-project");
         String overviewURL = "";
         String sourceCodeURL = "";
         String javaDocURL = "";
@@ -255,7 +305,7 @@ public class ConcreteSampleTest {
         String description = "description";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
-                name, null, overviewURL,
+                name, concreteProject, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
                 sampleNr, SampleType.NORMAL, sampleViewClass,
                 description, visible);
@@ -267,6 +317,7 @@ public class ConcreteSampleTest {
     @Test
     public void testHasSourceCodeURL_false_undefined() {
         String name = "Sample";
+        ConcreteProject concreteProject = ConcreteProject.create("new-project");
         String overviewURL = "";
         String sourceCodeURL = "[undefined]";
         String javaDocURL = "";
@@ -276,7 +327,7 @@ public class ConcreteSampleTest {
         String description = "description";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
-                name, null, overviewURL,
+                name, concreteProject, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
                 sampleNr, SampleType.NORMAL, sampleViewClass,
                 description, visible);
@@ -289,6 +340,7 @@ public class ConcreteSampleTest {
     @Test
     public void testGetSourceCodeURL_true() {
         String name = "Sample";
+        ConcreteProject concreteProject = ConcreteProject.create("new-project");
         String overviewURL = "";
         String sourceCodeURL = "www.sourcecode-url.com";
         String javaDocURL = "";
@@ -298,7 +350,7 @@ public class ConcreteSampleTest {
         String description = "description";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
-                name, null, overviewURL,
+                name, concreteProject, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
                 sampleNr, SampleType.NORMAL, sampleViewClass,
                 description, visible);
@@ -311,6 +363,7 @@ public class ConcreteSampleTest {
     @Test
     public void testGetSampleNr_lesser_then_default_value() {
         String name = "Sample";
+        ConcreteProject concreteProject = ConcreteProject.create("new-project");
         String overviewURL = "";
         String sourceCodeURL = "www.sourcecode-url.com";
         String javaDocURL = "";
@@ -320,7 +373,7 @@ public class ConcreteSampleTest {
         String description = "description";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
-                name, null, overviewURL,
+                name, concreteProject, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
                 sampleNr, SampleType.NORMAL, sampleViewClass,
                 description, visible);
@@ -332,6 +385,7 @@ public class ConcreteSampleTest {
     @Test
     public void testGetSampleNr_equals_default_value() {
         String name = "Sample";
+        ConcreteProject concreteProject = ConcreteProject.create("new-project");
         String overviewURL = "";
         String sourceCodeURL = "www.sourcecode-url.com";
         String javaDocURL = "";
@@ -341,7 +395,7 @@ public class ConcreteSampleTest {
         String description = "description";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
-                name, null, overviewURL,
+                name, concreteProject, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
                 sampleNr, SampleType.NORMAL, sampleViewClass,
                 description, visible);
@@ -353,6 +407,7 @@ public class ConcreteSampleTest {
     @Test
     public void testGetSampleNr_greater_then_default_value() {
         String name = "Sample";
+        ConcreteProject concreteProject = ConcreteProject.create("new-project");
         String overviewURL = "";
         String sourceCodeURL = "www.sourcecode-url.com";
         String javaDocURL = "";
@@ -362,7 +417,7 @@ public class ConcreteSampleTest {
         String description = "description";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
-                name, null, overviewURL,
+                name, concreteProject, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
                 sampleNr, SampleType.NORMAL, sampleViewClass,
                 description, visible);
@@ -373,6 +428,7 @@ public class ConcreteSampleTest {
     @Test
     public void testIsVisible_false() {
         String name = "Sample";
+        ConcreteProject concreteProject = ConcreteProject.create("new-project");
         String overviewURL = "";
         String sourceCodeURL = "www.sourcecode-url.com";
         String javaDocURL = "";
@@ -382,7 +438,7 @@ public class ConcreteSampleTest {
         String description = "description";
         boolean visible = false;
         final ConcreteSample concreteSample = ConcreteSample.create(
-                name, null, overviewURL,
+                name, concreteProject, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
                 sampleNr, SampleType.NORMAL, sampleViewClass,
                 description, visible);
@@ -393,6 +449,7 @@ public class ConcreteSampleTest {
     @Test
     public void testIsVisible_true() {
         String name = "Sample";
+        ConcreteProject concreteProject = ConcreteProject.create("new-project");
         String overviewURL = "";
         String sourceCodeURL = "www.sourcecode-url.com";
         String javaDocURL = "";
@@ -402,7 +459,7 @@ public class ConcreteSampleTest {
         String description = "description";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
-                name, null, overviewURL,
+                name, concreteProject, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
                 sampleNr, SampleType.NORMAL, sampleViewClass,
                 description, visible);
@@ -413,6 +470,7 @@ public class ConcreteSampleTest {
     @Test
     public void testHasDescription_false_empty() {
         String name = "Sample";
+        ConcreteProject concreteProject = ConcreteProject.create("new-project");
         String overviewURL = "";
         String sourceCodeURL = "";
         String javaDocURL = "";
@@ -422,7 +480,7 @@ public class ConcreteSampleTest {
         String description = "";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
-                name, null, overviewURL,
+                name, concreteProject, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
                 sampleNr, SampleType.NORMAL, sampleViewClass,
                 description, visible);
@@ -434,6 +492,7 @@ public class ConcreteSampleTest {
     @Test
     public void testHasDescription_false_undefined() {
         String name = "Sample";
+        ConcreteProject concreteProject = ConcreteProject.create("new-project");
         String overviewURL = "";
         String sourceCodeURL = "";
         String javaDocURL = "";
@@ -443,7 +502,7 @@ public class ConcreteSampleTest {
         String description = "[undefined]";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
-                name, null, overviewURL,
+                name, concreteProject, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
                 sampleNr, SampleType.NORMAL, sampleViewClass,
                 description, visible);
@@ -456,6 +515,7 @@ public class ConcreteSampleTest {
     @Test
     public void testGetDescription_true() {
         String name = "Sample";
+        ConcreteProject concreteProject = ConcreteProject.create("new-project");
         String overviewURL = "";
         String sourceCodeURL = "";
         String javaDocURL = "";
@@ -465,7 +525,7 @@ public class ConcreteSampleTest {
         String description = "description";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
-                name, null, overviewURL,
+                name, concreteProject, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
                 sampleNr, SampleType.NORMAL, sampleViewClass,
                 description, visible);
@@ -478,6 +538,7 @@ public class ConcreteSampleTest {
     @Test
     public void testHasOverviewURL_false_empty() {
         String name = "Sample";
+        ConcreteProject concreteProject = ConcreteProject.create("new-project");
         String overviewURL = "";
         String sourceCodeURL = "";
         String javaDocURL = "";
@@ -487,7 +548,7 @@ public class ConcreteSampleTest {
         String description = "";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
-                name, null, overviewURL,
+                name, concreteProject, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
                 sampleNr, SampleType.NORMAL, sampleViewClass,
                 description, visible);
@@ -499,6 +560,7 @@ public class ConcreteSampleTest {
     @Test
     public void testHasOverviewURL_false_undefined() {
         String name = "Sample";
+        ConcreteProject concreteProject = ConcreteProject.create("new-project");
         String overviewURL = "[undefined]";
         String sourceCodeURL = "";
         String javaDocURL = "";
@@ -508,7 +570,7 @@ public class ConcreteSampleTest {
         String description = "";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
-                name, null, overviewURL,
+                name, concreteProject, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
                 sampleNr, SampleType.NORMAL, sampleViewClass,
                 description, visible);
@@ -521,6 +583,7 @@ public class ConcreteSampleTest {
     @Test
     public void testGetOverviewURL_true() {
         String name = "Sample";
+        ConcreteProject concreteProject = ConcreteProject.create("new-project");
         String overviewURL = "www.overview-url.com";
         String sourceCodeURL = "";
         String javaDocURL = "";
@@ -530,7 +593,7 @@ public class ConcreteSampleTest {
         String description = "";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
-                name, null, overviewURL,
+                name, concreteProject, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
                 sampleNr, SampleType.NORMAL, sampleViewClass,
                 description, visible);
@@ -543,6 +606,7 @@ public class ConcreteSampleTest {
     @Test
     public void testGetSampleType_NORMAL() {
         String name = "Sample";
+        ConcreteProject concreteProject = ConcreteProject.create("new-project");
         String overviewURL = "";
         String sourceCodeURL = "";
         String javaDocURL = "";
@@ -552,7 +616,7 @@ public class ConcreteSampleTest {
         String description = "";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
-                name, null, overviewURL,
+                name, concreteProject, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
                 sampleNr, SampleType.NORMAL, sampleViewClass,
                 description, visible);
@@ -563,6 +627,7 @@ public class ConcreteSampleTest {
     @Test
     public void testGetSampleType_OVERVIEW() {
         String name = "Sample";
+        ConcreteProject concreteProject = ConcreteProject.create("new-project");
         String overviewURL = "";
         String sourceCodeURL = "";
         String javaDocURL = "";
@@ -572,7 +637,7 @@ public class ConcreteSampleTest {
         String description = "";
         boolean visible = true;
         final ConcreteSample concreteSample = ConcreteSample.create(
-                name, null, overviewURL,
+                name, concreteProject, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
                 sampleNr, SampleType.OVERVIEW, sampleViewClass,
                 description, visible);
@@ -583,6 +648,7 @@ public class ConcreteSampleTest {
     @Test(expected = NullPointerException.class)
     public void testGetSampleViewClass_NullPointerException() {
         String name = "Sample";
+        ConcreteProject concreteProject = ConcreteProject.create("new-project");
         String overviewURL = "";
         String sourceCodeURL = "";
         String javaDocURL = "";
@@ -592,7 +658,7 @@ public class ConcreteSampleTest {
         String description = "";
         boolean visible = true;
         ConcreteSample.create(
-                name, null, overviewURL,
+                name, concreteProject, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
                 sampleNr, SampleType.OVERVIEW, sampleViewClass,
                 description, visible);
@@ -601,6 +667,7 @@ public class ConcreteSampleTest {
     @Test(expected = IllegalArgumentException.class)
     public void testGetSampleViewClass_IllegalArgumentException_empty() {
         String name = "Sample";
+        ConcreteProject concreteProject = ConcreteProject.create("new-project");
         String overviewURL = "";
         String sourceCodeURL = "";
         String javaDocURL = "";
@@ -610,7 +677,7 @@ public class ConcreteSampleTest {
         String description = "";
         boolean visible = true;
         ConcreteSample.create(
-                name, null, overviewURL,
+                name, concreteProject, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
                 sampleNr, SampleType.OVERVIEW, sampleViewClass,
                 description, visible);
@@ -619,6 +686,7 @@ public class ConcreteSampleTest {
     @Test(expected = IllegalArgumentException.class)
     public void testGetSampleViewClass_IllegalArgumentException_lesser_4_signs() {
         String name = "Sample";
+        ConcreteProject concreteProject = ConcreteProject.create("new-project");
         String overviewURL = "";
         String sourceCodeURL = "";
         String javaDocURL = "";
@@ -628,7 +696,7 @@ public class ConcreteSampleTest {
         String description = "";
         boolean visible = true;
         ConcreteSample.create(
-                name, null, overviewURL,
+                name, concreteProject, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
                 sampleNr, SampleType.OVERVIEW, sampleViewClass,
                 description, visible);
@@ -637,6 +705,7 @@ public class ConcreteSampleTest {
     @Test(expected = IllegalArgumentException.class)
     public void testGetSampleViewClass_IllegalArgumentException_equals_4_signs() {
         String name = "Sample";
+        ConcreteProject concreteProject = ConcreteProject.create("new-project");
         String overviewURL = "";
         String sourceCodeURL = "";
         String javaDocURL = "";
@@ -646,7 +715,7 @@ public class ConcreteSampleTest {
         String description = "";
         boolean visible = true;
         ConcreteSample.create(
-                name, null, overviewURL,
+                name, concreteProject, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
                 sampleNr, SampleType.OVERVIEW, sampleViewClass,
                 description, visible);
@@ -655,6 +724,7 @@ public class ConcreteSampleTest {
     @Test(expected = IllegalArgumentException.class)
     public void testGetSampleViewClass_IllegalArgumentException_ends_not_with_view() {
         String name = "Sample";
+        ConcreteProject concreteProject = ConcreteProject.create("new-project");
         String overviewURL = "";
         String sourceCodeURL = "";
         String javaDocURL = "";
@@ -664,7 +734,7 @@ public class ConcreteSampleTest {
         String description = "";
         boolean visible = true;
         ConcreteSample.create(
-                name, null, overviewURL,
+                name, concreteProject, overviewURL,
                 sourceCodeURL, javaDocURL, cssURL,
                 sampleNr, SampleType.OVERVIEW, sampleViewClass,
                 description, visible);
