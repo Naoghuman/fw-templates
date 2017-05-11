@@ -163,12 +163,21 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         });
         
         lvNavigationProjects.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends ConcreteProject> observable, ConcreteProject oldValue, ConcreteProject concreteProject) -> {
-            this.onActionShowPageProject(concreteProject);
+            tProject.setContent(null);
             
             final boolean isProjectVisible = concreteProject.isVisible();
             if (isProjectVisible) {
+                LoggerFacade.getDefault().debug(this.getClass(), "  -> show [Project]"); // NOI18N
+                
+                tProject.setContent(wvProjectPage);
+                
+                this.onActionShowPageProject(concreteProject);
                 this.onActionRefreshNavigationSamples(concreteProject.getConcreteSamples());
             }
+            else {
+                LoggerFacade.getDefault().debug(this.getClass(), "  -> show [ComingSoonView]"); // NOI18N
+
+                tProject.setContent(ComingSoonView.getComingSoonView());}
         });
     }
     
