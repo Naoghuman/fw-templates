@@ -18,9 +18,13 @@ package com.github.naoghuman.demo.template.project;
 
 import com.github.naoghuman.demo.template.configuration.ITemplateConfiguration;
 import com.github.naoghuman.demo.template.images.ImageLoader;
+import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.lib.properties.api.PropertiesFacade;
 import java.util.Optional;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Separator;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Priority;
@@ -37,34 +41,76 @@ import javafx.scene.text.Text;
  */
 public final class ComingSoonView implements ITemplateConfiguration {
     
-    private static final Text TEXT = new Text();
-    private static final VBox VBOX = new VBox();
+    private static final Text TEXT_COMING_SOON = new Text();
+    private static final Text TEXT_TITLE = new Text();
+    private static final TextArea TEXTAREA_DESCRIPTION = new TextArea();
+    private static final VBox VBOX_COMING_SOON = new VBox();
+    private static final VBox VBOX_INFORMATION = new VBox();
     
     static {
-        VBOX.setAlignment(Pos.CENTER);
-        VBOX.setSpacing(7.0d);
-        VBox.setVgrow(VBOX, Priority.ALWAYS);
+        TEXT_COMING_SOON.setFont(Font.font(Font.getDefault().getFamily(), FontWeight.BOLD, FontPosture.ITALIC, 48.0d));
+        TEXT_COMING_SOON.setFill(Color.RED);
+        TEXT_COMING_SOON.setText(PropertiesFacade.getDefault().getProperty(KEY__TEMPLATE__RESOURCE_BUNDLE, KEY__TEMPLATE__PROJECT_COMINGSOONVIEW_TEXT));
+    
+        TEXTAREA_DESCRIPTION.setEditable(Boolean.FALSE);
+        TEXTAREA_DESCRIPTION.setFont(Font.font(Font.getDefault().getFamily(), 16.0d));
+        TEXTAREA_DESCRIPTION.setPrefHeight(128.0d);
+        TEXTAREA_DESCRIPTION.setWrapText(true);
+        TEXTAREA_DESCRIPTION.getStylesheets().add("/com/github/naoghuman/demo/template/project/comingsoonview.css");
+    
+        TEXT_TITLE.setFont(Font.font(Font.getDefault().getFamily(), FontWeight.BOLD, 56.0d));
+        TEXT_TITLE.setFill(Color.BLACK);
         
-        final Font FONT = Font.font(Font.getDefault().getFamily(), FontWeight.BOLD, FontPosture.ITALIC, 48.0d);
-        TEXT.setFont(FONT);
-        TEXT.setFill(Color.RED);
-        TEXT.setText(PropertiesFacade.getDefault().getProperty(KEY__TEMPLATE__RESOURCE_BUNDLE, KEY__TEMPLATE__PROJECT_COMINGSOONVIEW_TEXT));
+        VBOX_COMING_SOON.setAlignment(Pos.CENTER);
+        VBOX_COMING_SOON.setPadding(new Insets(0, 96.0d, 0, 96.0d));
+        VBox.setVgrow(VBOX_COMING_SOON, Priority.ALWAYS);
+    
+        VBOX_INFORMATION.setAlignment(Pos.CENTER);
+        VBOX_INFORMATION.setSpacing(14.0d);
+        VBOX_INFORMATION.setPadding(new Insets(14.0d));
+        VBOX_INFORMATION.setStyle( // TODO move stylesheet into own file
+                "-fx-base: LIGHTSKYBLUE; "
+                + "-fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color; "
+                + "-fx-background-radius: 5, 5, 4, 3; "
+                + "-fx-background-insets: 0 0 -1 0, 0, 1, 2; "
+                + "-fx-border-width: 0;");
     }
     
-    public static final VBox getComingSoonView() {
-        VBOX.getChildren().clear();
+    public static final VBox getComingSoonView(final String title, final Optional<String> description) {
+        LoggerFacade.getDefault().debug(ComingSoonView.class, "Get [ComingSoonView]"); // NOI18N
         
+        // Cleanup
+        VBOX_COMING_SOON.getChildren().clear();
+        VBOX_INFORMATION.getChildren().clear();
+        
+        // Title
+        TEXT_TITLE.setText(title);
+        VBOX_INFORMATION.getChildren().add(TEXT_TITLE);
+        
+        // Separator
+        VBOX_INFORMATION.getChildren().add(new Separator());
+        
+        // Image
         final Optional<Image> image = ImageLoader.getDefault().loadComingSoonImage();
         if (image.isPresent()) {
             final ImageView imageView = new ImageView();
             imageView.setImage(image.get());
-            VBOX.getChildren().add(imageView);
+            VBOX_INFORMATION.getChildren().add(imageView);
         }
         else {
-            VBOX.getChildren().add(TEXT);
+            VBOX_INFORMATION.getChildren().add(TEXT_COMING_SOON);
         }
         
-        return VBOX;
+        // Separator
+        VBOX_INFORMATION.getChildren().add(new Separator());
+        
+        // Description
+        TEXTAREA_DESCRIPTION.setText(description.isPresent() ? description.get() : "[undefinend]"); // NOI18N
+        VBOX_INFORMATION.getChildren().add(TEXTAREA_DESCRIPTION);
+        
+        VBOX_COMING_SOON.getChildren().add(VBOX_INFORMATION);
+        
+        return VBOX_COMING_SOON;
     }
     
 }

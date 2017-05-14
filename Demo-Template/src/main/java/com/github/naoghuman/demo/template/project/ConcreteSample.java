@@ -84,6 +84,10 @@ public final class ConcreteSample implements Comparable<ConcreteSample> {
         Objects.requireNonNull(sampleType);
         Objects.requireNonNull(sampleViewClass);
         
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("The [name] can't be EMPTY"); // NOI18N
+        }
+        
         if (
                 sampleViewClass.isEmpty()
                 || !sampleViewClass.endsWith("View") // NOI18N
@@ -96,14 +100,14 @@ public final class ConcreteSample implements Comparable<ConcreteSample> {
         this.id              = id;
         this.name            = name;
         this.project         = project;
-        this.overviewURL     = Optional.ofNullable(overviewURL.isEmpty()   ? null : overviewURL);
-        this.sourceCodeURL   = Optional.ofNullable(sourceCodeURL.isEmpty() ? null : sourceCodeURL);
-        this.javaDocURL      = Optional.ofNullable(javaDocURL.isEmpty()    ? null : javaDocURL);
-        this.cssURL          = Optional.ofNullable(cssURL.isEmpty()        ? null : cssURL);
-        this.sampleNr        = (sampleNr > DEFAULT_SAMPLE_NR)              ? sampleNr : DEFAULT_SAMPLE_NR;
+        this.overviewURL     = Optional.ofNullable((overviewURL   == null) ? overviewURL   : ((overviewURL.isEmpty())   ? null : overviewURL));
+        this.sourceCodeURL   = Optional.ofNullable((sourceCodeURL == null) ? sourceCodeURL : ((sourceCodeURL.isEmpty()) ? null : sourceCodeURL));
+        this.javaDocURL      = Optional.ofNullable((javaDocURL    == null) ? javaDocURL    : ((javaDocURL.isEmpty())    ? null : javaDocURL));
+        this.cssURL          = Optional.ofNullable((cssURL        == null) ? cssURL        : ((cssURL.isEmpty())        ? null : cssURL));
+        this.sampleNr        = (sampleNr > DEFAULT_SAMPLE_NR)              ? sampleNr      : DEFAULT_SAMPLE_NR;
         this.sampleType      = sampleType;
         this.sampleViewClass = sampleViewClass;
-        this.description     = Optional.ofNullable(description.isEmpty()   ? null : description);
+        this.description     = Optional.ofNullable((description   == null) ? description   : ((description.isEmpty())   ? null : description));
         this.visible         = visible;
     }
     
@@ -182,14 +186,7 @@ public final class ConcreteSample implements Comparable<ConcreteSample> {
     
     @Override
     public int compareTo(final ConcreteSample other) {
-        int compareTo = 0;
-        if (this.getSampleNr() > DEFAULT_SAMPLE_NR) {
-            compareTo = (this.getSampleNr() + this.getName()).compareTo(other.getSampleNr() + other.getName());
-        }
-        else {
-            compareTo = this.getName().compareTo(other.getName());
-        }
-        
+        int compareTo = (this.getSampleNr() + this.getName()).compareTo(other.getSampleNr() + other.getName());
         if (compareTo != 0) {
             return compareTo;
         }
@@ -241,7 +238,7 @@ public final class ConcreteSample implements Comparable<ConcreteSample> {
             return false;
         }
         
-        return !this.getSampleType().equals(other.getSampleType());
+        return this.getSampleType().equals(other.getSampleType());
     }
 
     @Override

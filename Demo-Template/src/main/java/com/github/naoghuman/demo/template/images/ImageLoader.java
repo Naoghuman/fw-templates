@@ -45,7 +45,8 @@ public class ImageLoader implements ITemplateConfiguration {
         Optional<Image> placeHolderImage;
         try {
             final URI uri = ImageLoader.class.getResource(COMING_SOON__ICON).toURI();
-            placeHolderImage = Optional.ofNullable(new Image(uri.toString(), 400.0d, 193.0d, true, true, true));
+            placeHolderImage = Optional.ofNullable(new Image(uri.toString(), 300.0d, 145.0d, true, true, true));
+//            placeHolderImage = Optional.ofNullable(new Image(uri.toString(), 400.0d, 193.0d, true, true, true));
         } catch (Exception ex) {
             LoggerFacade.getDefault().error(this.getClass(), "Can't load the image: " + COMING_SOON__ICON, ex); // NOI18N
             

@@ -177,7 +177,8 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
             else {
                 LoggerFacade.getDefault().debug(this.getClass(), "  -> show [ComingSoonView]"); // NOI18N
 
-                tProject.setContent(ComingSoonView.getComingSoonView());}
+                tProject.setContent(ComingSoonView.getComingSoonView(concreteProject.getName(), concreteProject.getDescription()));
+            }
         });
     }
     
@@ -502,7 +503,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         else {
             LoggerFacade.getDefault().debug(this.getClass(), "  -> show [ComingSoonView]"); // NOI18N
             
-            vbSamplePage.getChildren().add(ComingSoonView.getComingSoonView());
+            vbSamplePage.getChildren().add(ComingSoonView.getComingSoonView(concreteSample.getName(), concreteSample.getDescription()));
         }
     }
 

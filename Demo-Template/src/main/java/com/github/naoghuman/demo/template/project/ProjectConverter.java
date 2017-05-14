@@ -56,13 +56,17 @@ public class ProjectConverter {
                     final Project project       = (Project) annotation;
                     
                     final String name        = project.name();
+                    final String descripton  = project.description();
                     final int projectNr      = project.projectNr();
                     final String projectURL  = project.projectURL();
                     final String version     = project.version();
                     final boolean visible    = project.visible();
                     
                     final ConcreteProject concreteProject = ConcreteProject.create(
-                            name, projectNr, projectURL, version, visible);
+                            System.nanoTime(), name,
+                            descripton, projectNr,
+                            projectURL, version,
+                            visible);
                     convertedProjectsToConcreteProjects.add(concreteProject);
                 });
         

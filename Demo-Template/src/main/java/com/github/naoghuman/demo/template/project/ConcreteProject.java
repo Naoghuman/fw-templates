@@ -19,6 +19,7 @@ package com.github.naoghuman.demo.template.project;
 import com.github.naoghuman.demo.template.annotation.Project;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.StringJoiner;
 import javafx.collections.FXCollections;
@@ -33,36 +34,44 @@ public final class ConcreteProject implements Comparable<ConcreteProject> {
     private static final String UNDEFINED = "[undefined]"; // NOI18N
     
     public static final ConcreteProject create(final String name) {
-        return create(name, UNDEFINED, UNDEFINED, Boolean.TRUE);
+        return create(
+                System.nanoTime(), name,
+                UNDEFINED, DEFAULT_PROJECT_NR, 
+                UNDEFINED, UNDEFINED,
+                Boolean.TRUE);
     }
     
     public static final ConcreteProject create(Project project) {
-        return create(project.name(), project.projectNr(), project.projectURL(), 
-                project.version(), project.visible());
+        return create(
+                System.nanoTime(), project.name(),
+                project.description(), project.projectNr(),
+                project.projectURL(), project.version(),
+                project.visible());
     }
     
     public static final ConcreteProject create(
-            final String name, final String projectURL,
+            final String name, final String description,
+            final int projectNr, final String projectURL,
             final String version, final boolean visible
     ) {
-        return create(name, DEFAULT_PROJECT_NR, projectURL, version, visible);
-    }
-    
-    public static final ConcreteProject create(
-            final String name, final int projectNr,
-            final String projectURL, final String version,
-            final boolean visible
-    ) {
-        return create(System.nanoTime(), name, projectNr, projectURL, version, visible);
+        return create(
+                System.nanoTime(), name,
+                description, projectNr,
+                projectURL, version,
+                visible);
     }
     
     public static final ConcreteProject create(
             final long id, final String name, 
-            final int projectNr, final String projectURL,
-            final String version, final boolean visible
+            final String description, final int projectNr,
+            final String projectURL, final String version,
+            final boolean visible
     ) {
-        final ConcreteProject concreteProject = new ConcreteProject(id, name, 
-                projectNr, projectURL, version, visible);
+        final ConcreteProject concreteProject = new ConcreteProject(
+                id, name, 
+                description, projectNr,
+                projectURL, version,
+                visible);
         
         return concreteProject;
     }
@@ -73,21 +82,30 @@ public final class ConcreteProject implements Comparable<ConcreteProject> {
     private final long id;
     private final boolean visible;
     
+    private final Optional<String> description;
     private final String name;
     private final Optional<String> projectURL;
     private final Optional<String> version;
     
     private ConcreteProject(
             final long id, final String name,
-            final int projectNr, final String projectURL,
-            final String version, final boolean visible
+            final String description, final int projectNr,
+            final String projectURL, final String version,
+            final boolean visible
     ) {
-        this.id         = id;
-        this.name       = name;
-        this.projectNr  = projectNr;
-        this.projectURL = Optional.ofNullable(projectURL);
-        this.version    = Optional.ofNullable(version);
-        this.visible    = visible;
+        Objects.requireNonNull(name);
+        
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("The [name] can't be EMPTY"); // NOI18N
+        }
+        
+        this.id          = id;
+        this.name        = name;
+        this.description = Optional.ofNullable((description == null) ? description : ((description.isEmpty()) ? null : description));
+        this.projectNr   = (projectNr > DEFAULT_PROJECT_NR)          ? projectNr   : DEFAULT_PROJECT_NR;
+        this.projectURL  = Optional.ofNullable((projectURL  == null) ? projectURL  : ((projectURL.isEmpty())  ? null : projectURL));
+        this.version     = Optional.ofNullable((version     == null) ? version     : ((version.isEmpty())     ? null : version));
+        this.visible     = visible;
     }
     
     public void add(ConcreteSample concreteSample) {
@@ -96,13 +114,21 @@ public final class ConcreteProject implements Comparable<ConcreteProject> {
         }
     }
     
+    public boolean hasDescription() {
+        return this.getDescription().isPresent()
+                && !this.getDescription().get().equals(UNDEFINED);
+    }
+    
+    public Optional<String> getDescription() {
+        return description;
+    }
+    
     public int getProjectNr() {
         return projectNr;
     }
     
     public boolean hasProjectURL() {
         return this.getProjectURL().isPresent()
-                && !this.getProjectURL().get().isEmpty()
                 && !this.getProjectURL().get().equals(UNDEFINED);
     }
     
@@ -124,6 +150,11 @@ public final class ConcreteProject implements Comparable<ConcreteProject> {
         return concreteSamples;
     }
     
+    public boolean hasVersion() {
+        return this.getVersion().isPresent()
+                && !this.getVersion().get().equals(UNDEFINED);
+    }
+    
     public Optional<String> getVersion() {
         return version;
     }
@@ -134,14 +165,7 @@ public final class ConcreteProject implements Comparable<ConcreteProject> {
     
     @Override
     public int compareTo(final ConcreteProject other) {
-        int compareTo = 0;
-        if (this.getProjectNr() > DEFAULT_PROJECT_NR) {
-            compareTo = (this.getProjectNr() + this.getName()).compareTo(other.getProjectNr() + other.getName());
-        }
-        else {
-            compareTo = this.getName().compareTo(other.getName());
-        }
-        
+        int compareTo = (this.getProjectNr() + this.getName()).compareTo(other.getProjectNr() + other.getName());
         if (compareTo != 0) {
             return compareTo;
         }
@@ -261,10 +285,11 @@ public final class ConcreteProject implements Comparable<ConcreteProject> {
         final StringBuilder sb = new StringBuilder();
         sb.append("ConcreteProject ["); // NOI18N
         
-        sb.append("id=")          .append(this.getId());        // NOI18N
-        sb.append(", name=")      .append(this.getName());      // NOI18N
-        sb.append(", projectNr=") .append(this.getProjectNr()); // NOI18N
-        sb.append(", projectURL=").append(this.getProjectURL().isPresent() ? this.getProjectURL().get() : UNDEFINED); // NOI18N
+        sb.append("id=")           .append(this.getId());        // NOI18N
+        sb.append(", name=")       .append(this.getName());      // NOI18N
+        sb.append(", description=").append(this.getDescription().isPresent() ? this.getDescription().get() : UNDEFINED); // NOI18N
+        sb.append(", projectNr=")  .append(this.getProjectNr()); // NOI18N
+        sb.append(", projectURL=") .append(this.getProjectURL().isPresent()  ? this.getProjectURL().get()  : UNDEFINED); // NOI18N
         
         if (!this.getConcreteSamples().isEmpty()) {
             final StringJoiner stringJoiner = new StringJoiner(", ", ", ConcreteSample[", "]"); // NOI18N

@@ -31,10 +31,11 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE})
 public @interface Project {
     
-    public String name();
-    public int projectNr()     default -1;
-    public String projectURL() default "[undefined]"; // NOI18N
-    public String version()    default "[undefined]"; // NOI18N
-    public boolean visible()   default true;
+    public String  name();
+    public String  description() default "[undefined]"; // NOI18N
+    public int     projectNr()   default -1;
+    public String  projectURL()  default "[undefined]"; // NOI18N
+    public String  version()     default "[undefined]"; // NOI18N
+    public boolean visible()     default true;
     
 }
