@@ -30,6 +30,8 @@ import javafx.collections.FXCollections;
  */
 public class ProjectConverter {
     
+    private static final int DEFAULT_LEADING_ZEROS = 2;
+    
     public static String convertProjectNrOrSampleNrToPrefix(int leadingZeros, int projectNrOrSampleNr) {
         final StringBuilder sb = new StringBuilder();
         sb.append(""); // NOI18N
@@ -43,7 +45,7 @@ public class ProjectConverter {
     }
     
     public static String convertProjectNrOrSampleNrToPrefix(int projectNrOrSampleNr) {
-        return convertProjectNrOrSampleNrToPrefix(3, projectNrOrSampleNr);
+        return convertProjectNrOrSampleNrToPrefix(DEFAULT_LEADING_ZEROS, projectNrOrSampleNr);
     }
     
     public static List<ConcreteProject> convertProjectsToConcreteProjects(List<Class<?>> convertedProjectsToClasses) {
