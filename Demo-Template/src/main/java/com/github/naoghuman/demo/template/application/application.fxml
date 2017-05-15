@@ -47,32 +47,32 @@
                 </SplitPane>
                 <TabPane fx:id="tpProjectPages" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
-                        <Tab fx:id="tProject" closable="false" text="Project">
+                        <Tab id="Project" fx:id="tProject" closable="false" text="Project">
                             <content>
                                 <WebView fx:id="wvProjectPage" prefHeight="-1.0" prefWidth="-1.0" />
                             </content>
                         </Tab>
-                        <Tab fx:id="tOverview" closable="false" text="Overview">
+                        <Tab id="Overview" fx:id="tOverview" closable="false" text="Overview">
                             <content>
                                 <WebView fx:id="wvOverviewPage" prefHeight="-1.0" prefWidth="-1.0" />
                             </content>
                         </Tab>
-                        <Tab fx:id="tSample" closable="false" text="Sample">
+                        <Tab id="Sample" fx:id="tSample" closable="false" text="Sample">
                             <content>
                                 <VBox fx:id="vbSamplePage" prefHeight="200.0" prefWidth="100.0" />
                             </content>
                         </Tab>
-                        <Tab fx:id="tSourceCode" closable="false" text="SourceCode">
+                        <Tab id="SourceCode" fx:id="tSourceCode" closable="false" text="SourceCode">
                             <content>
                                 <WebView fx:id="wvSourceCodePage" prefHeight="-1.0" prefWidth="-1.0" />
                             </content>
                         </Tab>
-                        <Tab fx:id="tJavaDoc" closable="false" text="JavaDoc">
+                        <Tab id="JavaDoc" fx:id="tJavaDoc" closable="false" text="JavaDoc">
                             <content>
                                 <WebView fx:id="wvJavaDocPage" prefHeight="-1.0" prefWidth="-1.0" />
                             </content>
                         </Tab>
-                        <Tab fx:id="tCSS" closable="false" text="Css">
+                        <Tab id="Css" fx:id="tCSS" closable="false" text="Css">
                             <content>
                                 <WebView fx:id="wvCssPage" prefHeight="-1.0" prefWidth="-1.0" />
                             </content>

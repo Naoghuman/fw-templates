@@ -70,15 +70,7 @@ import javafx.util.Duration;
  * @author Naoghuman
  */
 public class ApplicationPresenter implements Initializable, IRegisterActions {
-    
-    private final Text TEXT = new Text();
-    {
-        final Font f = TEXT.getFont();
-        TEXT.setFill(Color.DIMGRAY.darker());
-        TEXT.setFont(Font.font(f.getFamily(), FontPosture.ITALIC, f.getSize()));
-        TEXT.setStrikethrough(Boolean.TRUE);
-    }
-            
+         
     private static final int INDEX_TAB__SAMPLE     = 0;
     private static final int INDEX_TAB__SOURCECODE = 1;
     private static final int INDEX_TAB__JAVADOC    = 2;
@@ -130,6 +122,13 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         LoggerFacade.getDefault().info(this.getClass(), "Initialize Navigation Projects"); // NOI18N
         
         final Callback callbackConcreteProjects = (Callback<ListView<ConcreteProject>, ListCell<ConcreteProject>>) (ListView<ConcreteProject> listView) -> new ListCell<ConcreteProject>() {
+            private final Text TEXT = new Text();
+            {
+                final Font f = TEXT.getFont();
+                TEXT.setFill(Color.DIMGRAY.darker());
+                TEXT.setFont(Font.font(f.getFamily(), FontPosture.ITALIC, f.getSize()));
+                TEXT.setStrikethrough(Boolean.TRUE);
+            }
             
             @Override
             protected void updateItem(ConcreteProject concreteProject, boolean empty) {
@@ -169,6 +168,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
             if (isProjectVisible) {
                 LoggerFacade.getDefault().debug(this.getClass(), "  -> show [Project]"); // NOI18N
                 
+                this.onActionSetTextNormal(tProject);
                 tProject.setContent(wvProjectPage);
                 
                 this.onActionShowPageProject(concreteProject);
@@ -177,6 +177,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
             else {
                 LoggerFacade.getDefault().debug(this.getClass(), "  -> show [ComingSoonView]"); // NOI18N
 
+                this.onActionSetTextItalicAndStrikethrough(tProject);
                 tProject.setContent(ComingSoonView.getComingSoonView(concreteProject.getName(), concreteProject.getDescription()));
             }
         });
@@ -186,6 +187,13 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         LoggerFacade.getDefault().info(this.getClass(), "Initialize Navigation Samples"); // NOI18N
         
         final Callback callbackConcreteSamples = (Callback<ListView<ConcreteSample>, ListCell<ConcreteSample>>) (ListView<ConcreteSample> listView) -> new ListCell<ConcreteSample>() {
+            private final Text TEXT = new Text();
+            {
+                final Font f = TEXT.getFont();
+                TEXT.setFill(Color.DIMGRAY.darker());
+                TEXT.setFont(Font.font(f.getFamily(), FontPosture.ITALIC, f.getSize()));
+                TEXT.setStrikethrough(Boolean.TRUE);
+            }
             
             @Override
             protected void updateItem(ConcreteSample concreteSample, boolean empty) {
@@ -269,12 +277,26 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
                 tCSS       .setDisable(!isSampleVisible);
             
                 if (isSampleVisible) {
+                    this.onActionSetTextNormal(tSourceCode);
+                    this.onActionSetTextNormal(tJavaDoc);
+                    this.onActionSetTextNormal(tCSS);
                     wvSourceCodePage.getEngine().loadContent(TemplateLoader.loadLoadingTemplate());
                     wvJavaDocPage   .getEngine().loadContent(TemplateLoader.loadLoadingTemplate());
                     wvCssPage       .getEngine().loadContent(TemplateLoader.loadLoadingTemplate());
                 }
+                else {
+                    this.onActionSetTextItalicAndStrikethrough(tSourceCode);
+                    this.onActionSetTextItalicAndStrikethrough(tJavaDoc);
+                    this.onActionSetTextItalicAndStrikethrough(tCSS);
+                }
             }
             else {
+                if (isSampleVisible) {
+                    this.onActionSetTextNormal(tOverview);
+                }
+                else {
+                    this.onActionSetTextItalicAndStrikethrough(tOverview);
+                }
                 tabs.add(tOverview);
                 
                 wvOverviewPage.getEngine().loadContent(TemplateLoader.loadLoadingTemplate());
@@ -476,6 +498,8 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         if (isSampleVisible) {
             LoggerFacade.getDefault().debug(this.getClass(), "  -> show [Sample]"); // NOI18N
             
+            this.onActionSetTextNormal(tSample);
+            
             try {
                 final String sampleViewClass = concreteSample.getSampleViewClass();
                 final Class clazz = Class.forName(sampleViewClass);
@@ -503,6 +527,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         else {
             LoggerFacade.getDefault().debug(this.getClass(), "  -> show [ComingSoonView]"); // NOI18N
             
+            this.onActionSetTextItalicAndStrikethrough(tSample);
             vbSamplePage.getChildren().add(ComingSoonView.getComingSoonView(concreteSample.getName(), concreteSample.getDescription()));
         }
     }
@@ -529,6 +554,23 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         });
         
         pt.playFromStart();
+    }
+    
+    private void onActionSetTextItalicAndStrikethrough(final Tab tab) {
+        final Text text = new Text();
+        final Font font = text.getFont();
+        text.setFill(Color.DIMGRAY.darker());
+        text.setFont(Font.font(font.getFamily(), FontPosture.ITALIC, font.getSize()));
+        text.setStrikethrough(Boolean.TRUE);
+        text.setText(tab.getId());
+        
+        tab.setGraphic(text);
+        tab.setText(null);
+    }
+    
+    private void onActionSetTextNormal(final Tab tab) {
+        tab.setGraphic(null);
+        tab.setText(tab.getId());
     }
     
     @Override
