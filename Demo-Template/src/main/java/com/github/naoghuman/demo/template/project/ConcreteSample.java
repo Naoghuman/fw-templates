@@ -186,7 +186,8 @@ public final class ConcreteSample implements Comparable<ConcreteSample> {
     
     @Override
     public int compareTo(final ConcreteSample other) {
-        int compareTo = (this.getSampleNr() + this.getName()).compareTo(other.getSampleNr() + other.getName());
+        int compareTo = (ProjectConverter.convertProjectNrOrSampleNrToPrefix(this.getSampleNr()) + this.getName())
+                .compareTo(ProjectConverter.convertProjectNrOrSampleNrToPrefix(other.getSampleNr()) + other.getName());
         if (compareTo != 0) {
             return compareTo;
         }

@@ -49,16 +49,17 @@ public class ProjectConverterTest {
     @Test
     public void testConvertProjectNrOrSampleNrToPrefix_is_zero() {
         int projectNrOrSampleNr = 0;
-        String expResult = "000 ";
+        String expResult = "00 ";
         String result = ProjectConverter.convertProjectNrOrSampleNrToPrefix(projectNrOrSampleNr);
         assertEquals(expResult, result);
     }
 
     @Test
     public void testConvertProjectNrOrSampleNrToPrefix_is_999() {
+        int leadingZeros = 3;
         int projectNrOrSampleNr = 999;
         String expResult = "999 ";
-        String result = ProjectConverter.convertProjectNrOrSampleNrToPrefix(projectNrOrSampleNr);
+        String result = ProjectConverter.convertProjectNrOrSampleNrToPrefix(leadingZeros, projectNrOrSampleNr);
         assertEquals(expResult, result);
     }
 
