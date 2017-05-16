@@ -24,6 +24,7 @@ import com.github.naoghuman.demo.template.project.ProjectCollector;
 import com.github.naoghuman.demo.template.project.ProjectConverter;
 import com.github.naoghuman.demo.template.project.ProjectFilter;
 import com.github.naoghuman.demo.template.project.ProjectMapper;
+import com.github.naoghuman.demo.template.project.ProjectPrinter;
 import com.github.naoghuman.demo.template.project.TemplateLoader;
 import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
@@ -333,37 +334,37 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         
         try {
             final List<URL> collectedURLs = ProjectCollector.collectURLs();
-//            ProjectPrinter.printURLs(collectedURLs);
+            ProjectPrinter.printURLs(collectedURLs);
             
             final List<URL> filteredURLs = ProjectFilter.filterURLs(collectedURLs);
-//            ProjectPrinter.printURLs(filteredURLs);
+            ProjectPrinter.printURLs(filteredURLs);
             
             final List<File> collectedClassesAsFiles = ProjectCollector.collectClassesAsFiles(filteredURLs);
-//            ProjectPrinter.printFiles(collectedClassesAsFiles);
+            ProjectPrinter.printFiles(collectedClassesAsFiles);
             
             final List<File> filteredClassFiles = ProjectFilter.filterClassFiles(collectedClassesAsFiles);
-//            ProjectPrinter.printFiles(filteredClassFiles);
+            ProjectPrinter.printFiles(filteredClassFiles);
             
             final List<String> collectedProjectsAsStrings = ProjectCollector.collectProjectsAsStrings(filteredClassFiles);
-//            ProjectPrinter.print(collectedProjectsAsStrings);
+            ProjectPrinter.print(collectedProjectsAsStrings);
 			
             final List<Class<?>> convertedProjectsToClasses = ProjectConverter.convertProjectsToClasses(collectedProjectsAsStrings);
-//            ProjectPrinter.printClasses(convertedProjectsToClasses);
+            ProjectPrinter.printClasses(convertedProjectsToClasses);
             
             final List<ConcreteProject> convertedProjectsToConcreteProjects = ProjectConverter.convertProjectsToConcreteProjects(convertedProjectsToClasses);
-//            ProjectPrinter.printConcreteProjects(convertedProjectsToConcreteProjects);
+            ProjectPrinter.printConcreteProjects(convertedProjectsToConcreteProjects);
             
             final List<String> collectedSamplesAsStrings = ProjectCollector.collectSamplesAsStrings(filteredClassFiles);
-//            ProjectPrinter.print(collectedSamplesAsStrings);
+            ProjectPrinter.print(collectedSamplesAsStrings);
             
             final List<Class<?>> convertedSamplesToClasses = ProjectConverter.convertSamplesToClasses(collectedSamplesAsStrings);
-//            ProjectPrinter.printClasses(convertedSamplesToClasses);
+            ProjectPrinter.printClasses(convertedSamplesToClasses);
             
             final List<ConcreteSample> convertedSamplesToConcreteSamples = ProjectConverter.convertSamplesToConcreteSamples(convertedSamplesToClasses);
-//            ProjectPrinter.printConcreteSamples(convertedSamplesToConcreteSamples);
+            ProjectPrinter.printConcreteSamples(convertedSamplesToConcreteSamples);
 
             final List<ConcreteProject> mappedConcreteSampesToConcreteProjects = ProjectMapper.mapConcreteSampelsToConcreteProjects(convertedProjectsToConcreteProjects, convertedSamplesToConcreteSamples);
-//            ProjectPrinter.printConcreteProjects(mappedConcreteSampesToConcreteProjects);
+            ProjectPrinter.printConcreteProjects(mappedConcreteSampesToConcreteProjects);
             
             concreteProjects.addAll(mappedConcreteSampesToConcreteProjects);
         } catch (IOException ex) {

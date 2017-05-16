@@ -28,7 +28,7 @@ import java.util.List;
 public final class ProjectPrinter {
     
     public static final void print(final List<String> stringsToPrint) {
-        LoggerFacade.getDefault().debug(ProjectPrinter.class, "Print Strings"); // NOI18N
+        LoggerFacade.getDefault().debug(ProjectPrinter.class, "  ## Print Strings"); // NOI18N
         
         stringsToPrint.stream()
                 .forEach(string -> {
@@ -37,7 +37,7 @@ public final class ProjectPrinter {
     }
 
     public static final void printClasses(final List<Class<?>> classesToPrint) {
-        LoggerFacade.getDefault().debug(ProjectPrinter.class, "Print classes"); // NOI18N
+        LoggerFacade.getDefault().debug(ProjectPrinter.class, "  ## Print classes"); // NOI18N
         
         classesToPrint.stream()
                 .forEach(clazz -> {
@@ -46,7 +46,7 @@ public final class ProjectPrinter {
     }
 
     public static final void printConcreteProjects(final List<ConcreteProject> concreteProjectsToPrint) {
-        LoggerFacade.getDefault().debug(ProjectPrinter.class, "Print ConcreteProjects"); // NOI18N
+        LoggerFacade.getDefault().debug(ProjectPrinter.class, "  ## Print ConcreteProjects"); // NOI18N
         
         concreteProjectsToPrint.stream()
                 .forEach(concreteProject -> {
@@ -55,7 +55,7 @@ public final class ProjectPrinter {
     }
 
     public static void printConcreteSamples(List<ConcreteSample> convertedSamplesToConcreteSamples) {
-        LoggerFacade.getDefault().debug(ProjectPrinter.class, "Print ConcreteSamples"); // NOI18N
+        LoggerFacade.getDefault().debug(ProjectPrinter.class, "  ## Print ConcreteSamples"); // NOI18N
         
         convertedSamplesToConcreteSamples.stream()
                 .forEach(concreteSample -> {
@@ -64,7 +64,7 @@ public final class ProjectPrinter {
     }
     
     public static final void printFiles(final List<File> filesToPrint ) {
-        LoggerFacade.getDefault().debug(ProjectPrinter.class, "Print files"); // NOI18N
+        LoggerFacade.getDefault().debug(ProjectPrinter.class, "  ## Print files"); // NOI18N
         
         filesToPrint.stream()
                 .forEach(file -> {
@@ -73,7 +73,7 @@ public final class ProjectPrinter {
     }
     
     public static final void printURLs(final List<URL> urlsToPrint) {
-        LoggerFacade.getDefault().debug(ProjectPrinter.class, "Print URLs"); // NOI18N
+        LoggerFacade.getDefault().debug(ProjectPrinter.class, "  ## Print URLs"); // NOI18N
         
         urlsToPrint.stream()
                 .forEach(url -> {
