@@ -93,14 +93,14 @@ public final class ScannerConfiguration {
         
         if (!EXCLUDED_CLASSES.contains(convertedExcludedClass)) {
             EXCLUDED_CLASSES.add(convertedExcludedClass);
-            LoggerFacade.getDefault().debug(ScannerConfiguration.class, "Add excluded class: " + convertedExcludedClass); // NOI18N
+            LoggerFacade.getDefault().debug(ScannerConfiguration.class, "  -> Exclude class: " + convertedExcludedClass); // NOI18N
         }
     }
     
     public static final void addExcludedJar(final String excludedJar) {
         if (!EXCLUDED_JARS.contains(excludedJar)) {
             EXCLUDED_JARS.add(excludedJar);
-            LoggerFacade.getDefault().debug(ScannerConfiguration.class, "Add excluded jar: " + excludedJar); // NOI18N
+            LoggerFacade.getDefault().debug(ScannerConfiguration.class, "  -> Exclude jar: " + excludedJar); // NOI18N
         }
     }
     
@@ -108,7 +108,7 @@ public final class ScannerConfiguration {
         final String convertedExcludedPackage = excludedPackage.replace(POINT, DOUBLE_SLASH);
         if (!EXCLUDED_PACKAGES.contains(convertedExcludedPackage)) {
             EXCLUDED_PACKAGES.add(convertedExcludedPackage);
-            LoggerFacade.getDefault().debug(ScannerConfiguration.class, "Add excluded package: " + convertedExcludedPackage); // NOI18N
+            LoggerFacade.getDefault().debug(ScannerConfiguration.class, "  -> Exclude package: " + convertedExcludedPackage); // NOI18N
         }
     }
     
@@ -134,7 +134,7 @@ public final class ScannerConfiguration {
                 .forEach(clazz -> {
                     if (path.contains(clazz)) {
                         isAnExcludedClass.set(Boolean.TRUE);
-                        LoggerFacade.getDefault().debug(ScannerConfiguration.class, "  -> Excluded class: " + path); // NOI18N
+                        LoggerFacade.getDefault().debug(ScannerConfiguration.class, "  -> Exclude class: " + path); // NOI18N
                     }
                 });
         
@@ -154,7 +154,7 @@ public final class ScannerConfiguration {
                             && path.endsWith(SUFFIX_JAR)
                     ) {
                         isAnExcludedJar.set(Boolean.TRUE);
-                        LoggerFacade.getDefault().debug(ScannerConfiguration.class, "  -> Excluded jar: " + path); // NOI18N
+                        LoggerFacade.getDefault().debug(ScannerConfiguration.class, "  -> Exclude jar: " + path); // NOI18N
                     }
                 });
         
@@ -170,7 +170,7 @@ public final class ScannerConfiguration {
                 path.contains(INNER_CLASS) 
                 && path.endsWith(SUFFIX_CLASS);
         if (isAnInnerClass) {
-            LoggerFacade.getDefault().debug(ScannerConfiguration.class, "  -> Excluded inner class: " + path); // NOI18N
+            LoggerFacade.getDefault().debug(ScannerConfiguration.class, "  -> Exclude inner class: " + path); // NOI18N
         }
         
         return !isAnInnerClass;
