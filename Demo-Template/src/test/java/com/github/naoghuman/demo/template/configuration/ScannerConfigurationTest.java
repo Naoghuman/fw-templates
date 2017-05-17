@@ -17,9 +17,11 @@
 package com.github.naoghuman.demo.template.configuration;
 
 import com.github.naoghuman.demo.template.configuration.ScannerConfiguration;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
 
 /**
  *
@@ -29,11 +31,38 @@ public class ScannerConfigurationTest {
     
     public ScannerConfigurationTest() {
     }
+    
+    @Before
+    public void setUp() {
+        ScannerConfiguration.getExcludedClasses() .clear();
+        ScannerConfiguration.getExcludedJars()    .clear();
+        ScannerConfiguration.getExcludedPackages().clear();
+        
+        final ObservableList<String> excludedJars = FXCollections.observableArrayList();
+        excludedJars.add("lib-action"           ); // NOI18N
+        excludedJars.add("lib-database-objectdb"); // NOI18N
+        excludedJars.add("lib-logger"           ); // NOI18N
+        excludedJars.add("lib-preferences"      ); // NOI18N
+        excludedJars.add("lib-properties"       ); // NOI18N
+        
+        excludedJars.add("afterburner.fx"   ); // NOI18N
+        excludedJars.add("asm"              ); // NOI18N
+        excludedJars.add("javax.persistence"); // NOI18N
+        excludedJars.add("jta"              ); // NOI18N
+        excludedJars.add("log4j-api"        ); // NOI18N
+        excludedJars.add("log4j-core"       ); // NOI18N
+        excludedJars.add("objectdb"         ); // NOI18N
+        
+        excludedJars.add("jre"); // NOI18N
+        
+        excludedJars.stream()
+                .forEach(excludedJar -> { 
+                    ScannerConfiguration.addExcludedJar(excludedJar);
+                });
+    }
 
     @Test
     public void testAddExcludedClassWithoutSuffix() {
-        ScannerConfiguration.reset();
-        
         ScannerConfiguration.addExcludedClass("com.github.example.MyClass");
         ObservableList<String> excludedClasses = ScannerConfiguration.getExcludedClasses();
         
@@ -43,8 +72,6 @@ public class ScannerConfigurationTest {
 
     @Test
     public void testAddExcludedClassWithSuffix() {
-        ScannerConfiguration.reset();
-        
         ScannerConfiguration.addExcludedClass("com.github.example.MyClass.class");
         ObservableList<String> excludedClasses = ScannerConfiguration.getExcludedClasses();
         
@@ -52,25 +79,8 @@ public class ScannerConfigurationTest {
         assertEquals("com\\github\\example\\MyClass.class", excludedClasses.get(0));
     }
 
-    /*
-        EXCLUDED_JARS.add("lib-action"           ); // NOI18N
-        EXCLUDED_JARS.add("lib-database-objectdb"); // NOI18N
-        EXCLUDED_JARS.add("lib-logger"           ); // NOI18N
-        EXCLUDED_JARS.add("lib-preferences"      ); // NOI18N
-        EXCLUDED_JARS.add("lib-properties"       ); // NOI18N
-        
-        EXCLUDED_JARS.add("afterburner.fx"       ); // NOI18N
-        EXCLUDED_JARS.add("asm"                  ); // NOI18N
-        EXCLUDED_JARS.add("javax.persistence"    ); // NOI18N
-        EXCLUDED_JARS.add("jta"                  ); // NOI18N
-        EXCLUDED_JARS.add("log4j-api"            ); // NOI18N
-        EXCLUDED_JARS.add("log4j-core"           ); // NOI18N
-        EXCLUDED_JARS.add("objectdb"             ); // NOI18N
-    */
     @Test
     public void testAddExcludedJar() {
-        ScannerConfiguration.reset();
-        
         ScannerConfiguration.addExcludedJar("my-excluded-jar");
         ObservableList<String> excludedJars = ScannerConfiguration.getExcludedJars();
         
@@ -80,8 +90,6 @@ public class ScannerConfigurationTest {
 
     @Test
     public void testAddExcludedPackage() {
-        ScannerConfiguration.reset();
-        
         ScannerConfiguration.addExcludedPackage("com.github.example");
         ObservableList<String> excludedPackages = ScannerConfiguration.getExcludedPackages();
         
@@ -91,32 +99,13 @@ public class ScannerConfigurationTest {
 
     @Test
     public void testGetExcludedClassesDefaultValues() {
-        ScannerConfiguration.reset();
-        
         ObservableList<String> excludedClasses = ScannerConfiguration.getExcludedClasses();
         
         assertTrue(excludedClasses.isEmpty());
     }
 
-    /*
-        EXCLUDED_JARS.add("lib-action"           ); // NOI18N
-        EXCLUDED_JARS.add("lib-database-objectdb"); // NOI18N
-        EXCLUDED_JARS.add("lib-logger"           ); // NOI18N
-        EXCLUDED_JARS.add("lib-preferences"      ); // NOI18N
-        EXCLUDED_JARS.add("lib-properties"       ); // NOI18N
-        
-        EXCLUDED_JARS.add("afterburner.fx"       ); // NOI18N
-        EXCLUDED_JARS.add("asm"                  ); // NOI18N
-        EXCLUDED_JARS.add("javax.persistence"    ); // NOI18N
-        EXCLUDED_JARS.add("jta"                  ); // NOI18N
-        EXCLUDED_JARS.add("log4j-api"            ); // NOI18N
-        EXCLUDED_JARS.add("log4j-core"           ); // NOI18N
-        EXCLUDED_JARS.add("objectdb"             ); // NOI18N
-    */
     @Test
     public void testGetExcludedJarsDefaultValues() {
-        ScannerConfiguration.reset();
-        
         ObservableList<String> excludedJars = ScannerConfiguration.getExcludedJars();
         
         assertTrue(excludedJars.size() == 13);
@@ -124,8 +113,6 @@ public class ScannerConfigurationTest {
 
     @Test
     public void testGetExcludedPackagesDefaultValues() {
-        ScannerConfiguration.reset();
-        
         ObservableList<String> excludedPackages = ScannerConfiguration.getExcludedPackages();
         
         assertTrue(excludedPackages.isEmpty());

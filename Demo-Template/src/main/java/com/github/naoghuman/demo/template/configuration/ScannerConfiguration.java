@@ -43,10 +43,10 @@ public final class ScannerConfiguration {
     
     private static final ObservableList<String> EXCLUDED_CLASSES = FXCollections.observableArrayList();
     static {
-        final ObservableList<String> excluded = FXCollections.observableArrayList();
-        excluded.add("com.github.naoghuman.demo.application.StartApplication"); // NOI18N
+        final ObservableList<String> excludedClasses = FXCollections.observableArrayList();
+        excludedClasses.add("com.github.naoghuman.demo.application.StartApplication"); // NOI18N
         
-        excluded.stream()
+        excludedClasses.stream()
                 .forEach(excludedClass -> { 
                     addExcludedClass(excludedClass);
                 });
@@ -54,29 +54,35 @@ public final class ScannerConfiguration {
     
     private static final ObservableList<String> EXCLUDED_JARS = FXCollections.observableArrayList();
     static {
-        EXCLUDED_JARS.add("lib-action"           ); // NOI18N
-        EXCLUDED_JARS.add("lib-database-objectdb"); // NOI18N
-        EXCLUDED_JARS.add("lib-logger"           ); // NOI18N
-        EXCLUDED_JARS.add("lib-preferences"      ); // NOI18N
-        EXCLUDED_JARS.add("lib-properties"       ); // NOI18N
+        final ObservableList<String> excludedJars = FXCollections.observableArrayList();
+        excludedJars.add("lib-action"           ); // NOI18N
+        excludedJars.add("lib-database-objectdb"); // NOI18N
+        excludedJars.add("lib-logger"           ); // NOI18N
+        excludedJars.add("lib-preferences"      ); // NOI18N
+        excludedJars.add("lib-properties"       ); // NOI18N
         
-        EXCLUDED_JARS.add("afterburner.fx"       ); // NOI18N
-        EXCLUDED_JARS.add("asm"                  ); // NOI18N
-        EXCLUDED_JARS.add("javax.persistence"    ); // NOI18N
-        EXCLUDED_JARS.add("jta"                  ); // NOI18N
-        EXCLUDED_JARS.add("log4j-api"            ); // NOI18N
-        EXCLUDED_JARS.add("log4j-core"           ); // NOI18N
-        EXCLUDED_JARS.add("objectdb"             ); // NOI18N
+        excludedJars.add("afterburner.fx"   ); // NOI18N
+        excludedJars.add("asm"              ); // NOI18N
+        excludedJars.add("javax.persistence"); // NOI18N
+        excludedJars.add("jta"              ); // NOI18N
+        excludedJars.add("log4j-api"        ); // NOI18N
+        excludedJars.add("log4j-core"       ); // NOI18N
+        excludedJars.add("objectdb"         ); // NOI18N
         
-        EXCLUDED_JARS.add("jre"                  ); // NOI18N
+        excludedJars.add("jre"); // NOI18N
+        
+        excludedJars.stream()
+                .forEach(excludedJar -> { 
+                    addExcludedJar(excludedJar);
+                });
     }
     
     private static final ObservableList<String> EXCLUDED_PACKAGES = FXCollections.observableArrayList();
     static {
-        final ObservableList<String> excluded = FXCollections.observableArrayList();
-//        excluded.add("com.github.naoghuman.demo.annotation"); // NOI18N
+        final ObservableList<String> excludedPackages = FXCollections.observableArrayList();
+        excludedPackages.add("com.github.naoghuman.demo.annotation"); // NOI18N
         
-        excluded.stream()
+        excludedPackages.stream()
                 .forEach(excludedPackage -> { 
                     addExcludedPackage(excludedPackage);
                 });
@@ -93,14 +99,14 @@ public final class ScannerConfiguration {
         
         if (!EXCLUDED_CLASSES.contains(convertedExcludedClass)) {
             EXCLUDED_CLASSES.add(convertedExcludedClass);
-            LoggerFacade.getDefault().debug(ScannerConfiguration.class, "  -> Exclude class: " + convertedExcludedClass); // NOI18N
+            LoggerFacade.getDefault().debug(ScannerConfiguration.class, "  Add exclude class: " + convertedExcludedClass); // NOI18N
         }
     }
     
     public static final void addExcludedJar(final String excludedJar) {
         if (!EXCLUDED_JARS.contains(excludedJar)) {
             EXCLUDED_JARS.add(excludedJar);
-            LoggerFacade.getDefault().debug(ScannerConfiguration.class, "  -> Exclude jar: " + excludedJar); // NOI18N
+            LoggerFacade.getDefault().debug(ScannerConfiguration.class, "  Add exclude jar: " + excludedJar); // NOI18N
         }
     }
     
@@ -108,7 +114,7 @@ public final class ScannerConfiguration {
         final String convertedExcludedPackage = excludedPackage.replace(POINT, DOUBLE_SLASH);
         if (!EXCLUDED_PACKAGES.contains(convertedExcludedPackage)) {
             EXCLUDED_PACKAGES.add(convertedExcludedPackage);
-            LoggerFacade.getDefault().debug(ScannerConfiguration.class, "  -> Exclude package: " + convertedExcludedPackage); // NOI18N
+            LoggerFacade.getDefault().debug(ScannerConfiguration.class, "  Add exclude package: " + convertedExcludedPackage); // NOI18N
         }
     }
     
@@ -174,29 +180,6 @@ public final class ScannerConfiguration {
         }
         
         return !isAnInnerClass;
-    }
-    
-    public static void reset() {
-        EXCLUDED_CLASSES.clear();
-        
-        EXCLUDED_JARS.clear();
-        EXCLUDED_JARS.add("lib-action"           ); // NOI18N
-        EXCLUDED_JARS.add("lib-database-objectdb"); // NOI18N
-        EXCLUDED_JARS.add("lib-logger"           ); // NOI18N
-        EXCLUDED_JARS.add("lib-preferences"      ); // NOI18N
-        EXCLUDED_JARS.add("lib-properties"       ); // NOI18N
-        
-        EXCLUDED_JARS.add("afterburner.fx"       ); // NOI18N
-        EXCLUDED_JARS.add("asm"                  ); // NOI18N
-        EXCLUDED_JARS.add("javax.persistence"    ); // NOI18N
-        EXCLUDED_JARS.add("jta"                  ); // NOI18N
-        EXCLUDED_JARS.add("log4j-api"            ); // NOI18N
-        EXCLUDED_JARS.add("log4j-core"           ); // NOI18N
-        EXCLUDED_JARS.add("objectdb"             ); // NOI18N
-        
-        EXCLUDED_JARS.add("jre"                  ); // NOI18N
-        
-        EXCLUDED_PACKAGES.clear();
     }
     
 }
