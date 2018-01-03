@@ -1,0 +1,37 @@
+--------------------------------------------------------------------------------
+HOW to tweak the Simple-Application
+--------------------------------------------------------------------------------
+INTENTION
+This document describes the steps how to tweak the template 'Simple-Application'
+for own behaviours.
+
+--------------------------------------------------------------------------------
+* Rename the project `name` (display name, artefactID and folder).
+* Update the `packages` in the folders `Source Packages/` and `Other Sources/`.
+* Open the project `properties` window to tweak following points.
+   * `General`-> GroupId, ArtefactId, Version, Name, Description.
+   * `Run` -> Update the start class.
+   * `License Header` -> If you don't want the pre-choosen [General Public License 3.0].
+* Have a look into the file `.gitignore` and tweak it if needed.
+
+* Update the reference in the tag `fx:controller` in the file `application.fxml`.
+* Refactore the `path` from the parameter `KEY__APPLICATION__RESOURCE_BUNDLE` 
+  from the interface `IApplicationConfiguration` in the folder 
+  `Source Packages/yourpackage/configuration/`.
+* Update the file `application.properties` in the folder `Other Sources/yourpackage/application/`
+  if needed.
+* Update the file `log4j2.xml` in the default package from `Other Sources/` if 
+  needed.
+
+* If your project license different from [General Public License 3.0] which is 
+  preselect then you can refactore the `licence` in java files and 
+  `application.properties` with following steps:
+    * Change in the project under `properties` the license.
+    * Generate a new java file.
+    * Copy and paste the new generated license as needed.
+    * Another possiblitiy is to use the `Replace...`, `Replace in Projects...` 
+      function under `Edit` in the main menu.
+* Rename the `autor` in all `java` files and `application.properties`.
+    * Same here -> `Replace...`, `Replace in Projects...`.
+
+--------------------------------------------------------------------------------
