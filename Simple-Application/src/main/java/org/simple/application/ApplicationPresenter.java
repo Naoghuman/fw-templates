@@ -30,7 +30,7 @@ public class ApplicationPresenter implements Initializable, RegisterActions {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        LoggerFacade.getDefault().info(this.getClass(), "Initialize ApplicationPresenter"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "ApplicationPresenter.(URL, ResourceBundle)"); // NOI18N
         
 //        assert (apView != null) : "fx:id=\"apView\" was not injected: check your FXML file 'Application.fxml'."; // NOI18N
         
@@ -38,12 +38,12 @@ public class ApplicationPresenter implements Initializable, RegisterActions {
     }
     
     public void initializeAfterWindowIsShowing() {
-        LoggerFacade.getDefault().debug(this.getClass(), "Initialize ApplicationPresenter after window is showing"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.initializeAfterWindowIsShowing()"); // NOI18N
     }
     
     @Override
     public void register() {
-        LoggerFacade.getDefault().debug(this.getClass(), "Register actions in ApplicationPresenter"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.register()"); // NOI18N
     }
     
 }
