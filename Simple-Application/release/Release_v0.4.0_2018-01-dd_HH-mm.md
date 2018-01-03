@@ -16,6 +16,7 @@ libraries and [afterburner.fx].
 
 
 #### Feature
+#22 [Documentation] Create new template file README_template.md.
 
 
 

@@ -3,7 +3,7 @@ HOW to tweak the Simple-Application
 --------------------------------------------------------------------------------
 INTENTION
 This document describes the steps how to tweak the template 'Simple-Application'
-for own behaviours.
+for own behaviours in the NetBeans IDE.
 
 --------------------------------------------------------------------------------
 * Rename the project `name` (display name, artefactID and folder).
@@ -17,11 +17,14 @@ for own behaviours.
 * Update the reference in the tag `fx:controller` in the file `application.fxml`.
 * Refactore the `path` from the parameter `KEY__APPLICATION__RESOURCE_BUNDLE` 
   from the interface `IApplicationConfiguration` in the folder 
-  `Source Packages/yourpackage/configuration/`.
-* Update the file `application.properties` in the folder `Other Sources/yourpackage/application/`
-  if needed.
-* Update the file `log4j2.xml` in the default package from `Other Sources/` if 
-  needed.
+  `org/simple/application/configuration/` in source packages.
+* Update the file `application.properties` in the folder `org/simple/application/`
+  in other sources if needed.
+* Update the file `log4j2.xml` in the default package from other sources if needed.
+
+* Delete the file `ReadMe.md`.
+* Rename the file `README_template.md` to ReadMe.md.
+* Tweak the new readme to fit your behaivours.
 
 * If your project license different from [General Public License 3.0] which is 
   preselect then you can refactore the `licence` in java files and 
