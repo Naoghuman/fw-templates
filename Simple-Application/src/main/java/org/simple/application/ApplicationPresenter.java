@@ -32,7 +32,7 @@ public class ApplicationPresenter implements Initializable, RegisterActions {
     public void initialize(URL location, ResourceBundle resources) {
         LoggerFacade.getDefault().info(this.getClass(), "ApplicationPresenter.(URL, ResourceBundle)"); // NOI18N
         
-//        assert (apView != null) : "fx:id=\"apView\" was not injected: check your FXML file 'Application.fxml'."; // NOI18N
+//        assert (apView != null) : "fx:id=\"apView\" was not injected: check your FXML file 'application.fxml'."; // NOI18N
         
         this.register();
     }

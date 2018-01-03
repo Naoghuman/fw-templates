@@ -7,7 +7,7 @@ Intention
 ---
 
 This project contains a `predefined` [JavaFX] &amp; [Maven] project with my own 
-Naoghuman libraries and [afterburner.fx].
+`Naoghuman` libraries and [afterburner.fx].
 
 Current `version` is `0.2.0` (07.2016).
 
