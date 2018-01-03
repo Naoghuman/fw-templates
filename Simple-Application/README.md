@@ -61,8 +61,8 @@ Installation<a name="Installation" />
 Tweak the project template<a name="TweakTheProjectTemplate" />
 ---
 
-For the steps to tweak the project template plz see the file [How_to_tweak_the_Simple-Application.txt] 
-in the project folder.
+For the steps how to tweak the project template plz see the file 
+[How_to_tweak_the_Simple-Application.txt] in the project folder.
 
 
 
@@ -93,6 +93,7 @@ You can reach me under <peter.rogge@yahoo.de>.
 
 [//]: # (Links)
 [afterburner.fx]:https://github.com/AdamBien/afterburner.fx
+[General Public License 3.0]:http://www.gnu.org/licenses/gpl-3.0.en.html
 [JavaFX]:http://docs.oracle.com/javase/8/javase-clienttechnologies.htm
 [javax.persistence-2.1.1.jar]:http://mvnrepository.com/artifact/org.eclipse.persistence/javax.persistence/2.1.1
 [jta-1.1.jar]:http://mvnrepository.com/artifact/javax.transaction/jta/1.1

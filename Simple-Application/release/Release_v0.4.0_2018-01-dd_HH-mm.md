@@ -33,6 +33,7 @@ libraries and [afterburner.fx].
 #25 [Simple-Application] Rename existing template Project-Template-afterburnerfx-Naoghuman.
 #21 [pom] Update the dependencies from the Simple-Application in pom.xml.
 #20 [Documentation] Add a new section at the end in the README.md for image registration.
+#19 [Documentation] Add link to General Public License 3.0 in the README.md.
 
 
 
