@@ -29,6 +29,7 @@ libraries and afterburner.fx.
 
 #### Refactoring
 #25 [Simple-Application] Rename existing template Project-Template-afterburnerfx-Naoghuman.
+#21 [pom] Update the dependencies from the Simple-Application in pom.xml.
 
 
 

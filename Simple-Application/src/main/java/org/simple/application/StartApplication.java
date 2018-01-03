@@ -20,10 +20,10 @@ import static javafx.application.Application.launch;
 
 import com.airhacks.afterburner.injection.Injector;
 import org.simple.application.configuration.IApplicationConfiguration;
-import com.github.naoghuman.lib.database.api.DatabaseFacade;
-import com.github.naoghuman.lib.logger.api.LoggerFacade;
-import com.github.naoghuman.lib.preferences.api.PreferencesFacade;
-import com.github.naoghuman.lib.properties.api.PropertiesFacade;
+import com.github.naoghuman.lib.database.core.DatabaseFacade;
+import com.github.naoghuman.lib.logger.core.LoggerFacade;
+import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
+import com.github.naoghuman.lib.properties.core.PropertiesFacade;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.application.Platform;

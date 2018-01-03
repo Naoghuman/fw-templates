@@ -16,8 +16,8 @@
  */
 package org.simple.application;
 
-import com.github.naoghuman.lib.action.api.IRegisterActions;
-import com.github.naoghuman.lib.logger.api.LoggerFacade;
+import com.github.naoghuman.lib.action.core.RegisterActions;
+import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
@@ -26,7 +26,7 @@ import javafx.fxml.Initializable;
  *
  * @author Name
  */
-public class ApplicationPresenter implements Initializable, IRegisterActions {
+public class ApplicationPresenter implements Initializable, RegisterActions {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -34,7 +34,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         
 //        assert (apView != null) : "fx:id=\"apView\" was not injected: check your FXML file 'Application.fxml'."; // NOI18N
         
-        this.registerActions();
+        this.register();
     }
     
     public void initializeAfterWindowIsShowing() {
@@ -42,7 +42,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     }
     
     @Override
-    public void registerActions() {
+    public void register() {
         LoggerFacade.getDefault().debug(this.getClass(), "Register actions in ApplicationPresenter"); // NOI18N
     }
     
