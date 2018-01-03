@@ -32,6 +32,7 @@ libraries and [afterburner.fx].
 #28 [Release Notes] Update the release notes file to fit my libraries convention.
 #25 [Simple-Application] Rename existing template Project-Template-afterburnerfx-Naoghuman.
 #21 [pom] Update the dependencies from the Simple-Application in pom.xml.
+#20 [Documentation] Add a new section at the end in the README.md for image registration.
 
 
 
