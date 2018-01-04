@@ -9,7 +9,10 @@ Intention
 This project contains a `predefined` [JavaFX] &amp; [Maven] project with my own 
 `Naoghuman` libraries and [afterburner.fx].
 
-Current `version` is `0.2.0` (07.2016).
+Current `version` is `0.4.0` (01.04.2016 / MM.dd.yyyy).
+
+_Image:_ Simple-Application  
+![simple-application_v0.4.0_2018-01-04_08-31.png][simple-application_v0.4.0_2018-01-04_08-31]
 
 
 Content
@@ -88,12 +91,14 @@ You can reach me under <peter.rogge@yahoo.de>.
 
 
 [//]: # (Images)
+[simple-application_v0.4.0_2018-01-04_08-31]:https://user-images.githubusercontent.com/8161815/34554751-b62b84ea-f12e-11e7-9107-e72c358a544c.png
 
 
 
 [//]: # (Links)
 [afterburner.fx]:https://github.com/AdamBien/afterburner.fx
 [General Public License 3.0]:http://www.gnu.org/licenses/gpl-3.0.en.html
+[How_to_tweak_the_Simple-Application.txt]:https://github.com/Naoghuman/Project-Templates/blob/master/Simple-Application/How_to_tweak_the_Simple-Application.txt
 [JavaFX]:http://docs.oracle.com/javase/8/javase-clienttechnologies.htm
 [javax.persistence-2.1.1.jar]:http://mvnrepository.com/artifact/org.eclipse.persistence/javax.persistence/2.1.1
 [jta-1.1.jar]:http://mvnrepository.com/artifact/javax.transaction/jta/1.1
@@ -107,4 +112,3 @@ You can reach me under <peter.rogge@yahoo.de>.
 [Maven]:http://maven.apache.org/
 [objectdb-2.7.1_01.jar]:http://www.objectdb.com/object/db/database/download
 [Project-Template]:https://github.com/Naoghuman/Project-Templates/releases
-[How_to_tweak_the_Simple-Application.txt]:https://github.com/Naoghuman/Project-Templates/blob/master/Simple-Application/How_to_tweak_the_Simple-Application.txt

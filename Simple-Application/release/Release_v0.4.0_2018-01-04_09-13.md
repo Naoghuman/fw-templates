@@ -6,8 +6,9 @@ libraries and [afterburner.fx].
 
 
 #### Summary
-* ...
-* ...
+* Rename the project to `Simple-Application`.
+* Different small changes like new template for the ReadMe, tweak the log output 
+  or update the dependencies in the project.
 
 
 
@@ -21,6 +22,7 @@ libraries and [afterburner.fx].
 
 
 #### Enhancement
+#30 [Documentation] Update the ReadMe for new version 0.4.0.
 
 
 
